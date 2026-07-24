@@ -1,0 +1,21 @@
+# Generated / regenerable data — never versioned, always reproducible from src/ + config/
+data/processed/
+data/raw/
+ 
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+ 
+# Jupyter
+.ipynb_checkpoints/
+ 
+# QGIS
+*.qgz~
+*.gpkg-shm
+*.gpkg-wal
+ 
+# OS
+.DS_Store
+Thumbs.db

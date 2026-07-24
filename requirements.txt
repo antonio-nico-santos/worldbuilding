@@ -1,0 +1,7 @@
+numpy
+rasterio
+geopandas
+opensimplex
+pyyaml
+grass-session
+jupyter
