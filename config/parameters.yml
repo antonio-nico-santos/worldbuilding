@@ -3,17 +3,26 @@
 # so the whole pipeline stays reproducible from one place.
  
 domain:
-  height_km: 210
-  width_km: 100
+  height_km: 160
+  width_km: 130
   resolution_m: 30
+  corners:
+    (-65000, -80000)
+    ( 65000, -80000)
+    ( 65000,  80000)
+    (-65000,  80000)
  
 crs:
   projection: "Lambert Conformal Conic"
   reference_point:
     lat: -44.0
     lon: 42.0
-  #"the answer to the ultimate question of life, the universe, and everything,"
-  # standard parallels for the LCC still to be chosen once the exact
+  custom CRS: "Fictional World LCC"
+  PROJ string parameter:
+    +proj=lcc +lat_1=-44.48 +lat_2=-43.52 +lat_0=-44 +lon_0=42 +x_0=0 +y_0=0 
+    +datum=WGS84 +units=m +no_defs
+  # "the answer to the ultimate question of life, the universe, and everything,"
+  # one-sixth of that span in from each edge lands the standard parallels around -44.48° and -43.52°.
   # north-south extent of the domain (in degrees) is set
  
 validation_reference:
