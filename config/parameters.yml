@@ -6,12 +6,7 @@ domain:
   height_km: 160
   width_km: 130
   resolution_m: 30
-  corners:
-    (-65000, -80000)
-    ( 65000, -80000)
-    ( 65000,  80000)
-    (-65000,  80000)
- 
+  
 crs:
   projection: "Lambert Conformal Conic"
   reference_point:
