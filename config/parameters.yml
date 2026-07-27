@@ -28,11 +28,52 @@ validation_reference:
     - "WorldClim / CHELSA"
  
 terrain:
-  seed: null            # pick any integer once you start Tappa 1
-  noise_octaves: null
-  noise_frequency: null
-  erosion_iterations: null
-  spine_path: null       # list of [x, y] control points defining the mountain skeleton (can branch)
+  # Locked in during Tappa 1 -- see docs/decisions/01_tappa1_terrain.md for
+  # full rationale. v3 (in use) = v2's real-DEM-derived texture layer
+  # (real_detail_* below) + a fix for a domain-warp folding bug found by
+  # visual QA in QGIS after v2 (see decision doc S11 -- warp_amplitude_m
+  # and noise_warp_amplitude_m below are the FIXED v3 values, 40% of the
+  # v2 values that caused ~35% of the domain to have a folded warp map).
+  # the noise_* fields are v1's synthetic-only path, still valid/available
+  # but bypassed whenever real_detail_path is set (see decision doc S10d).
+  seed: 42
+  noise_octaves: 6              # v1 (synthetic) path only -- see note above
+  noise_frequency: null         # superseded by noise_base_wavelength_m (25000 m, v1 path only)
+  noise_base_wavelength_m: 25000  # v1 path only
+  noise_amplitude_m: 200
+  noise_plain_octaves: 2        # v1 path only
+  persistence: 0.87             # v1 path only; two-band calibrated value (S10b)
+  noise_persistence_fine: 0.50  # v1 path only
+  noise_crossover_wavelength_m: 4000  # v1 path only
+  noise_crossover_width_factor: 3.0   # v1 path only
+  lacunarity: 1.75              # used by both paths (also drives the real-detail fine-supplement octaves)
+  sea_level_offset_m: 300
+  warp_wavelength_m: 15000
+  warp_amplitude_m: 2000         # v3 fixed value (was 5000 in v2 -- folded ~35% of the domain, see decision doc S11)
+  warp_octaves: 6
+  warp_lacunarity: 1.75
+  warp_persistence: 0.7
+  noise_warp_wavelength_m: 4000
+  noise_warp_amplitude_m: 600    # v3 fixed value (was 1500 in v2, same folding issue)
+  noise_warp_octaves: 5
+  noise_warp_lacunarity: 1.75
+  noise_warp_persistence: 0.7
+  erosion_iterations: null       # superseded by erosion.max_steps / erosion.n_droplets below
+  erosion:
+    max_steps: 427
+    n_droplets_per_land_cell: 0.3   # v2; v1 used a fixed 300000 (~0.028/land-cell)
+    erode_speed: 0.45
+    deposit_speed: 0.35
+    seed: 1
+  spine_path: null       # superseded by data/input/terrain_ridges.geojson + terrain_zones.geojson (hand-authored skeleton, see decision doc S1)
+  real_detail:            # v2 real-DEM texture graft (decision doc S10c-e) -- not used if path is null
+    path: "data/real_detail/piemonte_detail_15km_detrend.npy"
+    source: "SRTM GL3, Piemonte/western Alps (user-supplied SRTMGL3.tiff)"
+    xmin: -65000
+    ymax: 80000
+    cellsize_m: 92.767
+    fine_supplement_weight: 0.15
+    fine_min_wavelength_m: 60.0
  
 climate:
   lapse_rate_c_per_1000m: -6.5
