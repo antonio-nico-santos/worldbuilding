@@ -1,0 +1,17 @@
+{
+  "source": "SRTMGL3.tiff (OpenTopography, Piemonte/western Alps), user-supplied",
+  "processing": "resampled to isotropic ~92.767m/px (from anisotropic 3-arcsec lat/lon grid at ~45N), voids filled via nearest-valid (distance_transform_edt), detrended by subtracting a 15km-sigma gaussian blur (removes which-specific-massif-is-here placement, keeps all anisotropic ridge/valley texture from 15km down to native ~93m resolution)",
+  "array_shape": [
+    1725,
+    1401
+  ],
+  "cellsize_m": 92.767,
+  "anchor_note": "row 0 = north edge of this window, col 0 = west edge (matches our final flipped DEM convention)",
+  "window_size_km": [
+    160.02307499999998,
+    129.966567
+  ],
+  "mean": 16.00076078736459,
+  "std": 518.740978386317,
+  "void_cells_in_window": 0
+}
