@@ -1,4 +1,4 @@
-import sys, time, json
+import sys, time, json, os
 sys.path.insert(0, 'src')
 import numpy as np
 from params import load_params
@@ -47,6 +47,15 @@ SHELF_MULTIPLIERS = {
 }
 ZONE_BASE_LIFT_M = {"North plains": 300.0}
 
+# Generated pipeline output -- not hand-authored input, not a lightweight
+# web-ready export (data/exports/ is for that, once this stage feeds
+# something downstream). data/processed/ is already reserved for exactly
+# this in the project's folder structure (see docs/decisions/
+# 00_pre_project_planning.md) and is gitignored, appropriately, given the
+# .bin export alone is ~46MB.
+OUTPUT_DIR = "data/processed"
+os.makedirs(OUTPUT_DIR, exist_ok=True)
+
 log("generating DEM (parameters loaded from config/parameters.yml)...")
 dem = generate_dem(
     **DOMAIN,
@@ -84,7 +93,7 @@ dem = generate_dem(
 )
 log(f"DEM generated: shape={dem.shape} range={dem.min():.0f}..{dem.max():.0f}m land={100*(dem>0).mean():.1f}%")
 assert not np.isnan(dem).any() and not np.isinf(dem).any(), "NaN/Inf in raw DEM!"
-np.save("dem_v3_final_30m_raw.npy", dem)
+np.save(f"{OUTPUT_DIR}/dem_v3_final_30m_raw.npy", dem)
 
 land_cells = int((dem > 0).sum())
 n_droplets = int(land_cells * erosion_cfg["n_droplets_per_land_cell"])
@@ -99,7 +108,7 @@ eroded = erode(
 )
 log(f"erosion done: range={eroded.min():.0f}..{eroded.max():.0f}m")
 assert not np.isnan(eroded).any() and not np.isinf(eroded).any(), "NaN/Inf after erosion!"
-np.save("dem_v3_final_30m_eroded.npy", eroded)
+np.save(f"{OUTPUT_DIR}/dem_v3_final_30m_eroded.npy", eroded)
 
 diff = eroded - dem
 log(f"erosion diff: min={diff.min():.2f} max={diff.max():.2f} mean={diff.mean():.4f}")
@@ -109,18 +118,18 @@ log(f"FINAL sanity: shape={eroded.shape} range={eroded.min():.1f}..{eroded.max()
 
 log("exporting ENVI raw binary (int16) + hdr + prj...")
 write_envi_raw(
-    "dem_v3_final_30m_eroded", eroded, xmin=domain["xmin"], ymin=domain["ymin"], cellsize=domain["resolution_m"],
+    f"{OUTPUT_DIR}/dem_v3_final_30m_eroded", eroded, xmin=domain["xmin"], ymin=domain["ymin"], cellsize=domain["resolution_m"],
     description="Tappa 1 final DEM v3, 30m, eroded, C2 real-detail-textured + warp-fold fix (Fictional World LCC domain)",
     dtype="i2",
 )
-write_prj("dem_v3_final_30m_eroded.prj", CRS_PROJ4)
+write_prj(f"{OUTPUT_DIR}/dem_v3_final_30m_eroded.prj", CRS_PROJ4)
 log("export done")
 
 meta = {
     "shape": list(eroded.shape), "elev_min": float(eroded.min()), "elev_max": float(eroded.max()),
     "land_fraction": float(land_frac), "n_droplets": n_droplets, "land_cells": land_cells,
 }
-with open("dem_v3_run_meta.json", "w") as f:
+with open(f"{OUTPUT_DIR}/dem_v3_run_meta.json", "w") as f:
     json.dump(meta, f, indent=2)
 
 log("=== ALL DONE ===")
