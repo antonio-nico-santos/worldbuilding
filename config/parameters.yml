@@ -138,6 +138,25 @@ climate:
     # Cw and Hw are NOT free parameters -- both are derived per month from
     # the temperature model's own sea-level temperature via Clausius-
     # Clapeyron and the moist adiabat (S4c).
- 
+
+  snow:
+    # Locked in during Tappa 3 -- see docs/decisions/03_tappa3_snow.md.
+    # Regenerate with: python run_tappa3_snow.py  (~18 s)
+    t50_snow_rain_c: 1.0        # 50% rain/snow threshold, dry-bulb air temp.
+                                 # Jennings et al. (2018), Nat. Commun. 9:1148
+    sigma_day_c: 3.0             # assumed day-to-day (synoptic) std dev of
+                                 # daily temp around the monthly mean -- drives
+                                 # both the rain/snow transition sharpness and
+                                 # the positive-degree-day estimate. NOT
+                                 # independently verified for this world's NZ
+                                 # reference region (S1); open to recalibration.
+    degree_day_factor_mm_per_c_day: 4.5   # snow melt, mm w.e. per positive-
+                                 # degree-day. Hock (2003) J. Hydrol. 282,
+                                 # Table 1: observed snow DDFs cluster 3.2-7.6
+    min_snow_month_mm: 5.0       # floor for a month to count in months-with-snow
+    # Permanent snow = annual (snow accumulation - PDD melt) >= 0, a one-year
+    # steady-state ELA proxy -- NOT a real multi-year glacier mass-balance
+    # model (no ice flow, refreezing, or wind redistribution). See S6.
+
 # Tappa 6 (suitability) and Tappa 7 (urban zoom) intentionally left empty —
 # criteria not yet defined.
