@@ -13,6 +13,15 @@ workflow (see `README.md`). It is written to serve either as a log of
 what was decided here, or as a reusable recipe for applying the same
 skeleton+noise+erosion approach to a different domain.
 
+> **Superseded in part.** The skeleton GeoJSONs were edited after this
+> document was written — every `amplitude_zone` became a `plateau` (the fix
+> §13 lists as planned for the North plains), the Spine peak was lowered,
+> the South Branch falloff shortened, and an `Island` ridge added — and the
+> pipeline was re-run with them. §1's skeleton table and §11c's output
+> figures are therefore stale. See **`02_tappa2_climate.md` §0** for the
+> skeleton and run figures actually on disk. The `base_lift_m` follow-up in
+> §13 is now moot, since no `amplitude_zone` features remain.
+
 ## 1. Inputs from Tappa 0
 
 - Domain: 130 km (E–W) x 160 km (N–S), `xmin=-65000, xmax=65000,

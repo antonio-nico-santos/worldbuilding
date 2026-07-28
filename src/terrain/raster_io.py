@@ -1,6 +1,7 @@
 """
 Raster export: ESRI ASCII Grid (.asc + .prj), and a more compact ENVI raw
-binary (.bin + .hdr) for the full-resolution grid.
+binary (.bin + .hdr) for the full-resolution grid. Single-band or multi-band
+(the twelve monthly climate layers of Tappa 2).
 
 Why not GeoTIFF via rasterio: rasterio (and its GDAL dependency) isn't
 installable in this sandbox (see noise.py's docstring for the network
@@ -69,10 +70,17 @@ def write_envi_raw(
     description: str,
     dtype: str = "i2",
     nodata: float = -9999.0,
+    band_names: list[str] | None = None,
 ):
     """Write `path_stem`.bin (raw binary, row-major, BSQ) + `path_stem`.hdr
     (ENVI plain-text header). `array` must have row 0 = NORTH, same
     convention as write_esri_ascii_grid.
+
+    Accepts either a single (ny, nx) band or a (bands, ny, nx) stack — the
+    latter added in Tappa 2 so the twelve monthly climate layers ship as one
+    multi-band raster QGIS opens as a single layer with a band selector,
+    instead of twenty-four separate files. 2-D input behaves exactly as
+    before.
 
     `dtype`: "f4" (float32, full precision) or "i2" (int16, metres rounded
     to the nearest integer -- see module docstring for why that's an
@@ -88,12 +96,17 @@ def write_envi_raw(
     if dtype not in _ENVI_DTYPE:
         raise ValueError(f"dtype must be one of {list(_ENVI_DTYPE)}")
     code, np_dtype = _ENVI_DTYPE[dtype]
-    ny, nx = array.shape
+    if array.ndim == 2:
+        array = array[None, ...]
+    elif array.ndim != 3:
+        raise ValueError("array must be (ny, nx) or (bands, ny, nx)")
+    nbands, ny, nx = array.shape
 
     out = np.where(np.isnan(array), nodata, array)
     if dtype == "i2":
         out = np.clip(np.round(out), -32768, 32767)
-    out.astype(np_dtype).tofile(path_stem + ".bin")
+    out.astype(np_dtype).tofile(path_stem + ".bin")   # BSQ = band-sequential,
+    # which for a C-ordered (bands, ny, nx) array is exactly its memory layout
 
     # map info: pixel (1,1)'s (upper-left corner) maps to (xmin, y_top),
     # where y_top is the top edge of the grid AS ACTUALLY BUILT (ymin +
@@ -108,7 +121,7 @@ def write_envi_raw(
         f"description = {{{description}}}\n"
         f"samples = {nx}\n"
         f"lines = {ny}\n"
-        "bands = 1\n"
+        f"bands = {nbands}\n"
         "header offset = 0\n"
         "file type = ENVI Standard\n"
         f"data type = {code}\n"
@@ -116,6 +129,7 @@ def write_envi_raw(
         "byte order = 0\n"
         f"map info = {{Arbitrary, 1, 1, {xmin}, {y_top}, {cellsize}, {cellsize}, units=Meters}}\n"
         f"data ignore value = {nodata}\n"
+        + (f"band names = {{{', '.join(band_names)}}}\n" if band_names else "")
     )
     with open(path_stem + ".hdr", "w") as f:
         f.write(hdr)

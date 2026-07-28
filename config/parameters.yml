@@ -22,7 +22,17 @@ crs:
  
 validation_reference:
   region: "South Island, New Zealand"
-  transect: null  # TBD: full coast-to-coast vs west-side-only vs Fiordland-only
+  transect: null  # Tappa 2 validated against stations rather than a transect
+                  # (see docs/decisions/02_tappa2_climate.md S5); fill in or drop
+  stations_used:            # annual normals used as calibration targets
+    milford_sound_mm: 6545
+    greymouth_mm: 2443
+    invercargill_mm: 1035
+    queenstown_mm: 909
+    dunedin_mm: 724
+    christchurch_mm: 612
+    timaru_mm: 543
+    alexandra_mm: 300       # approximate, NIWA teaching material ("~30 cm")
   data_sources:
     - "NIWA"
     - "WorldClim / CHELSA"
@@ -65,6 +75,15 @@ terrain:
     erode_speed: 0.45
     deposit_speed: 0.35
     seed: 1
+  # Actual v3 run on disk (data/processed/dem_v3_run_meta.json). These
+  # supersede the figures in decision doc 01 S11c, which predate the
+  # amplitude_zone -> plateau skeleton edit and the re-run that followed.
+  run_v3:
+    shape: [5334, 4334]
+    elevation_min_m: -945.6
+    elevation_max_m: 3595.8
+    land_fraction: 0.4764
+    n_droplets: 3316162
   spine_path: null       # superseded by data/input/terrain_ridges.geojson + terrain_zones.geojson (hand-authored skeleton, see decision doc S1)
   real_detail:            # v2 real-DEM texture graft (decision doc S10c-e) -- not used if path is null
     path: "data/real_detail/piemonte_detail_15km_detrend.npy"
@@ -76,9 +95,49 @@ terrain:
     fine_min_wavelength_m: 60.0
  
 climate:
-  lapse_rate_c_per_1000m: -6.5
-  wind_direction_deg: null   # TBD before Tappa 2
-  continentality_decay: null
+  # Locked in during Tappa 2 -- see docs/decisions/02_tappa2_climate.md.
+  # Regenerate everything with: python run_tappa2_climate.py  (~19 s)
+  working_resolution_m: 120       # 4x block-mean of the 30 m DEM (S2)
+  months: 12
+
+  temperature:
+    # NOT the -6.5 C/km standard atmosphere this file used to carry: 5.0 is
+    # Norton (1985), 301 NZ climate stations, and is the right value for a
+    # maritime mid-latitude range. The two differ by 5.4 C at the summit.
+    lapse_rate_c_per_1000m: -5.0
+    lapse_seasonal_amplitude_c_per_1000m: 0.3   # steepest in Feb; see S3a
+    lapse_peak_month: 2.0
+    t_ref_sea_level_c: 11.5        # annual mean at sea level at lat_ref
+    lat_ref_deg: -44.0
+    dt_dlat_c_per_deg: 0.70        # ~1.0 C across the domain's 1.437 deg span
+    amplitude_coastal_c: 4.0       # half the annual range at the shore
+    amplitude_inland_c: 7.0        # asymptote; only ~0.63 of the way there at 29.9 km
+    continentality_scale_km: 30.0  # 1 - exp(-d/L); d via distance_transform_edt
+    peak_month_coastal: 2.2
+    peak_month_shift_inland: 0.9
+
+  precipitation:
+    model: "Smith & Barstad (2004) linear orographic theory"
+    wind_direction_from_deg: 250.0   # WSW. Set by latitude (44 S westerly
+                                     # belt), then chosen within the western
+                                     # quadrant for orographic effectiveness
+                                     # against the skeleton -- 0.77 overall,
+                                     # no ridge below 0.67. See S1.
+    wind_speed_ms: 12.0
+    wind_speed_seasonal_amplitude_ms: 2.0
+    wind_peak_month: 8.0             # SH jet equatorward in winter
+    nm_moist_stability_per_s: 0.005
+    tau_c_s: 1000.0                  # cloud water -> hydrometeor conversion
+    tau_f_s: 1000.0                  # hydrometeor fallout
+    orographic_duty_cycle: 0.07      # THE calibrated parameter: S&B is an
+                                     # event model, this is the fraction of
+                                     # the month the modelled flow is active
+    background_precip_mm_per_month: 60.0   # non-orographic, additive
+    lee_floor_fraction: 0.45         # cap on leeward suppression (S4d)
+    fft_pad_km: 40.0
+    # Cw and Hw are NOT free parameters -- both are derived per month from
+    # the temperature model's own sea-level temperature via Clausius-
+    # Clapeyron and the moist adiabat (S4c).
  
 # Tappa 6 (suitability) and Tappa 7 (urban zoom) intentionally left empty —
 # criteria not yet defined.
