@@ -653,7 +653,8 @@ sampling, not a texture-only patch), which is expected and unavoidable.
 ### 11c. Final v3 run and outputs
 
 Identical to §10e's `run_full_c2.py` in every parameter except the two
-warp amplitudes above (see `run_full_c2_v3.py`):
+warp amplitudes above (see `run_tappa1_terrain.py`, renamed from
+`run_full_c2_v3.py` once Tappa 1 was locked in):
 
 ```
 generate_dem(..., warp_amplitude_m=2000, noise_warp_amplitude_m=600, ...)
@@ -743,7 +744,7 @@ means in practice. Assets from this investigation
 `nz_detail_wanaka_valleysuppressed.npy`, `nz_detail_meta.json`) are kept
 in the sandbox as a record but are **not** wired into `generate_dem()` —
 `piemonte_detail_15km_detrend.npy` remains the one actually used by
-`run_full_c2_v3.py` and `config/parameters.yml`.
+`run_tappa1_terrain.py` and `config/parameters.yml`.
 
 ## 13. Open follow-ups (not done in this stage, deliberately left open)
 
