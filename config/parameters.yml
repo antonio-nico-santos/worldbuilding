@@ -208,5 +208,69 @@ hydrology:
                                        # (no groundwater/baseflow, no
                                        # transmission losses)
 
+biomes:
+  # Locked in during Tappa 5 -- see docs/decisions/05_tappa5_biomes.md.
+  # Regenerate with: python run_tappa5_biomes.py  (~15 s)
+  working_resolution_m: 120   # matches Tappa 2/3's climate grid, not the 30 m DEM
+  method: "Holdridge Life Zones (Holdridge 1967), general implementation in
+           src/biomes/holdridge.py, fine-tuned to this world in
+           src/biomes/world_biomes.py -- NOT Holdridge's stock moisture bands,
+           see below."
+  holdridge:
+    pet_constant_mm_per_c: 58.93   # PET = 58.93 * biotemperature; confirmed
+                                     # against Aguirre et al. (2025, Sci. Data)
+    biotemperature_clip_c: [0.0, 30.0]
+    belt_boundaries_c: [1.5, 3.0, 6.0, 12.0, 18.0, 24.0]   # Polar..Tropical
+    # NOT used: Holdridge's own global humidity-province PET-ratio bands
+    # (0.5/1/2/4/8/16/32). Applied literally to this world's climate stack,
+    # NO land cell clears ratio >= 4 (Semiarid) -- the driest cell on record
+    # (324 mm/yr, same cell validated against real Alexandra's ~300 mm in
+    # Tappa 2-4) only reaches ratio ~2.1 ("Subhumid"). Structural, not a bug:
+    # PET is linear in biotemperature, which never exceeds 12 C here, capping
+    # PET near 700 mm/yr even at the driest, lowest-elevation cell. Taken at
+    # face value this would erase the entire windward/leeward moisture
+    # contrast Tappa 2-4 validated (5.6:1 precip ratio, 1136 m ELA
+    # differential, 5.9:1 discharge ratio). See world-specific fix below.
+  world_specific:
+    # The PET ratio is kept (it still correctly ranks wet vs dry cells) but
+    # rebinned by THIS world's own land-cell percentiles, the same move
+    # Tappa 3/4 already made for their windward/leeward split, rather than
+    # Holdridge's desert-calibrated absolute bins.
+    moisture_tiers: 3   # Wet / Moist / Dry, terciles of land PET ratio
+                         # (a first draft used quartiles incl. "Superwet" --
+                         # rejected, see decision doc: produced an unreadable
+                         # 96 km2 sliver and a 4-way green palette collision)
+    belts_split_by_moisture: ["Boreal", "Cool Temperate"]
+    belts_not_split: ["Polar", "Subpolar"]   # negligible/zero "dry" area at
+                                               # these belts; splitting adds
+                                               # categories without adding
+                                               # legible distinctions
+    warm_temperate_folded_into: "Cool Temperate"   # ~0.06 km2, 4 cells, right
+                                                     # at the 12 C belt edge
+    permanent_snow_source: "Tappa 3 mass-balance mask (annual_mass_balance
+                             balance_mm >= 0), NOT Holdridge's own Polar belt
+                             -- Polar (Tb<1.5C) is 1243 km2, ~30% bigger than
+                             the mass-balance area (960 km2, 68% cell
+                             overlap): the same naive-temperature-threshold
+                             error Tappa 2/3 already caught once."
+  # Actual run on disk (data/processed/biomes/tappa5_biomes_meta.json):
+  run_v1:
+    moisture_tercile_pet_ratio_edges: [0.1184, 0.5360]
+    biome_area_km2:
+      permanent_snow_and_ice: 960.2
+      alpine_fellfield: 396.0
+      alpine_tundra: 616.5
+      subalpine_wet_forest: 942.4
+      subalpine_woodland: 167.2
+      subalpine_dry_scrub: 335.1
+      temperate_forest: 689.8
+      woodland_shrubland: 2834.8
+      lowland_steppe_grassland: 2962.2
+    validation_vs_nz:
+      dry_scrub_km2_windward_side: 0.0
+      dry_scrub_km2_leeward_side: 335.1   # leeward-only: zero windward cells
+      leeward_dry_tercile_lowland_steppe_grassland_fraction: 0.7339
+      windward_wet_tercile_lowland_steppe_grassland_fraction: 0.0
+
 # Tappa 6 (suitability) and Tappa 7 (urban zoom) intentionally left empty —
 # criteria not yet defined.
