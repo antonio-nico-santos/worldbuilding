@@ -158,5 +158,55 @@ climate:
     # steady-state ELA proxy -- NOT a real multi-year glacier mass-balance
     # model (no ice flow, refreezing, or wind redistribution). See S6.
 
+hydrology:
+  # Locked in during Tappa 4 -- see docs/decisions/04_tappa4_hydrology.md.
+  # Regenerate with: python run_tappa4_hydrology.py  (~440 s)
+  # Runs at the DEM's native 30 m grid, NOT the 120 m climate working
+  # resolution (S0) -- drainage-network topology is resolution-sensitive
+  # in a way temperature/precipitation are not.
+  resolution_m: 30
+  algorithm: "Priority-Flood+Epsilon (Barnes, Lehman & Mulla 2014) -- combined
+              depression-fill + D8 direction in one pass; GRASS r.watershed /
+              r.stream.extract unavailable in this sandbox (S1)"
+  priority_flood_epsilon_m: 0.0001
+  flow_weighting: "precipitation-weighted (Tappa 2 annual precip, resampled
+                    120m -> 30m); plain cell-count area also computed for
+                    stream-network topology (S0, S2, S3)"
+  stream_threshold_km2: 0.3   # contributing-area threshold, NOT area x slope^2
+                               # (tried, rejected for this terrain -- S2).
+                               # Visually/drainage-density calibrated, not an
+                               # independently verified NZ figure (S2, S6).
+  lake_fill_threshold_m: 2.0  # depression-fill floor for the lake mask (S4)
+  major_basin_min_km2: 20.0   # display aggregation only, not a data cut (S5)
+  # Actual run on disk (data/processed/hydrology/tappa4_hydrology_meta.json):
+  run_v1:
+    land_area_km2: 9912.5217
+    max_contributing_area_km2: 751.1193
+    max_discharge_proxy_m3s: 103.128
+    drainage_density_km_per_km2: 1.1418
+    lake_area_km2: 176.4846
+    n_basins_major: 54
+
+  # Addendum: seasonal / intermittent flow -- see
+  # docs/decisions/04_tappa4_hydrology.md S12.
+  # Regenerate with: python run_tappa4_seasonal.py  (~520 s, dominated by
+  # an in-memory re-run of the priority-flood pass -- do NOT reconstruct
+  # from filled_dem_30m.npy, it was saved float32 and silently corrupts
+  # the strict-descent ordering at this DEM's elevation range, S12).
+  flowing_fraction_of_annual_mean: 0.10  # relative, per-cell threshold
+  spinup_cycles: 3                        # snowpack spin-up cycles before
+                                            # the kept simulation year
+  # Actual run on disk (data/processed/hydrology/seasonal/tappa4_seasonal_meta.json):
+  seasonal_run_v1:
+    n_stream_cells: 377281
+    perennial_cells: 319305
+    perennial_fraction: 0.8463
+    intermittent_cells: 57976
+    intermittent_fraction: 0.1537
+    min_months_flowing_observed: 7   # nothing classifies as more ephemeral
+                                       # than this -- see S12 limitations
+                                       # (no groundwater/baseflow, no
+                                       # transmission losses)
+
 # Tappa 6 (suitability) and Tappa 7 (urban zoom) intentionally left empty —
 # criteria not yet defined.

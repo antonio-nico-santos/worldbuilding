@@ -83,6 +83,7 @@ __all__ = [
     "months_with_snow",
     "seasonality_index",
     "annual_mass_balance",
+    "monthly_water_input",
 ]
 
 
@@ -205,3 +206,77 @@ def annual_mass_balance(
 
     balance_mm = accum_mm - melt_mm
     return accum_mm.astype(np.float32), melt_mm.astype(np.float32), balance_mm.astype(np.float32)
+
+
+def monthly_water_input(
+    precip_mm: np.ndarray,
+    temp_c: np.ndarray,
+    days_in_month: np.ndarray,
+    p: SnowParams | None = None,
+    spinup_cycles: int = 2,
+):
+    """Month-by-month snowpack simulation -- added for Tappa 4's seasonal/
+    intermittent-flow addendum (04_tappa4_hydrology.md S12), NOT part of
+    Tappa 3's original scope. `annual_mass_balance` above answers "does
+    this cell accumulate snow faster than it melts over a full year" with
+    a single annual sum; it has no notion of WHEN in the year snow that
+    fell becomes water available to a stream. That timing is exactly what
+    a field-observed wet/dry channel cycle is driven by -- precipitation
+    that falls as snow in July does not reach a channel in July, it
+    reaches it in the following melt season.
+
+    Carries an explicit snowpack state (mm w.e.) across months:
+
+        available(m)  = snowpack(m-1) + snow_mm(m)
+        melt(m)       = min(available(m), degree_day_factor * PDD(m))
+        snowpack(m)   = available(m) - melt(m)
+        water_input(m) = rain_mm(m) + melt(m)
+
+    `water_input` is what should drive a stream's flow that month -- rain
+    that fell this month, plus whatever the snowpack actually released,
+    capped by what was actually in it (a month can never release more
+    melt than the snowpack holds, however large its degree-day potential).
+
+    **Spin-up**: starting `snowpack` at 0 in the stack's first month would
+    understate the first spring's melt release, since there is no
+    "leftover winter" to draw down yet -- there is nothing physically
+    wrong with the *model*, only with using its first pass through January
+    as if it were a representative year. `spinup_cycles=2` runs the full
+    12-month loop twice, keeping only the second pass's output, so the
+    kept year starts from whatever snowpack the first pass's December
+    actually left behind -- a physically consistent repeating annual
+    cycle rather than a cold start. Cells with a positive annual balance
+    (this world's permanent-snow zones, `annual_mass_balance`'s
+    `balance_mm >= 0`) never reach a literal steady state under repeated
+    cycling by definition -- their snowpack keeps growing year over year,
+    which is correct accumulation-zone behaviour, not a spin-up failure;
+    they still release a sensible month-by-month ablation-season melt on
+    top of that growing base.
+
+    Returns `(water_input_mm, melt_mm, rain_mm, snowpack_end_mm)`, each
+    `(12, ny, nx)` except `snowpack_end_mm` which is `(ny, nx)` (the state
+    after the kept year's December, a diagnostic only).
+    """
+    p = p or SnowParams()
+    n_months = temp_c.shape[0]
+    snowpack = np.zeros(temp_c.shape[1:], dtype=np.float64)
+
+    water_input = np.zeros_like(temp_c, dtype=np.float32)
+    melt_out = np.zeros_like(temp_c, dtype=np.float32)
+    rain_out = np.zeros_like(temp_c, dtype=np.float32)
+
+    for cycle in range(spinup_cycles):
+        keep = (cycle == spinup_cycles - 1)
+        for m in range(n_months):
+            snow_mm_m, rain_mm_m = monthly_snow_rain(precip_mm[m], temp_c[m], p)
+            pdd = expected_positive_degree_days(temp_c[m], days_in_month[m], p)
+            melt_potential = p.degree_day_factor_mm_per_c_day * pdd
+            available = snowpack + snow_mm_m
+            melt_actual = np.minimum(available, np.maximum(melt_potential, 0.0))
+            snowpack = available - melt_actual
+            if keep:
+                water_input[m] = rain_mm_m + melt_actual
+                melt_out[m] = melt_actual
+                rain_out[m] = rain_mm_m
+
+    return water_input, melt_out, rain_out, snowpack.astype(np.float32)
