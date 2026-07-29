@@ -1,0 +1,9 @@
+{
+"type": "FeatureCollection",
+"name": "geothermal",
+"features": [
+{ "type": "Feature", "properties": { "fid": 1, "feature_type": "geothermal_vent", "name": "Heart", "intensity": 1.0, "falloff_km": 3.5 }, "geometry": { "type": "Point", "coordinates": [ -26099.085866097451799, -64036.910725147463381 ] } },
+{ "type": "Feature", "properties": { "fid": 2, "feature_type": "geothermal_vent", "name": "Liver", "intensity": 0.65, "falloff_km": 2.5 }, "geometry": { "type": "Point", "coordinates": [ -28666.145482061529037, -63557.086497864460398 ] } },
+{ "type": "Feature", "properties": { "fid": 3, "feature_type": "geothermal_vent", "name": "Spleen", "intensity": 0.50, "falloff_km": 2.0 }, "geometry": { "type": "Point", "coordinates": [ -25091.454988803139713, -62405.508352385251783 ] } }
+]
+}
