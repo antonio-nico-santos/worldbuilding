@@ -272,5 +272,82 @@ biomes:
       leeward_dry_tercile_lowland_steppe_grassland_fraction: 0.7339
       windward_wet_tercile_lowland_steppe_grassland_fraction: 0.0
 
-# Tappa 6 (suitability) and Tappa 7 (urban zoom) intentionally left empty —
-# criteria not yet defined.
+suitability:
+  # Locked in during Tappa 6 -- see docs/decisions/06_tappa6_suitability.md.
+  # Regenerate with, in order: run_tappa6_core_metrics.py, run_tappa6_solar.py,
+  # run_tappa6_biome_suitability.py (+_povo_livre), run_tappa6_composite.py,
+  # run_tappa6_site_selection.py
+  working_resolution_m: 120
+  nucleo:
+    slope_gentle_pct: 5.0
+    slope_hard_limit_pct: 30.0    # placeholder generic thresholds, not
+                                    # world-calibrated -- see decision doc S1
+    water_gentle_km: 0.5
+    water_hard_limit_km: 5.0       # near-flat in practice, dense stream network
+    solar_method: "FAO-56 clear-sky Rso x 16-direction/10km horizon-shaded
+                    tilted/horizontal ratio, 12 mid-month days -- see S2"
+  biome_suitability:                # hand-scored, not derived (S3)
+    circulo:
+      permanent_snow_ice: 0.00
+      alpine_fellfield: 0.05
+      alpine_tundra: 0.20
+      subalpine_dry_scrub: 0.30
+      subalpine_woodland: 0.45
+      subalpine_wet_forest: 0.55
+      temperate_forest: 0.85
+      woodland_shrubland: 0.90
+      lowland_steppe_grassland: 1.00
+    povo_livre:                     # S4 -- mirrors only the forest/grassland
+      temperate_forest: 1.00        # endpoints, other 7 classes identical to
+      lowland_steppe_grassland: 0.85 # circulo above
+  exclusao:
+    povo_silencioso_hard_buffer_km: 5.0
+    povo_silencioso_soft_buffer_km: 15.0   # placeholder, no lore distance specified
+    applied_to_both_composites: true        # default choice, not confirmed (S5)
+  composite_weights:                # S5 -- two separate composites
+    circulo:    {slope: 0.20, water: 0.05, agriculture: 0.25, solar: 0.20, biome: 0.30}
+    povo_livre: {slope: 0.10, water: 0.05, agriculture: 0.10, solar: 0.15, biome: 0.60}
+  site_selection:
+    # S6-8 -- greedy, largest-population-first, square-window approximation
+    # of a circular footprint (Tappa 8's job to actually lay out)
+    density_ppl_km2: 4000.0          # adjustable placeholder
+    buffer_factor: 2.0                # footprint non-overlap, straight-line km
+    min_land_fraction: 0.98
+    circulos: "4 large (40k/35k/25k/20k) + 5 medium (2k each) + 8 small
+                (625 each, split evenly from a 5,000 combined total -- only
+                figure the scenario specified for the smallest group)"
+    cost_distance:
+      # S7 -- replaced an earlier straight-line tier_min_distance (60km
+      # large-large / 25km medium-medium) after two real design corrections
+      # (round 1: uniform-against-everyone collapsed placement to 5/17,
+      # fixed by scoping to same-tier pairs; round 3: switched the metric
+      # itself from straight-line km to cost-distance hours)
+      friction_model: "Tobler's hiking function on land (6*exp(-3.5*|slope_ratio+0.05|)
+                        km/h, ~5.04 km/h flat, signed slope from a 120m
+                        block-MEAN DEM), flat boat speed on any non-land edge"
+      boat_speed_kmh: 6.0             # NOTE: >= Tobler's flat pace, so sea is
+                                       # NOT currently a real barrier in this
+                                       # model -- see decision doc S7
+      tier_min_hours:
+        large-large: 12.0             # ceiling ~15h
+        medium-medium: 8.0            # ceiling ~12-14h
+        small-small: 2.5              # user's own pick, no ceiling found <=8h
+        large-medium: 6.0             # added round 4 (S8), ceiling ~10h
+    lake_exclusion: "land_mask & ~lake_mask_120m (Tappa 4's lake_mask.npy,
+                      block-ANY downsampled), added round 4 (S8) after 7/17
+                      sites were found sitting inside lakes -- used for ALL
+                      site-selection computations, not a post-hoc filter"
+  # Actual run on disk (data/processed/suitability/tappa6_site_selection_meta.json):
+  run_v1:
+    n_placed: 17
+    n_failed_to_place: 0
+    n_sites_on_lake: 0
+    n_min_distance_violations: 0
+    biome_distribution: {grassland: 13, temperate_forest: 2, woodland_shrubland: 2}
+    one_large_circulo_on_sw_island: true   # Circulo_D_20k, label 135, ~794 km2
+
+# Tappa 7 (regional scenario deepening -- macro scale: dangerous-creature
+# conflict zones, road/rail infrastructure, dangerous seas) and Tappa 8
+# (urban zoom, renumbered from the originally-planned Tappa 7) are both
+# PAUSED as of Tappa 6's close -- see README.md "Pipeline status" and
+# docs/decisions/06_tappa6_suitability.md S13. Criteria not yet defined.
