@@ -10,15 +10,25 @@ Reads:
 
 Writes to data/processed/suitability/ (gitignored, regenerate locally):
   slope_pct_120m / slope_suitability_120m
-  dist_to_stream_km_120m
+  dist_to_stream_km_120m / water_suitability_120m
   twi_120m / agriculture_suitability_120m
-  dist_to_povo_silencioso_km_120m
+  dist_to_povo_silencioso_km_120m / povo_silencioso_exclusion_120m
   tappa6_core_metrics_meta.json
 
 Each .npy also ships as ENVI .bin/.hdr/.prj (see src/terrain/raster_io.py),
 same convention as every prior stage. Solar exposure and the biome
 suitability lookup are NOT computed here -- see the Tappa 6 decision doc's
 open-items list.
+
+water_suitability_120m and povo_silencioso_exclusion_120m were added after
+the initial layers 1-4 build, once it was clear the raw distance fields
+(dist_to_stream_km, dist_to_povo_silencioso_km) needed a 0-1 transform
+before they could enter a weighted composite alongside slope_suitability/
+agriculture_suitability/solar_suitability/biome_suitability. See
+water_suitability's and povo_silencioso_exclusion_factor's docstrings in
+src/suitability/terrain_metrics.py for the honest caveats on both --
+water_suitability in particular reads as near-flat over most of the land
+(this world's stream network is dense), by design, not a bug.
 """
 
 from __future__ import annotations
@@ -38,8 +48,10 @@ from src.suitability.terrain_metrics import (
     compute_slope_pct,
     distance_to_stream_km,
     povo_silencioso_distance_km,
+    povo_silencioso_exclusion_factor,
     slope_suitability,
     topographic_wetness_index,
+    water_suitability,
 )
 from src.terrain.raster_io import write_envi_raw, write_prj
 
@@ -59,6 +71,18 @@ POVO_SILENCIOSO_LABELS = [10, 7, 6, 47, 20]
 # docstring) -- revisit once the settlement-size downstream filter exists.
 SLOPE_GENTLE_PCT = 5.0
 SLOPE_HARD_LIMIT_PCT = 30.0
+
+# Placeholder water-suitability knee, set from this world's own dist-to-
+# stream percentiles (0.5km ~ where "trivially close" stops covering nearly
+# everyone; 5km ~ p99.5) -- see water_suitability's docstring.
+WATER_GENTLE_KM = 0.5
+WATER_HARD_LIMIT_KM = 5.0
+
+# Placeholder Povo Silencioso "respect the territory" exclusion buffer --
+# not derived from any specified treaty/lore distance -- see
+# povo_silencioso_exclusion_factor's docstring.
+PS_HARD_BUFFER_KM = 5.0
+PS_SOFT_BUFFER_KM = 15.0
 
 
 def main():
@@ -81,6 +105,7 @@ def main():
     # --- distance to stream ---
     stream_120 = block_any(stream30, FACTOR)
     dist_stream_km = distance_to_stream_km(stream_120, (cs_y120, cs_x120), factor=1)
+    water_suit = water_suitability(dist_stream_km, WATER_GENTLE_KM, WATER_HARD_LIMIT_KM)
 
     # --- TWI / agriculture proxy ---
     contrib_120 = block_mean(contrib30, FACTOR)
@@ -93,6 +118,7 @@ def main():
     archipelago_mask = np.isin(labeled, POVO_SILENCIOSO_LABELS)
     other_land = land120 & ~archipelago_mask
     dist_ps_km = povo_silencioso_distance_km(land120, POVO_SILENCIOSO_LABELS, (cs_y120, cs_x120))
+    ps_exclusion = povo_silencioso_exclusion_factor(dist_ps_km, PS_HARD_BUFFER_KM, PS_SOFT_BUFFER_KM)
 
     out = "data/processed/suitability"
     os.makedirs(out, exist_ok=True)
@@ -101,9 +127,11 @@ def main():
         "slope_pct_120m": slope_pct_120,
         "slope_suitability_120m": slope_suit,
         "dist_to_stream_km_120m": dist_stream_km,
+        "water_suitability_120m": water_suit,
         "twi_120m": twi,
         "agriculture_suitability_120m": agri_suit,
         "dist_to_povo_silencioso_km_120m": dist_ps_km,
+        "povo_silencioso_exclusion_120m": ps_exclusion,
     }
     for name, arr in layers.items():
         arr32 = arr.astype(np.float32)
@@ -132,6 +160,18 @@ def main():
             "land_median": float(np.median(dist_stream_km[land120])),
             "land_max": float(dist_stream_km[land120].max()),
         },
+        "water_suitability": {
+            "gentle_km_threshold": WATER_GENTLE_KM,
+            "hard_limit_km_threshold": WATER_HARD_LIMIT_KM,
+            "land_frac_within_0.5km": float((dist_stream_km[land120] <= 0.5).mean()),
+            "land_frac_within_1.0km": float((dist_stream_km[land120] <= 1.0).mean()),
+            "land_frac_within_5.0km": float((dist_stream_km[land120] <= 5.0).mean()),
+            "land_mean_score": float(water_suit[land120].mean()),
+            "land_p5_p50_p95_score": [
+                float(v) for v in np.percentile(water_suit[land120], [5, 50, 95])
+            ],
+            "caveat": "near-flat over most of the land by design -- dense stream network, see water_suitability's docstring",
+        },
         "twi_agriculture_proxy": {
             "land_p5_p50_p95": [float(v) for v in np.percentile(twi[land_finite_twi], [5, 50, 95])],
             "caveat": "geomorphic proxy only -- no real soil/pedology data exists in this project",
@@ -141,6 +181,13 @@ def main():
             "archipelago_area_km2": float(archipelago_mask.sum() * (cs_x120 / 1000) * (cs_y120 / 1000)),
             "land_dist_km_mean_excl_target": float(dist_ps_km[other_land].mean()),
             "land_dist_km_median_excl_target": float(np.median(dist_ps_km[other_land])),
+            "hard_buffer_km": PS_HARD_BUFFER_KM,
+            "soft_buffer_km": PS_SOFT_BUFFER_KM,
+            "other_land_frac_within_10km": float((dist_ps_km[other_land] <= 10.0).mean()),
+            "other_land_area_km2_within_10km": float(
+                (dist_ps_km[other_land] <= 10.0).sum() * (cs_x120 / 1000) * (cs_y120 / 1000)
+            ),
+            "caveat": "localised corner-of-the-map effect by construction, only ~1% of non-archipelago land falls within 10km of the archipelago at all",
         },
     }
     with open(f"{out}/tappa6_core_metrics_meta.json", "w") as f:
