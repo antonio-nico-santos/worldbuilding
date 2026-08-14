@@ -31,3 +31,10 @@ layout at the locations Tappa 6 already chose).
 This repository is intentionally kept separate from the portfolio site
 repository (`gis-portfolio`) — only final lightweight exports (simplified
 GeoJSON, pre-rendered images) are copied into the site's `public/data/`.
+
+## License
+
+Code in this repository is licensed under MIT (see `LICENSE.md`). Creative
+and narrative content — world, species, and scenario material under
+`docs/decisions/`, `docs/reference/`, and elsewhere — is all rights
+reserved (see `CONTENT-LICENSE.md`) and is not licensed for reuse.
