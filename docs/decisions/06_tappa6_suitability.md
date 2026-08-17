@@ -450,16 +450,14 @@ directly (S10) independent of this visualization choice.
   confirmed low-impact for THIS run (S8), but the underlying simplification
   (any land↔sea edge just uses boat speed, no fixed preparation cost)
   remains in the code as-is.
-* **Pipeline renumbering, agreed but not yet reflected everywhere except
-  this document and `config/parameters.yml`/`README.md`** (updated
-  alongside this doc): the originally-planned "Tappa 7 (urban zoom)" is
-  renumbered **Tappa 8**; a new **Tappa 7 (regional scenario deepening)** —
-  dangerous creatures/conflict zones, road/rail infrastructure, dangerous
-  seas, still at MACRO/domain-wide scale, not per-site — is inserted
-  before it. Both are paused: the user is focusing on publishing the
-  portfolio site with Tappe 0-6 as delivered, which is considered
-  sufficient content on its own. Tappa 7/8 work, when resumed, is scoped as
-  scenario-depth for the TTRPG side of the project primarily, not
+* **Pipeline renumbering, SUPERSEDED — see `07_tappa7_regional_scenario.md` §9 for the current
+  numbering.** (Originally: the planned "Tappa 7 (urban zoom)" was renumbered **Tappa 8**, with a
+  new **Tappa 7 (regional scenario deepening)** inserted before it. Tappa 7 has since run and closed
+  — see its doc — and its own roadmap planning found this Tappa-8-as-urban-zoom assignment collided
+  with a later plan to use "Tappa 8" for geomorphology. Resolved by retiring urban zoom from the
+  Tappa sequence entirely: it's now its own untethered **Urban Scale** track, not a numbered Tappa,
+  which frees Tappa 8/9/10 for geomorphology/transports/interactions respectively.) Urban Scale work,
+  when resumed, is scoped as scenario-depth for the TTRPG side of the project primarily, not
   additional portfolio material — intentionally lighter empirical-rigor
   standard than Tappa 6 used (no expectation of a feasibility sweep for
   every threshold), per the user's own steer.

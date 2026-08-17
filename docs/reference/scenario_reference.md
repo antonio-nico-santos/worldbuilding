@@ -144,11 +144,14 @@ at the coast and working inland toward the still-open tundra apex predator (see
   meaningfully, but sustained surface time does, Moonfur descends and waits in the deep before
   starting a hunt — a real behavioral consequence of the mechanism, not just a color trait.
 
-  Home range is the island's southwest coast, opposite Povo Silencioso's NE archipelago, so the two
-  don't compete over the same Shadowless Sardine stock. When Sea Terror (below) migrates in,
-  Moonfur relocates — southeast or north/northwest — rather than contest territory or risk becoming
-  prey. Their movement away from the southwest is a recognized folk warning sign: when Moonfur are
-  seen leaving, it means danger on the water.
+  Home range is the island's southwest and west coast, opposite Povo Silencioso's NE archipelago,
+  so the two don't compete over the same Shadowless Sardine stock. That same southwest/west stretch
+  is also where Sea Terror (below) is sometimes found when it arrives — the two ranges genuinely
+  overlap, which is exactly what forces the response below rather than it being an arbitrary
+  pairing. When Sea Terror moves in, Moonfur relocates temporarily — southeast or north/northwest —
+  rather than contest territory or risk becoming prey, returning once Sea Terror moves on. Their
+  movement away from the southwest is a recognized folk warning sign: when Moonfur are seen leaving,
+  it means danger on the water.
 
 **Migratory visitors** (seasonal, not resident island fauna)
 
@@ -242,6 +245,10 @@ rather than decoratively.
   platypus electroreception (otherwise unique to monotremes among real animals) grafted onto
   sensitive snout/jowl skin, for hunting prey hidden in mud or murky water where sight doesn't
   help — the same functional logic real platypuses already use, just transplanted into a reptile.
+  Beyond the mainland and the SW island, Mudlizard is also the likeliest resident on the larger of
+  the many small islets scattered off the coast — real monitor lizards are capable overwater
+  colonizers. Birds are the default across that same scattered ground otherwise, as they would be
+  for any remote small island.
 
 - **Flashfrog** — Wet Forest resident, poison-dart-frog-anchored (a few centimeters; extreme real
   toxicity doesn't require size). Toxin is dietarily sequestered, not self-synthesized — a real,
@@ -417,7 +424,15 @@ this document is handled.
   winter-solstice timing — hence the name. Flight structure is weak, built for short bursts rather
   than sustained travel, which is exactly what fuels genuine in-world biologist puzzlement: nobody
   has confirmed where they arrive from or depart to, since their build doesn't obviously support an
-  ocean crossing. No confirmed explanation is documented publicly.
+  ocean crossing. No confirmed explanation is documented publicly. Within that seasonal lake
+  presence, the species keeps mainly to the lakes on the wooded western plateaus, rather than being
+  spread evenly across every interior lake on the island.
+
+- **Skydrifter** — see the migratory-visitor table above for the species itself. Its transit path,
+  as far as anyone's tracked it, runs in a wide, fairly straight band over the North plains: an
+  overflight this brief has no reason to detour around anything, so the crossing doesn't follow the
+  terrain the way a resident or ground-bound species' range would. The exact line drifts somewhat
+  toward the northeast or southwest from one passage to the next, not a fixed corridor.
 
 ## 15. Alpine prey base
 

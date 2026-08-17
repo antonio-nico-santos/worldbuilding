@@ -1,12 +1,14 @@
 # Tappa 7 — Regional scenario deepening (planning and decisions)
 
-Status: **RESTRUCTURED this session.** Tappa 1-6 each paired a set of decisions with a delivered
-cartographic output. Tappa 7 was scoped far wider than any predecessor — geology/lithology, caves,
-Vértice materials, dangerous creatures, dangerous seas, transportation, and the fauna build-out all
-in one stage — and most of that content still can't honestly produce a map, because the layers it
-would map (lithology classification, road/rail cost surfaces, the hazard layer) don't exist yet.
-Rather than force a premature map, this stage is now explicitly framed like **Tappa 0**: a
-decisions-and-planning pass, not a closed implementation-plus-map stage. See "Scope and structure"
+Status: **CLOSED for this pass** (see §9 at the end of this document for the full close-out and the
+Tappa 8-10 + Urban Scale roadmap that follows it). Tappa 1-6 each paired a set of decisions with a
+delivered cartographic output. Tappa 7 was scoped far wider than any predecessor —
+geology/lithology, caves, Vértice materials, dangerous creatures, dangerous seas, transportation,
+and the fauna build-out all in one stage — and most of that content still can't honestly produce a
+map, because the layers it would map (lithology classification, road/rail cost surfaces, the hazard
+layer) don't exist yet. Rather than force a premature map, this stage was framed like **Tappa 0**: a
+decisions-and-planning pass, not a closed implementation-plus-map stage, with the fauna section (§7)
+as the one exception that could and did produce real cartographic output. See "Scope and structure"
 below for what that means section by section. See `docs/reference/scenario_reference.md` for the
 non-technical scenario content this stage draws on (society, fauna, culture) and
 `06_tappa6_suitability.md` for the machinery being reused.
@@ -18,11 +20,10 @@ zones, dangerous seas, transportation/infrastructure) stay **decision-only**, th
 was decision-only. None of them can produce a real map yet — each depends on a layer that hasn't
 been computed (lithology classification, road/rail cost functions, the wind-shadow mask, the
 hazard layer). Their eventual cartographic output will each become its own future Tappa once its
-blocking layer actually gets built. Deliberately **not assigning specific future Tappa numbers to
-these yet** — the point of treating this stage as decisions-first is to keep that ordering open
-until work resumes, rather than locking in a sequence now. (Tappa 8, urban zoom, already has a
-committed scope from Tappa 0/6 and is unaffected by this change — it keeps its position regardless
-of how the geology/transport/seas content above eventually gets split out.)
+blocking layer actually gets built. **Numbering now assigned, see §9**: geology/caves/resources →
+Tappa 8, transportation/dangerous seas → Tappa 9, dangerous creatures/conflict zones → Tappa 10.
+Urban zoom (originally slated as "Tappa 8" back in Tappa 0/6) is retired from the Tappa sequence
+entirely and re-homed as its own untethered "Urban Scale" track — see §9 for why.
 
 Section 7 (fauna) is the exception: it's the one piece of Tappa 7 content that's actually
 **unblocked** right now. Species range and habitat placement only need layers that already exist —
@@ -206,8 +207,9 @@ is an acceptable resolution since open-ocean routing was never the intent).
   entirely (both rail and road cost functions above are terrain-slope-only so far). Applies as a
   per-biome cost multiplier on top of whichever grade/friction function each mode already uses.
   To be implemented when the road/rail code is actually written, not before.
-- **Trams** — urban-scale, large Círculos only. Deferred to Tappa 8 (urban zoom) — Tappa 6's
-  site-selection windows are too coarse for tram-layout detail below the four large Círculos.
+- **Trams** — urban-scale, large Círculos only. Deferred to the Urban Scale track (was "Tappa 8",
+  see §9) — Tappa 6's site-selection windows are too coarse for tram-layout detail below the four
+  large Círculos.
 - **Electric utility vehicles, bikes** — ride the road network once it exists; no new modeling.
 - **Domesticated animals** — yak (alpine/Spine niche, close to Earth form), reindeer (Círculo
   Grassland ecotype + Povo Livre/nomad forest ecotype), sheep, dogs, chickens — each diverged into
@@ -996,15 +998,27 @@ in a way this change touched materially.
 
 - Final authorial status (active / temporary refuge / abandoned) per outpost candidate — Nacre
   suitability at each site is a strong signal (`status_prior`, `status_is_authorial_final: False`
-  in `outpost_candidates.geojson`), not Nico's actual final call yet.
-- Whether 18 total candidates (17 main-spine / 1 South-Branch, v7 split) is the right final count —
-  a real-world-benchmarked estimate (Aoraki/Mt Cook NP hut density), not a hard number.
-- Coastal/marine/migratory bucket (authorial shapes: seasonal zones, Skydrifter transit corridor,
-  SummerVisitant lake point, Sea Terror/Moonfur conditional zones) — untouched this session, open
-  since before the fauna-map work started.
-- Which population model (mainland-style or island-style percentages, or neither) applies to the
-  two smaller unanalyzed landmasses (230.5 km² combined) surfaced while building the biome-species
-  vector — left null there deliberately, not decided.
+  in `outpost_candidates.geojson`), not Nico's actual final call yet. Nico's explicit call
+  (v10 update): deliberately deferred, not blocking this Tappa — will be decided when Nico starts
+  developing actual stories, a distant-future step, not part of this stage's scope.
+- ~~Whether 18 total candidates (17 main-spine / 1 South-Branch, v7 split) is the right final
+  count~~ — **CLOSED (v10): Nico confirmed 18 is correct, final.**
+- ~~Coastal/marine/migratory bucket (authorial shapes: seasonal zones, Skydrifter transit route,
+  SummerVisitant lake habitat, Sea Terror/Moonfur conditional zones)~~ — **CLOSED (v12).** Skydrifter
+  and SummerVisitant resolved as plain descriptive lore (v11, no GIS layer for either). Sea
+  Terror/Moonfur conditional zones now written too: Moonfur's home range extended to "southwest and
+  west coast" (was just "southwest"), and `scenario_reference.md` now states explicitly that this is
+  the same stretch where Sea Terror is sometimes found — the overlap is *why* Moonfur relocates, not
+  an unexplained habit — with the existing southeast/northwest relocation kept and made explicitly
+  temporary (Moonfur returns once Sea Terror moves on).
+- ~~Which population model (mainland-style or island-style percentages, or neither) applies to the
+  small unanalyzed land beyond the mainland and the SW island~~ — **CLOSED (v12).** Locked into
+  Mudlizard's entry in `scenario_reference.md` §11: birds as the default across the archipelago,
+  Mudlizard also plausible on the larger islets specifically (real varanid overwater-dispersal
+  citation) — kept as a plain descriptive line, not the full island-biogeography justification (that
+  stays here, v10 note above, per the same public-doc-should-just-describe principle already applied
+  to SummerVisitant in v11). Correction from earlier framing stands on record: this is a 207-islet
+  archipelago (0.001-42.07 km² per islet, 0.24-52.7 km from the mainland), not "two landmasses."
 
 **v8 (second item) — Grassmother incursion layer, Nico's call.** Proposal, verbatim in substance:
 model how far Nacre packs would plausibly penetrate from their coves into Lowland Steppe/Grassland
@@ -1146,9 +1160,10 @@ output filenames: `REAPER_W_*` → `NACRE_W_*`, `reaper_suitability_120m.npy` �
 session memory. Verified the rename changed no computed values — `nacre_suitability_120m.npy` and
 `nacre_pack_territory_120m.npy` are byte-for-byte identical to their pre-rename `reaper_*`
 equivalents (`np.array_equal` confirmed both). Old `reaper_*.npy`/`.tif`/`.geojson` files deleted
-from the local working copy; **Nico needs to delete the equivalent stale `reaper_*` files from the
-actual repo folder manually** (same standing limitation as every other retired-file cleanup this
-session — files can be overwritten remotely but not deleted).
+from the local working copy; **Nico confirmed (v12) the equivalent stale `reaper_*` files are also
+deleted from the actual repo folder** — confirmed via a fresh device directory listing, `data/
+processed/fauna/` now contains only the current `nacre_*`/other active outputs, no `reaper_*` or
+`skydrifter_route_area_*` remnants.
 
 **Also this pass (Nico's request):** the white-serpent legend and Nacre are explicitly NOT merged —
 kept as two separate, deliberately unconnected legends, though `scenario_reference.md`'s new §19
@@ -1230,14 +1245,103 @@ Landmass segmentation: connected-component labeling on `biome_id != Ocean` (8-co
 mainland (616,604 cells) and the already-locked SW island (55,178 cells, matches the 794.6 km²
 figure above) as the two largest components, same as the earlier fragmentation check.
 
-**Real finding, previously unflagged: two smaller landmasses exist, 230.5 km² combined**, distinct
-from both the mainland and the SW island — a 50.18 km² Woodland/Shrubland patch and a 180.36 km²
-Grassland patch, confirmed via area arithmetic against `tappa5_biomes_meta.json`'s totals (mainland
-+ island + these = the documented total for each biome, exact match). These were never given
-mainland/island percent treatment in any prior pass. Deliberately left with **null** species values
-in the vector (not assumed to follow either the mainland or island model) and flagged with an
-explanatory `note` field — an authorial call on which population model applies (if either) is still
-open, same as the "still open" items elsewhere in this document.
+**v10 — Skydrifter flight corridor computed, plus SummerVisitant habitat lock and an archipelago
+correction, Nico's asks.** Three items from Nico's "what's pending on Tappa 7" follow-up:
+
+1. **Skydrifter route** (Nico: "considering the height of the mountains, what would be a possible
+   route? Create a simple layer with a possible area with their flight route is fine"). Built as a
+   single least-cost path (`skimage.graph.MCP_Geometric`), not a habitat/suitability field like
+   every other species — friction = the existing slope-based `slope_friction` (reused from the
+   Nacre cost-distance work) plus a new elevation term (`surface_elevation_m.npy`, confirmed
+   already on this 120m grid by shape/byte-size match against `biome_id.npy`, no resampling
+   needed), weighted so the highest peaks cost ~9x a sea-level cell — strongly biased away from
+   the Spine/South Branch high country without being literally impassable. Traced path buffered to
+   an 8km half-width area (`skydrifter_route_area_120m.npy`), scale-matched to the already-locked
+   `TWIN_EDGE_BUFFER_KM=10.0`.
+   - **Direction is an inferred assumption, not a locked fact**: nothing in this doc or
+     `scenario_reference.md` states which two landmasses Skydrifter travels between. Checked real
+     coastline contact against the mapped-domain edges instead of guessing — north edge touches
+     land at 80/1084 cells, east edge at 69/1334, south edge only 6/1084 (too thin, read as a
+     sliver not a real continuation), west edge 0 (fully closed coastline). Corridor runs north
+     edge → east edge on that basis. **Flagged for Nico**: if the actual positions of the other two
+     landmasses differ, this needs re-running with different source/target edges.
+   - Bug caught before delivery, not after: a first pass allowed source/target cells on ANY land
+     fragment, and since MCP picks the globally cheapest pair, it found a 64-cell/7.7km "corridor"
+     that was 100% on a tiny detached islet near the NE corner — an edge-touching artifact, not a
+     real crossing. Fixed by restricting the route to the largest connected land component (the
+     real mainland) before picking source/target cells. Final route: 1015 cells, 137.7km real
+     ground length, 2099.3 km² buffered area.
+2. **SummerVisitant habitat lock** (Nico: "usually stays on the areas close to the lakes on the
+   woodlands on the West plateaus"). Checked against real geometry before writing it into
+   `scenario_reference.md` §14, not taken on faith: 82.3% of all Woodland/Shrubland sits in the
+   western half of the map; 65.6% of Woodland/Shrubland lies within 3km of a mapped lake
+   (`hydrology/lake_mask.npy`, 30m grid, nearest-neighbor-resampled to this 120m grid, same
+   coordinate-lookup method already used for `stream_mask.npy` elsewhere in this pipeline — the
+   two grids' cell counts don't divide evenly, 5334×4334 vs 1334×1084, a padding difference
+   between pipelines, not a bug); that near-lake subset stays just as west-concentrated (79.3%) as
+   Woodland/Shrubland overall. "West plateaus" isn't a single formally-named zone in
+   `terrain_zones.geojson` — the two western `plateau`-type zones are NW Plateau and South plains
+   (both `feature_type: plateau` despite the different display names) — treated as the informal
+   referent. Locked into the entry as verified, not as an assumption.
+3. **Archipelago correction** — see the correction note below: the "two smaller landmasses" from
+   the biome-species-vector work above were never actually connectivity-checked; they're 207
+   separate islets, not two. Nico's population-model question ("only Mudlizard and birds?") was
+   answered directly in chat, not written into this doc yet — see the "still open" list above.
+
+**v11 — Skydrifter's computed corridor retired, Nico's call.** Shown the v10 map, Nico's real-world
+read: a species that overflies the whole crossing "mostly instantaneously" and never lands has no
+behavioral reason to detour around terrain the way the v10 route did — the curve implied more
+deliberate routing than the locked lore ("overflight mostly instantaneous") actually supports. Also
+flagged the corridor as too narrow/precise for something with no fixed track. Direction agreed as
+roughly the North plains region (a real named terrain zone, positive-x/east-of-center, north side of
+the map) rather than the inferred north-edge-to-east-edge line. Resolution: `skydrifter_route_area_
+120m.npy` and its raster computation are RETIRED — `run_tappa7_fauna_composites.py`'s Skydrifter
+block, `np.save` call, and `tappa7_fauna_composite_meta.json`'s `skydrifter` entry all removed/
+reduced to a one-line retirement note (v10's full method stays in this doc's history above, not
+deleted — the honest record of what was tried and why it didn't fit). Replaced with a plain
+descriptive line in `scenario_reference.md`'s migratory-visitor section: a wide, roughly straight
+band over the North plains, position varying flight to flight, no GIS layer. **Cleanup: DONE
+(v12)** — `skydrifter_route_area_120m.npy`/`.tif` confirmed deleted from the repo folder alongside
+`reaper_*`, per Nico and verified via a fresh device directory listing.
+
+**v11 (second item) — SummerVisitant entry simplified, Nico's call ("the same, only describing is
+enough").** The v10 lock in `scenario_reference.md` §14 carried the full verification numbers (82.3%
+west-side share, 65.6% near-lake, 79.3% near-lake-west-concentration, the NW Plateau/South plains
+zone identification) inline in the public-facing reference doc — appropriate for this GM-only
+decisions doc, not for that one, which is meant to stay descriptive per this project's three-tier
+documentation structure. Simplified to a single descriptive sentence there; the verification numbers
+above (this doc, v10 note) remain the actual source of truth for why the habitat claim is real and
+not just repeated from Nico's phrasing unchecked.
+
+**v12 — final Tappa 7 fauna locks, Nico's call ("to lock, write these things down").** Three items
+closed in one pass: (1) archipelago population — written into Mudlizard's entry in
+`scenario_reference.md` §11 (birds default, Mudlizard also plausible on the larger islets); (2) Sea
+Terror/Moonfur conditional zones — written into Moonfur's entry in `scenario_reference.md` §8,
+extending its home range to "southwest and west coast" and stating explicitly that this is the same
+stretch where Sea Terror is sometimes found, with the existing relocation behavior kept and made
+explicitly temporary; (3) cleanup confirmed — Nico deleted the stale `reaper_*` and
+`skydrifter_route_area_*` files from the repo folder directly, verified via a fresh device directory
+listing (`data/processed/fauna/` now clean). See the "still open" list above for the corresponding
+closures.
+
+**Real finding, previously unflagged: 230.5 km² of land exists beyond the mainland and the SW
+island** — a 50.18 km² Woodland/Shrubland total and a 180.36 km² Grassland total, confirmed via area
+arithmetic against `tappa5_biomes_meta.json`'s totals (mainland + island + this = the documented
+total for each biome, exact match). These were never given mainland/island percent treatment in any
+prior pass. Deliberately left with **null** species values in the vector (not assumed to follow
+either the mainland or island model) and flagged with an explanatory `note` field.
+
+**CORRECTION (v10): this is not "two smaller landmasses."** Connected-component-labeling the land
+mask (same method used to separate mainland from the SW island above) found 207 separate small
+islets, not two — an actual archipelago, together totaling the same 230.5 km². Sizes range 0.001 to
+42.07 km² per islet (90th percentile is still only 1.58 km²; only 10 islets exceed 10 km²), and
+straight-line distance to the mainland ranges 0.24 to 52.7 km (median ~6 km; 23 islets sit within
+1 km of the mainland, 45 sit beyond 15 km). The earlier "two landmasses" framing was an unverified
+assumption from the area arithmetic alone, corrected here by actually running the connectivity
+check rather than repeating it. This changes what "an authorial call on which population model
+applies" even means — a single mainland-style-vs-island-style choice for "the islands" doesn't fit
+an archipelago with this much internal size/isolation spread; see the "still open" list above for
+the recommendation given to Nico in chat.
 
 CRS caveat, project-wide and pre-existing, not new to this file: the geojson's coordinates are in
 the project's meter-based LCC projection (`+proj=lcc +lat_1=-44.48 +lat_2=-43.52 +lat_0=-44
@@ -1276,9 +1380,8 @@ stage's actual open deliverable, not deferred to a future Tappa.
 - **Fauna distribution/range maps — this stage's actual open deliverable, not deferred.** Scoped at
   the end of §7 above; exact map content still to be decided.
 - Terracota architecture style has no assigned biome despite covering the majority of actually
-  placed Círculos (13/17 sit in Grassland) — deliberately deferred by Nico to Tappa 8, where
-  architecture will be revisited in full. Tappa 8's scope/position is unaffected by this session's
-  restructuring.
+  placed Círculos (13/17 sit in Grassland) — deliberately deferred by Nico to the Urban Scale track
+  (was "Tappa 8", see the renumbering note below), where architecture will be revisited in full.
 - Roadmap sequencing for the next scenario-depth passes, in the order Nico wants them: (1) close
   out geology (this document) — DONE, (2) develop Povo Silencioso further — DONE, (3) Vértice
   types/mechanics — DONE, (4) other Vértice-adjacent materials beyond jade/pounamu — DONE, see
@@ -1288,3 +1391,58 @@ stage's actual open deliverable, not deferred to a future Tappa.
   (not a Visitante), full design in `scenario_reference.md` §16. The aerial "sky" danger side of
   that same seed list is resolved separately — see `scenario_reference.md`'s public framing; the
   full design (which is Visitante-tied) lives only in the GM-only secret file, never this repo.
+
+## 9. Tappa 7 closed; roadmap set for Tappa 8-10 + Urban Scale (Nico's call)
+
+**Status: Tappa 7 is CLOSED for the current pass.** Nico's read, and a fair one: enough fauna
+material exists for now, no need to push everything to map scale immediately. This session stays
+open for future fauna revisits (new species, corrections, additional range maps) rather than being
+formally reopened as a new Tappa each time.
+
+**Renumbering, resolving a real collision found while planning ahead:** Tappa 6 had already locked
+"Tappa 8" as urban zoom (fine-resolution terrain regen — same noise seed/function as Tappa 1, 1-5m
+resolution, additional high-frequency octaves, hydrological reconditioning — plus per-site urban
+layout replacing Tappa 6's coarse square-window approximation, trams, and Terracota architecture).
+Nico's new roadmap proposal reused "Tappa 8" for a different domain (geomorphology), which would
+have silently orphaned that committed scope. Resolution, confirmed with Nico directly rather than
+picked unilaterally: **urban zoom is retired from the Tappa sequence entirely and becomes its own
+untethered "Urban Scale" track**, not renumbered into it — which is actually consistent with how it
+was already flagged as early as Tappa 0 ("Tappa 7, urban zoom... technique already agreed: same
+noise seed/function as Tappa 1, sampled at finer resolution"), i.e. a different resolution/technique
+from every macro-domain-wide Tappa, not just a different topic. Everything previously deferred to
+"Tappa 8" (trams, Terracota architecture, per-site urban layout) now belongs to Urban Scale instead.
+
+**Locked roadmap:**
+
+- **Tappa 8 — Geomorphology.** Lithology (§1 above, including the overlap precedence rule and the
+  verified sedimentary basin-fill class), caves (§2), and the jade/Vértice resource layer (§3) —
+  all direction-set, decision-only, ready to become real cartographic output once picked back up.
+  Possible flora mapping folded in here too, flagged honestly as genuinely unstarted territory —
+  no species-level flora exists anywhere in this project yet (only biome-level vegetation implied
+  by the Tappa 5 biome classification itself), so if Nico wants it in this Tappa it's a build-out
+  on the same scale as the Tappa 7 fauna work, not a quick add-on to the geology layer.
+- **Tappa 9 — Transports.** Roads/rail (§6, needs the biome-differentiated cost multiplier and
+  predecessor-path extraction, neither built), kite buggies (§6, wind-shadow mask simplified to
+  qualitative speed), ferries, and dangerous seas (§5, navigability model already set — designated
+  corridors, not open-sea routing). One real seam worth naming, not silently resolved here: §5's
+  dangerous-seas content is actually two things bundled together — the navigability/corridor-routing
+  constraint (a Transports concern, why ferries don't go everywhere) and the creature-danger content
+  itself (Sea Terror/Moonfur zones, a Tappa 10/Interactions concern, closer in kind to Nacre's
+  threat-band composites than to a road network). Splitting §5 across both Tappas by sub-topic, or
+  picking one home for the whole section, is Nico's call when this Tappa is actually picked up.
+- **Tappa 10 — Interactions.** Conflicts, dangers, interests. Covers §4 (dangerous creatures/
+  conflict zones, the Círculo–Povo Livre frontier tension, mapping approach already set: Povo Livre
+  suitability >80% vs. Círculo territory/infrastructure proximity) and the creature-danger half of
+  §5 per the split above. Worth flagging: a real chunk of this Tappa's raw material already exists
+  as computed raster output from the Tappa 7 fauna work (`nacre_threat_band_120m.npy`,
+  `nacre_grassmother_incursion_120m.npy`, `twinshadows_suitability_120m.npy`, `povo_livre_zone_
+  120m.npy`) — Tappa 10's job is composing/overlaying what's already built into an actual
+  conflict/danger map, not re-deriving fauna threat modeling from scratch. "Interests" is the least
+  defined of the three words in Nico's own framing (conflicts and dangers both have real locked
+  content to point to; interests doesn't yet) — needs scoping when this Tappa starts.
+- **Urban Scale — not a numbered Tappa, deliberately.** Fine-resolution terrain regen (already-
+  agreed technique from Tappa 0), per-site settlement layout (replacing Tappa 6's coarse
+  approximation), trams, Terracota architecture. Kept outside the Tappa sequence because it
+  genuinely needs a different approach (resolution, generation method) from the macro-domain-wide
+  Tappas 7-10, not because it's lower priority — Nico's own framing, and it matches what was already
+  on record about this content since the very start of the project.

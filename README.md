@@ -21,12 +21,20 @@ weighted multi-criteria composite plus greedy, cost-distance-aware site
 selection for 17 candidate settlements). This is considered complete,
 sufficient content for the portfolio case study as it stands.
 
-Two further stages are planned but currently paused, and are scoped as
-depth for the TTRPG scenario side of this project rather than additional
-portfolio material: **Tappa 7** (regional scenario deepening, still at
-macro/domain-wide scale — dangerous-creature conflict zones, road/rail
-infrastructure, dangerous seas) and **Tappa 8** (urban zoom, per-settlement
-layout at the locations Tappa 6 already chose).
+**Tappa 7** (regional scenario deepening) is also closed for this pass — the
+fauna build-out (species range/habitat, high-threat predator suitability
+composites, migratory-visitor lore) is delivered; see
+`docs/decisions/07_tappa7_regional_scenario.md`. Its other five domains
+stayed decision-only and are now scoped into a locked roadmap, currently
+paused, scoped as depth for the TTRPG scenario side of this project rather
+than additional portfolio material: **Tappa 8** (geomorphology — lithology,
+caves, resources, possibly flora), **Tappa 9** (transports — roads, rail,
+kite buggies, ferries, dangerous seas), and **Tappa 10** (interactions —
+conflicts, dangers, interests). Urban-scale work (fine-resolution
+per-settlement layout, trams, Terracota architecture) is deliberately kept
+outside this Tappa sequence as its own **Urban Scale** track, since it needs
+a different technique/resolution from the macro-domain-wide Tappas, not just
+a different topic — see 07's §9 for the full reasoning.
  
 This repository is intentionally kept separate from the portfolio site
 repository (`gis-portfolio`) — only final lightweight exports (simplified

@@ -45,6 +45,16 @@ is a real slope-weighted cost-distance (skimage.graph.MCP_Geometric), not a
 straight Euclidean decay like the rest of this pipeline -- Nico asked
 specifically for slope to shape how far the incursion penetrates, which a
 plain distance-to-cove reuse would not have captured.
+
+v10/v11 note: a computed Skydrifter flight-corridor raster (skydrifter_route_
+area_120m.npy) was built in v10, then RETIRED in v11 at Nico's call -- a species
+that overflies the whole crossing "mostly instantaneously" and never stops has
+no behavioral reason to detour around terrain, so the computed route's
+terrain-hugging curve overstated what the lore actually supports. No GIS layer
+for this species anymore; see scenario_reference.md for the plain descriptive
+lore instead (wide, roughly straight band over the North plains). DELETE the
+stale skydrifter_route_area_120m.npy/.tif files locally -- this script no
+longer regenerates them.
 """
 import numpy as np, json, math
 from scipy import ndimage
@@ -428,6 +438,18 @@ def main():
         [2, 0], default=1,
     ).astype(np.int16)  # 0=safe, 1=graduated, 2=danger
 
+    # --- v10 Skydrifter flight corridor: RETIRED, v11 (Nico's call) ---
+    # v10 computed a mountain-avoiding least-cost path (see git history / decisions doc for the
+    # full method) and buffered it into skydrifter_route_area_120m.npy. Nico's real-world read,
+    # once shown the result: a species that overflies the whole crossing "mostly instantaneously"
+    # and never stops has no behavioral reason to detour around terrain the way a ground-bound or
+    # even a soaring species would -- the curved, terrain-hugging route implied more deliberate
+    # routing than the locked lore supports. Retired the computed raster entirely; replaced with a
+    # plain descriptive lore line in scenario_reference.md (wide, roughly straight band over the
+    # North plains region, position varying flight to flight) -- no GIS layer needed for this one.
+    # skydrifter_route_area_120m.npy/.tif are now STALE -- delete them locally alongside the
+    # retired reaper_* files (see decisions doc "still open"/cleanup notes).
+
     # --- TWINSHADOWS ---
     # v2 fix (Nico's call): a real cougar's territory runs 150-1000 km2, but Temperate
     # Forest total area is only 689 km2 -- the original strict-forest exclusao could fit
@@ -791,6 +813,16 @@ def main():
                 'section) instead of the v5 ad-hoc ridge-crest-distance signal -- one real threat signal '
                 'instead of two parallel ones.',
             ],
+        },
+        'skydrifter': {
+            'status': 'v10 computed-corridor approach RETIRED (v11, Nico\'s call) -- no raster/GIS layer '
+                      'for this species. A species that overflies the whole crossing "mostly '
+                      'instantaneously" and never stops has no behavioral reason to detour around terrain '
+                      '(unlike Nacre\'s deliberate cost-distance movement) -- the v10 route\'s '
+                      'terrain-hugging curve implied more routing intent than the locked lore supports. '
+                      'Replaced with a plain descriptive line in scenario_reference.md (wide, roughly '
+                      'straight band over the North plains, varies flight to flight) -- see that doc, '
+                      'not this meta block, for the current lore.',
         },
         'twinshadows': {
             'exclusao_area_km2': round(float(twin_exclusao.sum() * res_x * res_y / 1e6), 1),

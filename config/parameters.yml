@@ -346,8 +346,14 @@ suitability:
     biome_distribution: {grassland: 13, temperate_forest: 2, woodland_shrubland: 2}
     one_large_circulo_on_sw_island: true   # Circulo_D_20k, label 135, ~794 km2
 
-# Tappa 7 (regional scenario deepening -- macro scale: dangerous-creature
-# conflict zones, road/rail infrastructure, dangerous seas) and Tappa 8
-# (urban zoom, renumbered from the originally-planned Tappa 7) are both
-# PAUSED as of Tappa 6's close -- see README.md "Pipeline status" and
-# docs/decisions/06_tappa6_suitability.md S13. Criteria not yet defined.
+# Tappa 7 (regional scenario deepening) ran and CLOSED -- fauna build-out
+# delivered (see docs/decisions/07_tappa7_regional_scenario.md); its other
+# five domains (geology/lithology, caves, resources, dangerous creatures,
+# dangerous seas, transportation) stayed decision-only and are now scoped
+# into a locked roadmap, see that doc's S9: Tappa 8 (geomorphology), Tappa 9
+# (transports), Tappa 10 (interactions). Urban zoom is no longer "Tappa 8"
+# -- retired from the Tappa sequence, now its own untethered Urban Scale
+# track (different technique/resolution from the macro-domain Tappas, not
+# just a different topic). All PAUSED as of this update -- see README.md
+# "Pipeline status". Criteria not yet defined for Tappa 8-10; Urban Scale's
+# technique was already agreed back at Tappa 0.
