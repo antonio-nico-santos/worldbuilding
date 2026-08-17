@@ -162,8 +162,8 @@ at the coast and working inland toward the still-open tundra apex predator (see
 | SummerVisitant (Wetducks) | Steamer duck (*Tachyeres*) — weak/flightless-leaning flight, exceptional swimming and diving instead | Seasonal, opposite the real Visitantes' winter-solstice timing | Present on interior lakes for part of the year; migration origin/destination unconfirmed — see §14 |
 
 A persistent, unconfirmed fishermen's rumor — something moving beneath Shadowless Sardine schools
-that scatter without visible cause, never actually sighted — is folded into the existing "open sea
-is dangerous" lore (§18) rather than built out as its own species.
+that scatter without visible cause, never actually sighted — is folded into "the hunter of the deep
+seas" (§19, Legends and Rumors) rather than built out as its own species.
 
 ## 9. Grassland fauna
 
@@ -254,8 +254,8 @@ rather than decoratively.
 
 - **Clicksnake** — Grassland resident, prairie-rattlesnake-anchored (~1.2-1.5 m), venomous — a
   deliberate everyday-scale danger for the island's main Círculo biome, distinct from the
-  mythic-tier threats (sky-watcher, the future apex predator) and the migratory-tier ones (Sea
-  Terror). Real infrared pit-organ heat sensing carries over unmodified as baseline biology. Real
+  mythic-tier threats (§19, Legends and Rumors) and the migratory-tier ones (Sea Terror). Real
+  infrared pit-organ heat sensing carries over unmodified as baseline biology. Real
   echolocation — otherwise unique to bats and toothed whales among real animals — is grafted on,
   but deliberately pitched in the human-audible range rather than ultrasonic; the honest real
   citation for audible-frequency echolocation is oilbirds and cave swiftlets, not bats, and it's
@@ -270,8 +270,7 @@ rather than decoratively.
   aposematic warning coloration (the same black/yellow/red palette real coral snakes and their
   mimics use) and a deliberate, distant echo of male Grassmothers' coloring, since the two species
   share the same Grassland habitat — real unrelated species converging on similar coloration under
-  shared habitat pressure is a documented phenomenon, not a coincidence. Kept visually and
-  geographically distinct from the unrelated alpine "white serpent" folk legend (§18).
+  shared habitat pressure is a documented phenomenon, not a coincidence.
 
 ## 12. Small mammals
 
@@ -462,19 +461,20 @@ hunter would need to contend with both an early-warning colony network and indiv
 hearing in its prey — a hook worth carrying forward when that final niche is designed, not a
 problem to design around.
 
-## 16. Alpine/tundra apex predator — Reaper
+## 16. Alpine/tundra apex predator — Nacre
 
 The final species in the fauna build-out, and the original open item from the dangerous-creatures
 seed list (see `07_tappa7_regional_scenario.md` §4). Deliberately named apart from the rest of this
 document's fauna: every other resident species uses a descriptive trait-compound name (Cryburrow,
-Deergoat, Clicksnake, and so on); Reaper instead takes a single proper-noun name, the same register
-already used for this world's other entities that sit apart from ordinary wildlife — the
-sky-watcher, Povo Silencioso, the Visitantes. Reaper is still explicitly ordinary wildlife, not a
-Visitante or anything Vértice-tied — the naming choice marks it as the capstone of this arc, not a
-change in category.
+Deergoat, Clicksnake, and so on); Nacre instead takes a single proper-noun name, the same register
+already used for this world's other entities that sit apart from ordinary wildlife — Povo
+Silencioso, the Visitantes. Unlike those names, Nacre's is chosen to evoke its own beauty rather
+than a threat — a deliberate contrast with how the species is actually experienced by the people
+who live near it. Nacre is still explicitly ordinary wildlife, not a Visitante or anything
+Vértice-tied — the naming choice marks it as the capstone of this arc, not a change in category.
 
 **Design method, distinct from every other resident species**: rather than a real modern-Earth
-trait recombined into a new-to-Earth combination, Reaper is anchored directly on a real but extinct
+trait recombined into a new-to-Earth combination, Nacre is anchored directly on a real but extinct
 Earth lineage — large dromaeosaurid theropod dinosaurs, most directly *Utahraptor*. This keeps the
 same underlying discipline (a real, citable animal, not an invented one) while delivering a
 scale and register nothing else in this document's fauna reaches.
@@ -485,12 +485,12 @@ insulated, with a downy underlayer beneath the visible outer feathers handling c
 separately from visible coloring — grounded in real fossil evidence of feathers in close
 dromaeosaurid relatives (quill knobs preserved on *Velociraptor* forearms) and in current
 paleontological support for elevated, bird-like metabolic rates across maniraptoran theropods
-generally. Metabolically, Reaper is modeled as mesothermic — a real, influential but still debated
+generally. Metabolically, Nacre is modeled as mesothermic — a real, influential but still debated
 hypothesis (Grady et al. 2014) proposing many dinosaurs sat metabolically between a cold-blooded
 reptile and a fully endothermic mammal, needing meaningfully less food per kilogram of body mass
 than a true endotherm of the same size. That lower relative energy demand, combined with ordinary
 large-predator gorge-and-rest feeding behavior (real lions and tigers can rest for days digesting
-a single large kill), is what makes Reaper's low hunting frequency plausible without inventing a
+a single large kill), is what makes Nacre's low hunting frequency plausible without inventing a
 special ability.
 
 **Coloring.** Countershaded — dark, cryptic gold-brown and tawny mottling across the back, pale
@@ -499,23 +499,32 @@ prey actually lives, not to its alpine home range, since its usual native prey (
 hunts by sound rather than sight and gains nothing from a predator camouflaged for vision. Real
 precedent for reconstructing a feathered dinosaur's camouflage against its actual habitat's light
 environment exists in the literature (Vinther et al. 2016, *Psittacosaurus*, via preserved
-melanosome analysis). Small patches of structurally iridescent blue-green sit around the head, neck,
-and crest — colors real mammals cannot produce (mammalian coloration runs on melanin alone, capped
-at black/brown/red/yellow; true blue and green in nature are almost always structural, a light-
-scattering keratin nanostructure effect, common across birds and reptiles). Kept deliberately
-subtle and localized — areas displayed during upright posture or between pack members, not while
-stalking low to the ground — so as not to blur with the sky-watcher's full-body, much more overt
-iridescence.
+melanosome analysis). A structurally opalescent blue-white covers the upper body and crest, far
+more extensive than a simple display patch — colors real mammals cannot produce (mammalian
+coloration runs on melanin alone, capped at black/brown/red/yellow; true blue and white iridescence
+in nature are almost always structural, a light-scattering keratin nanostructure effect, common
+across birds and reptiles). Not concealment against its native alpine prey (Cryburrow/Deergoat
+hunt by sound, so visual camouflage buys nothing there) — its real function is a pack-hunting tool:
+Nacre hunts sighted, larger prey (Grassmothers-scale game, and now humans) in coordinated ambushes,
+and the vivid coloring is used to intimidate and flush a target directly toward the rest of the
+waiting pack. Displayed openly during upright posture and active hunts, not while stalking low to
+the ground.
 
 **Territory and population.** Confined to the alpine/tundra band not by natural preference but by
 real anthropogenic range contraction — the same well-documented pattern behind real large
 carnivores (snow leopards, tigers, historically European wolves) surviving only in the marginal
 terrain human expansion hasn't claimed. Many generations of Círculo growth across the Grassland
-lowlands pushed Reaper into the least hospitable remaining territory, not the territory it would
-choose given open access to richer lowland prey. Only four known family packs exist across the
-entire alpine/tundra band, each with a semi-mapped territory informally tracked and named by
-nearby communities using cardinal/relative direction (e.g. "the South family") — the same way real
-communities near large carnivores often track and name specific known individuals or groups.
+lowlands pushed Nacre into the least hospitable remaining territory, not the territory it would
+choose given open access to richer lowland prey. A real irony once there, not the reason for going
+there: the same opalescent coloring that intimidates sighted prey on the Grassland also functions
+as effective camouflage against snow and ice — incidental to the retreat, not its cause — so Nacre,
+already the more serious threat lower down, becomes harder to see coming and more dangerous still
+once genuinely in the alpine/Permanent Snow & Ice band, this time specifically against the humans
+who pushed it there rather than against its native alpine prey, which still hunts and is hunted by
+sound, unaffected by any of this. Only four known family packs exist across the entire alpine/tundra
+band, each with a semi-mapped territory informally tracked and named by nearby communities using
+cardinal/relative direction (e.g. "the South family") — the same way real communities near large
+carnivores often track and name specific known individuals or groups.
 
 **Pack structure.** Each pack numbers 4-6: a breeding pair plus offspring of mixed maturity
 (subadults and juveniles). Real fossil support, honestly hedged rather than treated as settled: a
@@ -554,7 +563,7 @@ indirect, trackable signs rather than abstract myth.
 
 A structural gap identified only after the main coast-to-tundra fauna arc (§8-§16) had already
 closed: nothing built up to that point accounted for what happens to the biomass that arc's own
-large-bodied residents produce — Reaper's multi-day kills, Grassmothers herd mortality, livestock
+large-bodied residents produce — Nacre's multi-day kills, Grassmothers herd mortality, livestock
 losses. Two species, deliberately wide-ranging rather than tied to a single biome, the same way
 Quillhog isn't confined to one biome, since carrion turns up wherever something large enough dies.
 
@@ -589,7 +598,7 @@ Quillhog isn't confined to one biome, since carrion turns up wherever something 
 
 Together, Farsmell's airborne search and pathogen-neutralizing gut and Meatcleaner's ground-trail
 tracking and total-carcass consumption close the ecological loop this arc's large, dangerous
-residents — Reaper above all — would otherwise leave open.
+residents — Nacre above all — would otherwise leave open.
 
 ## 18. Transportation
 
@@ -600,12 +609,8 @@ much better in one wind direction than the other given how consistently the loca
 one bearing. Notably absent: no aircraft of any kind (balloons, ultralight, or otherwise) —
 explained in-world by longstanding, well-founded fear of something dangerous in the upper sky that
 reacts to anything with a wing-like silhouette. A few isolated, far-flung Círculos are rumored to
-experiment with light aircraft anyway, far from where that danger is usually encountered.
-
-A local legends have grown up around this danger. Pilots and would-be flight-attempters tell of 
-something that hides in the cloud layer and destroys any aircraft that gets too high; the only 
-physical evidence anyone has ever recovered is a handful of strikingly beautiful, pale, iridescent 
-feathers, fueling a folk belief that it's some enormous bird. 
+experiment with light aircraft anyway, far from where that danger is usually encountered. See §19,
+Legends and Rumors, for the folklore this fear has produced.
 
 Sea travel is deliberately limited rather than freely navigable: boats (which may be motorized)
 run only on a small number of explicitly designated, scheduled corridors — most notably the ferry
@@ -618,14 +623,60 @@ construct and maintain than an equivalent Grassland stretch, which should read i
 infrastructure and slower travel through Povo Livre's home biome compared to the Círculo-dominated
 Grassland interior.
 
-## 19. Population
+## 19. Legends and Rumors
+
+A dedicated home for this world's unconfirmed, secondhand folklore, consolidated from where it used
+to sit scattered across other sections. Deliberately kept apart from the rest of this document's
+fauna and society entries, which describe things that are (as far as this document goes) real and
+confirmed: everything below is explicitly rumor, partial sighting, and folk interpretation, not
+settled fact — in-world, most people who repeat these tales have never had a direct encounter
+themselves, and nobody has connected any of them to each other or to a known species.
+
+- **The sky-watcher** (also "the cloud hunter") — the reason this world has no aircraft. Pilots and
+  would-be flight-attempters tell of something that hides in the cloud layer and destroys any
+  aircraft that gets too high; the only physical evidence anyone has ever recovered is a handful of
+  strikingly beautiful, pale, iridescent feathers, fueling a folk belief that it's some enormous
+  bird. A few isolated, far-flung Círculos are rumored to experiment with light aircraft anyway, far
+  from where the danger is usually encountered.
+
+- **The giant serpent** — isolated mountain communities near the northern peaks tell of an
+  enormous, pale serpent glimpsed rarely on the high snow line. No attacks are attributed to it,
+  only sightings, and it's treated as a distinct, unrelated creature from the sky-watcher of the
+  pilots' stories. Some tellers link the sightings to Nacre — a folk theory, never confirmed on
+  either side, and not something Nacre's own known behavior obviously explains (Nacre is
+  quadrupedal, feathered, and firmly earthbound, not serpentine).
+
+- **The lands overseas** — sea travel runs only on a small number of designated, scheduled
+  corridors, never across the open sea generally, which is treated as genuinely dangerous. Old
+  sailors and fishing crews occasionally tell of coastlines or lights glimpsed far past the known
+  ferry route, further out than any Círculo vessel has confirmed reaching. Never substantiated —
+  dismissed by most as fog and fatigue — but persistent enough that a few old charts still mark the
+  edge of the known sea with a warning rather than leaving it simply blank.
+
+- **The hunter of the deep seas** — grounded in an existing, previously unattached fishermen's
+  rumor (§8): Shadowless Sardine schools occasionally scatter without visible cause, something never
+  actually sighted, only inferred from the school's reaction. The same folk name gets reached for
+  whenever an expected Green Mackerel bloom fails to arrive, or a boat is lost on one of the rarer
+  long-corridor crossings, beyond what Sea Terror's own known, irregular arrivals already account
+  for. Whether it names a real, separate phenomenon or is simply what people call the
+  unpredictability already built into Sea Terror's documented behavior is left open.
+
+- **The guardian of Povo Silencioso** — genuine encounters with Povo Silencioso are rare, and most
+  of what circulates about them is secondhand. Some attribute that near-total absence of confirmed
+  contact to something beyond ordinary isolation — a guardian, described inconsistently from telling
+  to telling, said to keep outsiders from getting close to the NE archipelago at all.
+
+Room for further entries as other lore develops (an eventual increment to the Povo Silencioso
+material is the likeliest next addition).
+
+## 20. Population
 
 Approximately 200,000 people live across the island today. The large majority are within the 17
 established Círculos (~135,000 combined, across 4 large/5 medium/8 small settlements). The
 remainder — roughly 65,000 — are accounted for by nomadic groups, Povo Livre, and smaller unlisted
 settlements.
 
-## 20. Vértices — the magic system
+## 21. Vértices — the magic system
 
 Public framing only: how Vértice practice actually works, mechanically and materially. Where this
 knowledge originally came from is genuinely unsettled even in-world, and is deliberately left out

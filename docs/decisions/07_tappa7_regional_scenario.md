@@ -170,7 +170,7 @@ holds. Status per seed:
 
 | seed | status |
 |---|---|
-| Alpine terrestrial apex predator | **RESOLVED as Reaper.** Real dromaeosaurid-anchored (Utahraptor-scale), territorial, alpine/tundra band, confined there by real anthropogenic range-contraction logic rather than preference. Seasonal snowmelt-triggered lowland descents, resource-scarcity-driven — see `scenario_reference.md` §16 |
+| Alpine terrestrial apex predator | **RESOLVED as Nacre.** Real dromaeosaurid-anchored (Utahraptor-scale), territorial, alpine/tundra band, confined there by real anthropogenic range-contraction logic rather than preference. Seasonal snowmelt-triggered lowland descents, resource-scarcity-driven — see `scenario_reference.md` §16 |
 | Aerial "sky" danger | Resolved as a **narrative device**, not an ecology model — see `scenario_reference.md`; do not build as ordinary wildlife territory |
 | Volcanic/geothermal hazard (Caldária) | Buildable — ties directly to the volcanic lithology class above |
 | Seasonal toxic bloom | **RESOLVED: Wet Forest.** External hazard for Povo Livre rather than internal Círculo-economy tension — see `scenario_reference.md` for the narrative tie-in (Povo Livre's own knowledge of bloom timing/location becomes a point of local expertise). Should still anchor to an existing Tappa 2/3 seasonal month, not an invented one — not yet picked |
@@ -209,7 +209,7 @@ is an acceptable resolution since open-ocean routing was never the intent).
 - **Trams** — urban-scale, large Círculos only. Deferred to Tappa 8 (urban zoom) — Tappa 6's
   site-selection windows are too coarse for tram-layout detail below the four large Círculos.
 - **Electric utility vehicles, bikes** — ride the road network once it exists; no new modeling.
-- **Domesticated animals** — yak (alpine/Spine niche), reindeer (Círculo
+- **Domesticated animals** — yak (alpine/Spine niche, close to Earth form), reindeer (Círculo
   Grassland ecotype + Povo Livre/nomad forest ecotype), sheep, dogs, chickens — each diverged into
   biome/ecotype variants. Full grounding in `scenario_reference.md` §7.
 - **Boats** — slow, scheduled ferries, running only on the small set of explicitly-designated
@@ -245,8 +245,9 @@ as exotic. Migratory species are explicitly not counted as island fauna.
 **Status:**
 
 - **Coastal/marine niche — DONE.** Two resident species (Shadowless Sardine, Moonfur) plus six
-  migratory visitors (Green Mackerel, Sea Terror, Bronzeshell, Stained Penguin, Skydrifter, and 
-  SummerVisitant/Wetducks). Full species detail in `scenario_reference.md` §8.
+  migratory visitors (Green Mackerel, Sea Terror, Bronzeshell, Stained Penguin, Skydrifter, and one
+  still-unnamed sixth migrant whose true nature is deliberately left undeveloped for now, to be
+  picked up alongside the bird niche). Full species detail in `scenario_reference.md` §8.
 - **Grassland large-grazer niche — DONE.** One species, Grassmothers — bison-anchored matriarchal
   bovid with a windiest-region eye-fringe ecotype (real citation: Highland cattle forelock). Full
   detail in `scenario_reference.md` §9.
@@ -297,7 +298,7 @@ as exotic. Migratory species are explicitly not counted as island fauna.
   solitary/acoustic-directional — a deliberate constraint carried forward into the final niche.
   Full detail in `scenario_reference.md` §15.
 - **Tundra/alpine apex predator niche — DONE. This closes the fauna build-out initiative.**
-  Reaper: a real dromaeosaurid-anchored (Utahraptor-scale, ~7m/~500kg) apex predator, the sole
+  Nacre: a real dromaeosaurid-anchored (Utahraptor-scale, ~7m/~500kg) apex predator, the sole
   fully-fictional-lineage (extinct-Earth-anchored, not modern-Earth) resident species in this
   fauna set, and the only one given a single proper-noun name rather than a trait-compound name —
   deliberately marking it as this arc's capstone. Feathered/insulated, mesothermic (real, debated
@@ -320,7 +321,7 @@ the multi-session initiative opened at the start of this section is closed.
 
 **Post-closure addition — decomposers/scavengers, DONE.** A genuine structural gap identified only
 after the arc above had already closed: nothing built accounted for what happens to the biomass the
-arc's own large-bodied residents produce (Reaper's multi-day kills, Grassmothers mortality,
+arc's own large-bodied residents produce (Nacre's multi-day kills, Grassmothers mortality,
 livestock losses). Two species, deliberately wide-ranging across biomes rather than tied to one:
 Farsmell (condor-scale vulture-anchored aerial scavenger, dark plumage, real turkey-vulture
 olfaction extended past any real vulture's range to detect carrion scent under forest canopy) and
@@ -335,8 +336,8 @@ distinct detection mechanism from Farsmell's airborne search). Full detail in
 real Earth names. Every wild species instead uses an invented trait-compound name (Cryburrow,
 Deergoat, Clicksnake, Grassmothers, and so on). A third, higher register is reserved specifically
 for entities whose danger sets them apart from ordinary wildlife: a single proper noun rather than
-a compound descriptor. Reaper is the only fauna example; the sky-watcher (§4 above) uses the same
-register. This is a naming rule, not a taxonomy change — Reaper is still explicitly ordinary
+a compound descriptor. Nacre is the only fauna example; the sky-watcher (§4 above) uses the same
+register. This is a naming rule, not a taxonomy change — Nacre is still explicitly ordinary
 wildlife, not myth or Vértice-tied; the naming choice alone marks the danger tier.
 
 **Cartographic deliverable — this stage's one map product, SPEC IN PROGRESS, NOT YET BUILT.** Fauna
@@ -355,10 +356,10 @@ distribution can honestly be derived from, not by taxonomy:
   Scattermouse, Quillhog, Snaketail, Treefox, Furypack, Trinketbird, Rustowl (mainland ecotype),
   Cryburrow, Deergoat, Farsmell, Meatcleaner, **and Clicksnake, reclassified into this bucket this
   session** — see below.
-- **High-threat species** — Reaper and Twinshadows only (Clicksnake reclassified out, see below):
+- **High-threat species** — Nacre and Twinshadows only (Clicksnake reclassified out, see below):
   Tappa-6-style suitability composites (weighted layer stacks), not the percent table, since each has
   a hard biome/habitat requirement plus graded preferences within it that a flat percent table can't
-  express (Reaper: alpine/tundra + anthropogenic range-contraction + prey-base proximity; Twinshadows:
+  express (Nacre: alpine/tundra + anthropogenic range-contraction + prey-base proximity; Twinshadows:
   dense low-light forest + prey-base proximity). Composite weights LOCKED this session, see below.
 - **Domesticated animals** — three primitives, LOCKED this session (method only — not yet computed,
   see below): point-per-Círculo for Círculo-kept ecotypes (straight lookup against the existing
@@ -398,7 +399,7 @@ split across separate massifs on different arms of the branching spine (main spi
 West branch / South branch, per `terrain_ridges.geojson`): Alpine Tundra (480 km² on the main spine,
 136.5 km² ~40 km away on the South Branch), Permanent Snow & Ice (684.5 km² main spine, 263.2 km²
 further SE), and Temperate Forest (456.2 km² near the main spine, 196.6 km² ~35 km away near the West
-Branch). This directly informs the still-open Reaper suitability composite: the "4 known family
+Branch). This directly informs the still-open Nacre suitability composite: the "4 known family
 packs" lore already fits a main-spine-massif / South-Branch-massif split that wasn't authored with
 this data in mind — worth anchoring specific packs to specific massifs rather than painting one
 undifferentiated alpine range. Same logic applies to Cryburrow/Deergoat (same biomes) and to Blacknose
@@ -441,13 +442,13 @@ grounded in each species' existing real-world anchor rather than a blanket rule:
   anchor).
 
 **High-threat bucket needs the same per-species island review, CONFIRMED after Nico caught the gap** —
-Reaper and Twinshadows happen to already be excluded from the island (no alpine, no forest), but that
+Nacre and Twinshadows happen to already be excluded from the island (no alpine, no forest), but that
 was incidental to their own habitat requirements, not because the bucket had actually been reviewed.
 **Clicksnake — LOCKED as present on the island**, same High threat level as the mainland population.
 Stronger case than most of the regular-bucket "low-moderate" calls above: reptiles are disproportionately
 successful natural island colonizers compared to similarly-sized mammals, specifically because low
 metabolic rate lets them survive a debris-rafting crossing without feeding — a standard real
-herpetological-biogeography citation — and unlike Reaper/Twinshadows, Clicksnake's habitat requirement
+herpetological-biogeography citation — and unlike Nacre/Twinshadows, Clicksnake's habitat requirement
 (near-uniform Grassland) is actually present on the island (30.9% of its area). One non-blocking detail:
 Clicksnake's coloring was written as "a distant echo of male Grassmothers' coloring, since the two
 species share the same Grassland habitat" (§11/13 of `scenario_reference.md`) — Grassmothers is
@@ -538,7 +539,7 @@ Clicksnake is now a row in this sheet directly (reclassified out of the high-thr
 below) — Grassland 100%/Woodland-Shrubland 15%, same as its mainland values, no colonization
 discount, per its existing parity lock above.
 
-**High-threat suitability composites — LOCKED this session, Reaper and Twinshadows only.**
+**High-threat suitability composites — LOCKED this session, Nacre and Twinshadows only.**
 Clicksnake reclassified out of this bucket entirely: its stated design constraint ("near-uniform
 across Grassland") is exactly what the regular-bucket Specialist archetype already expresses — a
 weighted composite wasn't adding anything a flat percent-table row couldn't already say, so it
@@ -552,12 +553,11 @@ own **exclusão** concept (`06_tappa6_suitability.md` §0): a 0/1 multiplier on 
 an additive núcleo term — the same architectural role the Povo Silencioso buffer already plays
 there, just gated by biome membership instead of distance-to-archipelago.
 
-- **Reaper** — exclusão: Alpine Fellfield ∪ Alpine Tundra. Within that, núcleo layers: distance
-  from Círculo/settlement infrastructure, farther = more suitable (45% — its single most
-  load-bearing citation, "confined... by real anthropogenic range contraction," not preference);
-  prey-base proximity, reusing the regular-bucket percent table's Cryburrow + Deergoat values as an
-  input layer (35% — stated baseline diet); ruggedness/remoteness (20% — real large-carnivore
-  precedent for marginal, rugged terrain once anthropogenic pressure pushes a species out).
+- **Nacre** — **SUPERSEDED this session, see the "Nacre v6" subsection below.** Was: exclusão =
+  Alpine Fellfield ∪ Alpine Tundra; núcleo = distance from Círculo/settlement infrastructure (45%),
+  Cryburrow+Deergoat prey-base proximity (35%), ruggedness/remoteness (20%). Nico's redesign
+  replaces this entire exclusão/núcleo architecture with a graduated field with no hard mask —
+  original rationale kept here for history, not current.
 - **Twinshadows** — exclusão: Temperate Forest (the "dense, low-light forest" habitat named for
   its melanism citation). Within that, núcleo layers: low-light proxy (40% — a loose stand-in for
   canopy density/"low-light," flagged honestly as terrain insolation, not vegetation cover; this
@@ -589,16 +589,18 @@ biome within 1 km of a stream on the mainland, similarly dense on the island). T
 same conclusion: this world's hydrology doesn't vary enough to use as a differentiating layer on
 its own, for settlements or for fauna.
 
-One dependency still open: "distance from Círculo/settlement" doesn't exist in the pipeline yet —
-a new raster to compute (distance-to-nearest-Círculo-point), not something Tappa 6 already
-produced.
+"Distance from Círculo/settlement" is now built — `dist_to_circulo_km` (distance-transform from
+the real 17-Círculo point table, min-max normalized against the land-area 99th percentile so it
+saturates rather than growing unbounded at the map's far corners). Computed alongside the rest of
+this section's composites, see below.
 
-**Alpine resource outposts — domesticated-animal bucket's third primitive, LOCKED this session
-(method only, coordinates NOT YET COMPUTED — see below).** Grew out of a real gap: yak (alpine/
+**Alpine resource outposts — domesticated-animal bucket's third primitive, LOCKED this session,
+computed later this session (see below — method was corrected mid-computation).** Grew out of a
+real gap: yak (alpine/
 Spine niche) had no Círculo to attach to under the original point-per-Círculo model, since none of
 the real 17 sites sit in an alpine biome at all (Tappa 6's site-selection algorithm structurally
 never favors that terrain). Resolved by dropping yak from the original-17 lookup entirely — its
-lore-established "herders already living in the range" (§16, Reaper) was never actually tied to
+lore-established "herders already living in the range" (§16, Nacre) was never actually tied to
 the 17 mapped Círculos in the first place — and giving it a new settlement type instead.
 
 **One settlement type, not two.** Small, closed outposts sited near the Spine for resource
@@ -617,7 +619,7 @@ already inherited from Tappa 6:**
   real-world mining-camp pattern, so this trades off against the other two layers rather than
   gating them.
 - Slope (~25%) — reuses `slope_suitability_120m` directly, in its native human-buildability sense
-  (gentle = suitable) — unlike the Reaper/Twinshadows composites above, no inverted curve needed
+  (gentle = suitable) — unlike the Nacre/Twinshadows composites above, no inverted curve needed
   here.
 - Climate mildness (~35%) — reuses `biotemperature_c` (Tappa 5) as a survivability proxy within the
   alpine band: warmer within that band = more livable, avoiding the coldest ground nearest
@@ -625,7 +627,7 @@ already inherited from Tappa 6:**
 
 **Site generation**: local suitability maxima within each confirmed alpine/subalpine massif (same
 connected-component segmentation already run for the biome-fragmentation check), not a dense
-placement algorithm — a handful of specific candidates, matched in scale to Reaper's own "4 known
+placement algorithm — a handful of specific candidates, matched in scale to Nacre's own "4 known
 family packs," not saturating the range.
 
 **Status — active / abandoned / temporary refuge — is a separate, later authorial decision, NOT
@@ -645,20 +647,20 @@ this — unlike yak (pack animal) and sheep (already has an established Terraped
 reindeer has no existing alpine-adjacent reason to be there; its feral presence is simply
 opportunistic historical keeping at a since-abandoned site, not a distinct locked variant.
 
-**Narrative payoff, LOCKED**: abandonment ties directly to Reaper's own anthropogenic-range-
+**Narrative payoff, LOCKED**: abandonment ties directly to Nacre's own anthropogenic-range-
 contraction citation — sustained predation pressure on an outpost is the mechanism, reinforcing
-existing lore (mutual human/Reaper retreat from the same marginal frontier) rather than adding an
+existing lore (mutual human/Nacre retreat from the same marginal frontier) rather than adding an
 unrelated cause. Made concrete via the status-derivation method below rather than left abstract.
 
-**Outpost status (active / temporary refuge / abandoned) — LOCKED as derived from a Reaper-
-exposure overlay, not freehand.** Not sampled as Reaper's raw suitability *value* at each outpost
+**Outpost status (active / temporary refuge / abandoned) — LOCKED as derived from a Nacre-
+exposure overlay, not freehand.** Not sampled as Nacre's raw suitability *value* at each outpost
 — outposts need buildable slope and mild climate to exist at all, which puts most candidates just
-below the harshest terrain, outside Reaper's hard exclusão mask (Alpine Fellfield ∪ Alpine
+below the harshest terrain, outside Nacre's hard exclusão mask (Alpine Fellfield ∪ Alpine
 Tundra) entirely; sampling suitability there would mostly read 0 and give no differentiation.
-Instead: **distance from each outpost to the nearest Reaper pack territory** (see massif
+Instead: **distance from each outpost to the nearest Nacre pack territory** (see massif
 assignment below) is the exposure signal. Three tiers, each with a real mechanism, not just three
 bins on one gradient: **active** (low exposure, occupied year-round); **temporary refuge**
-(moderate exposure, occupied most of the year but evacuated specifically during Reaper's real
+(moderate exposure, occupied most of the year but evacuated specifically during Nacre's real
 snowmelt-triggered descent window, late winter/early spring — the same real transhumance pattern
 of seasonally dodging a known danger window, not an invented mechanic); **abandoned** (exposure
 became untenable entirely). Kept as a strong prior, not a hard threshold — real abandonment
@@ -666,8 +668,8 @@ history has causes beyond predation exposure (resource depletion, economic shift
 every status purely off a distance number would trade one kind of arbitrariness for another;
 exposure informs the authorial call, doesn't automate it.
 
-**Reaper pack-to-massif assignment — LOCKED, closing this open item.** Checked against the real
-fragmentation numbers rather than assumed: Reaper's actual habitat mask (Alpine Fellfield ∪ Alpine
+**Nacre pack-to-massif assignment — LOCKED, closing this open item.** Checked against the real
+fragmentation numbers rather than assumed: Nacre's actual habitat mask (Alpine Fellfield ∪ Alpine
 Tundra, not Permanent Snow & Ice) has only **two** real massifs, not four. Alpine Fellfield is
 essentially unfragmented (395.8 of 396.0 km² in one patch); Alpine Tundra is the one that splits —
 480 km² on the main spine, 136.5 km² on the South Branch, ~40 km apart. Main spine ≈876 km²
@@ -684,19 +686,481 @@ hook means an outpost equidistant from both massifs isn't equally exposed at thi
 story — South Branch is currently the sharper danger. Outpost-status exposure = distance to
 nearest massif, with a South-Branch-specific multiplier on top reflecting the current instability.
 
-Not yet computed: both composites (outposts and Reaper) need real data staged and run —
-`slope_suitability_120m`, `biotemperature_c`, and Reaper's own suitability layers aren't staged
-yet (only `terrain_ridges.geojson` is). Method is fully locked for both; coordinates are not.
+**COMPUTED this session** (`run_tappa7_fauna_composites.py`, outputs under
+`data/processed/fauna/`, summarized in the new "Computed Composites" sheet of
+`tappa7_fauna_biome_percent.xlsx`). All four composites above (Nacre, Twinshadows, the
+pack-to-massif exposure overlay, and the alpine-outpost siting) ran against the real staged data
+for the first time. Real numbers:
 
-**Still open, not yet decided:**
+- **Nacre**: exclusão mask = 1011.5 km² (matches the 1012.5 km² AF+AT total from the earlier
+  fragmentation check, small gap from the majority-filter smoothing already documented in Tappa 6).
+  Mean núcleo suitability within the mask: 0.67.
+- **Twinshadows**: exclusão mask = 689.0 km² (matches Tappa 6's own Temperate Forest area exactly).
+  Mean núcleo suitability within the mask: 0.618.
+- **Pack-to-massif assignment — direct recomputation confirms the prior lock almost exactly**: 2
+  connected components found on Nacre's own exclusão mask, 875.1 km² (main spine) vs. 136.4 km²
+  (South Branch), ratio 6.42:1 — versus the ≈6.4:1 predicted from the earlier fragmentation numbers.
+  This is a real independent cross-check, not a restatement: the massif split was re-derived from
+  scratch this run and landed on the same two components.
+- **Alpine outposts — method corrected mid-computation, then count revised against a real-world
+  benchmark.** The originally locked composite (40% resource proximity / 25% slope / 35% climate,
+  searched within one full falloff radius, ~15km, of each ridge) turned out not to work: climate
+  mildness and slope both reward exactly the terrain farthest from the ridge, so the greedy
+  site-picker always landed in ordinary valley-floor Grassland or Woodland/Shrubland —
+  geographically indistinguishable from a regular Círculo site, which defeats the entire premise of
+  a separate alpine-outpost settlement type. A second bug surfaced in the same pass: Permanent Snow
+  & Ice sits outside Nacre's exclusão mask (which only covers Alpine Fellfield/Alpine Tundra) but
+  is obviously unbuildable, and wasn't being excluded. **Fix, confirmed with Nico**: restrict the
+  search zone to the real Subalpine biome band (Wet Forest/Woodland/Dry Scrub) within 8km of the
+  Spine or South Branch ridge axis, and reweight to resource proximity 60% / slope 15% / climate
+  mildness 25% so nearness to the ridge dominates and climate/slope only break ties among
+  already-close candidates. That produced 4 geographically sound candidates (3 main-spine / 1 South
+  Branch) — correct in kind, but Nico then asked how that count compared to real alpine hut/refuge
+  networks, which surfaced a second revision:
+- **Real-world benchmark check**: Aoraki/Mount Cook National Park, NZ — the closest real analog
+  (a discrete alpine park, not an entire mountain range) — covers 707–722 km² and holds 15 huts,
+  ≈1 per 47.7 km². Applied to the original 8km search zone (182.9 km²), that density implies only
+  ~3.8 outposts — meaning the first 4 candidates weren't actually undercounted relative to real
+  tourist-hut spacing, they were already matched to it. The only defensible way to get "more" was to
+  widen the candidate zone, not loosen the spacing. European Alps huts (~1,300 across
+  ~190,000-200,000 km², ≈1 per 145-150 km²) and NZ's nationwide alpine-classified huts (~32 across
+  the whole 500km Southern Alps) were checked too but are much sparser and diluted by non-alpine
+  terrain or country-wide scale — Aoraki is the better unit-for-unit comparison. Caveat flagged to
+  Nico and worth repeating here: real hut density reflects tourist day-hike spacing, not
+  resource-extraction/research-station siting, which is real-world sparser — this benchmark is an
+  order-of-magnitude anchor, not a number to hit exactly.
+- **Revised, LOCKED**: search radius widened from 8km to the full 15km falloff radius (reuses the
+  same `falloff_km` already locked for schist/jade siting elsewhere in this doc, not a new
+  parameter) — zone grows to 852.1 km² (588.2 main spine / 263.9 South Branch), which at Aoraki
+  density implies ~17.9 outposts, rounded to a target of **18** (12 main-spine / 6 South Branch,
+  split by each massif's own search-zone area rather than the earlier fixed 3-pack/1-pack mirror).
+  Minimum candidate separation tightened from 5km to 3km so 18 slots are actually fillable within
+  the wider zone. All 18 land in Subalpine Wet Forest/Woodland/Dry Scrub as before. Nacre-exposure
+  status priors (NOT an authorial final call — see the locked method above): 7 active, 5 temporary
+  refuge, 6 abandoned. Notably, **all 6 South Branch candidates read as abandoned or temporary
+  refuge, none active** — a direct, non-coincidental consequence of South Branch's exposure-weight
+  multiplier, not a modeling artifact. Full table with suitability breakdowns in the xlsx sheet and
+  `outpost_candidates.geojson`.
+- **Domesticated Círculo-point / Povo-Livre-zone lookups**: 13 of the 17 real Círculo sites are
+  Grassland (reindeer Círculo ecotype + sheep lowland ecotype eligible there; dogs/chickens ubiquitous
+  at all 17 per the locked method, no filter). Povo Livre zone (`suitability_povo_livre_120m` >
+  0.80) = 2353.4 km², 23.8% of land — reindeer forest ecotype, dog companion/tracking type, chicken
+  free-ranging landrace apply there.
 
-- Domesticated-animal Círculo-point/Povo-Livre-zone/alpine-outpost rendering — method LOCKED for
-  all three primitives, none actually computed yet (needs `slope_suitability_120m` and
-  `biotemperature_c` staged for the outpost composite).
-- Alpine outposts: exact number/location of candidates (needs the composite actually run), and the
-  active/temporary-refuge/abandoned status per candidate — exposure-derivation method LOCKED
-  (distance to nearest Reaper pack territory, South-Branch-weighted), still needs both composites
-  actually computed to produce real numbers.
+**v4 — three real problems Nico caught from the v3 map, all fixed this session:**
+
+- **Outpost clustering (real bug)**: the 18-candidate greedy picker checked minimum separation
+  only *within* each massif's own candidate list, never across the two — so main-spine and South
+  Branch picks independently converged on the same spot where the two ridges' 15km falloff radii
+  overlap (resource proximity gets boosted there by both ridges at once), piling most candidates
+  into one narrow strip near that overlap instead of spreading along the ~50km Spine. **Fix**: each
+  massif's search zone is now binned into equal-arclength segments along its own ridge (12 bins on
+  the Spine, 6 on South Branch), one candidate picked per bin, with a minimum-separation check
+  applied *globally* across both zones. Result: 16/18 filled (2 South Branch bins had no valid
+  Subalpine cell within the search zone + separation constraint — left empty and documented, not
+  force-filled), spread from x=-28 to 35km, y=-33 to 32km — along the full ridge shape now, not
+  clustered.
+- **Twinshadows too small to read as a territorial threat (real modeling gap)**: the exclusão mask
+  was Temperate Forest only, 689 km² total. A real cougar's territory is 150–1000 km² — the entire
+  mask could fit under 1 to ~4.6 individuals in its whole range, which is why it read as an
+  insignificant patch rather than a wide-ranging predator. **Fix, confirmed with Nico**: exclusão
+  extended to Temperate Forest ∪ Woodland/Shrubland within a 10km buffer of the forest edge (the
+  middle of the ~7–18km characteristic territory radius implied by 150–1000 km², radius =
+  √(area/π) — a documented estimate, not a precise figure). Mirrors the ecotone concept already
+  used for Snaketail/Furypack. New exclusão area: 2211.7 km² (was 689.0), mean suitability within
+  mask 0.405 (down from 0.618 — expected, since edge cells are lower-quality than forest interior,
+  but the *territory* now reads at a believable scale).
+- **Nacre massif overlay looked inverted (real plotting bug, not a data bug)**: confirmed the
+  underlying data was never wrong — direct recomputation shows the "main spine" component
+  (875.1 km²) sits at x -19.9 to 33.1km / y -4.4 to 26.6km, matching the real `Spine` ridge
+  geometry exactly, and the "South Branch" component (136.4 km²) matches the real `South Branch`
+  ridge geometry exactly. The bug was in the map image only: `matplotlib.contour()` does not
+  inherit `imshow()`'s `origin='upper'` default when both share the same `extent` — verified
+  empirically with a synthetic test array before touching the real plot. Fixed by passing
+  `origin='upper'` explicitly to every `contour()` call; the massif outlines now align with the
+  raster underneath them.
+- **Nacre's two-tier framing, formalized**: per Nico's ask for "normal extent vs. possibility of
+  attack at other times of year" — the `nacre_exposure_120m.npy` raster already built for outpost
+  status *is* functionally a seasonal-incursion probability surface (same mechanism: distance-decay
+  from pack territory, tied to the real snowmelt-triggered descent window already locked). Reused
+  rather than rebuilt: **Tier 1** = year-round core range (the hard exclusão composite, unchanged).
+  **Tier 2** = seasonal incursion probability (the exposure raster, now documented explicitly as
+  Nacre's second suitability tier in `tappa7_fauna_composite_meta.json`).
+
+**v5 — outposts moved from the base of the alpine region into the alpine region itself (Nico's
+map-review catch, next round):** v2–v4's search zone was the real Subalpine biome band (Wet
+Forest/Woodland/Dry Scrub, ids 4–6) within 15km of the ridge axis — geographically sound, but every
+candidate sat at the *base* of the alpine zone, never inside it. Nico's note: "some at the peak is
+fine (the South family), but not all should be at the base." Fix: search zone moved into Alpine
+Fellfield ∪ Alpine Tundra itself (ids 2–3).
+
+A real consequence surfaced immediately, before this could be treated as a done fix: ids 2–3 are,
+cell for cell, **the same footprint as Nacre's own exclusão mask** (both ≈1012.5 km²) — every
+outpost now sits *inside* Nacre's core territory. The original status-differentiation signal
+(distance to the whole massif mask, `nacre_exposure_120m.npy`) saturates to ~1.0–1.3 for 100% of
+alpine cells once sampled from inside them, which would have collapsed active/temporary
+refuge/abandoned into a meaningless near-constant. Flagged to Nico before implementing further;
+chosen fix (of 3 options presented): derive a **separate**, outpost-only exposure signal from
+distance to the ridge crest line (`dist_spine_km`/`dist_sbridge_km`, already computed for
+`resource_suit` — no new geometry), real range 0–14.7 km on the main spine, 0–8.8 km on South
+Branch. `nacre_exposure_120m.npy` (Tier 2, the lowland seasonal-incursion raster) is untouched —
+only outpost `status_prior` derivation changed. Real narrative consequence, not an artifact: the
+ridge-closest sites (also the best `resource_suit`) now read as the *most* exposed — richest sites
+are the most dangerous, a defensible trade-off rather than a coincidence.
+
+Result: 18/18 filled (0 unfilled bins, an improvement over v4's 16/18 — the alpine band's own
+shape happened to accommodate the arclength binning better than the subalpine band did). Split
+between massifs changed to 16 main-spine / 2 South Branch, now proportional to each massif's own
+area (875.1 km² vs. 136.4 km², the same ≈6.4:1 ratio already locked for pack count) rather than the
+old subalpine-band-derived split. Status distribution: 9 active, 7 temporary refuge, 2 abandoned —
+both South Branch candidates read abandoned, consistent with its already-locked exposure-weight
+multiplier reflecting current pack instability there.
+
+**Residual pattern worth flagging, not yet addressed**: checked how deep into the alpine band the
+main-spine candidates actually sit (distance to the nearest non-alpine cell) — most land shallow,
+0.12–0.96 km from the alpine/subalpine edge, against a real maximum possible depth of 4.35 km in
+this band. The literal ask ("within the alpine region") is satisfied — every candidate is inside
+Alpine Fellfield/Alpine Tundra, none in Subalpine — but the same underlying dynamic that pushed v1–
+v4 toward the mildest available ground (slope + climate mildness both reward gentler terrain, and
+gentler terrain within the alpine band itself concentrates near its lower/outer edge) is still
+active one level down: candidates cluster near the alpine zone's own edge nearest Subalpine, not
+spread through its interior. Whether this needs a further fix (e.g. an explicit interior-depth
+bonus term, or dropping slope/climate weight further in favor of pure ridge proximity) is Nico's
+call, not assumed — this is a real, honest observation from checking the numbers, not a claim that
+v5 is broken. Real-world precedent cuts both ways here: actual alpine huts (Aoraki/Mt Cook
+included) also concentrate at the more accessible, milder elevations within the alpine zone rather
+than at its harshest interior, so the current result isn't necessarily wrong, just worth knowing
+about before calling it fully resolved.
+
+**Nacre v6 — full redesign, Nico's call, replaces the exclusão/Tier-1/Tier-2 architecture
+entirely.** Five changes requested together: (1) find real cave candidates in the alpine band,
+(2) site 4 coves/dens from those candidates, spaced apart for territory purposes, (3) build a wild
+yak distribution independent of Círculo/outposts (biome × slope), (4) rebuild Nacre's suitability
+around distance-to-cove, slope, "attack on yaks" (prey-base), and alpine biome — soft terms, not a
+hard mask, and (5) express the result as a graduated field (≥0.9 = effectively abandoned-tier
+danger, <0.15 = comparatively safe, in between = graduated threat) instead of the old binary
+exclusão + separate exposure-decay Tier 2.
+
+*Caves.* Reuses the "talus/pseudokarst cave" mechanism already documented (decision-only) in §2
+above: steep relief near a stream, rock-type agnostic. `stream_mask.npy` is a Tappa 4 layer at
+30m resolution against this pipeline's 120m grid — resampled by nearest-neighbor coordinate lookup
+(the two grids' cell counts don't divide evenly, a small padding difference between pipelines, not
+a bug). Honest finding, consistent with every other stream-density check already in this doc:
+99.9% of the alpine band is already within 1km of a mapped stream, so "near stream" barely
+discriminates candidates here — the cave score in practice is driven almost entirely by slope
+steepness (top quartile within the alpine band). 17,580 candidate cells found this way.
+
+*Coves.* 3 on the main spine, 1 on South Branch — matches the already-locked pack-to-massif split
+(South Branch = 1 pack, "the South family"; main spine = the other 3), picked by cave score with a
+15km minimum separation (reuses `falloff_km`, not a new distance parameter). Resulting spacing is
+uneven by design — dens follow where the best cave terrain actually is, not an artificial even
+grid along the ridge: two main-spine dens landed 27.8km apart near the ridge's southern half, the
+third 55–76km further north. Territories were then assigned as a 4-way nearest-cove Voronoi split
+(`nacre_pack_territory_120m.npy`), replacing the old 2-zone massif-label raster with one zone per
+real den.
+
+*Wild yak.* A new, standalone feral-population layer — deliberately NOT tied to Círculo sites or
+outposts (a departure from the existing "yak goes feral at an abandoned outpost" point-source
+narrative, which still stands as extra local color, not replaced). Literally biome × slope: habitat
+= Alpine Fellfield/Tundra + the Subalpine band (ids 2–6, the Tibetan-plateau analog of alpine
+meadow plus subalpine shrub margin) × a slope-favorability curve much more permissive than the
+human `slope_suitability_120m` curve (full suitability to 15% grade, exponential decay with a
+60%-grade characteristic scale, never hits exactly 0 — real yaks are sure-footed high-altitude
+grazers, tolerant of far steeper ground than people build on).
+
+*Nacre suitability, rebuilt.* No hard exclusão — land-masked only. Four soft terms: distance to
+nearest cove (35%, exponential decay, same mechanism/decay constant as the geology falloff
+elsewhere), ruggedness (20%, the same inverted-slope curve as before), wild-yak prey availability
+(25%, replacing Cryburrow+Deergoat), alpine-biome affinity (20%, exponential decay from Alpine
+Fellfield/Tundra — this is what gives Nacre a graduated lowland presence, folding the old separate
+Tier-2 seasonal-incursion raster into this one field instead of maintaining it separately). Weights
+are proposed defaults, not independently re-confirmed line by line — flagged as adjustable.
+
+**Real calibration problem found and fixed, not glossed over:** a plain weighted sum of 4
+independently-peaking terms essentially never reaches 1.0 (all 4 would have to peak at the same
+cell) — checked directly, the raw composite's land-wide maximum was 0.82. That means Nico's ≥0.9
+threshold would have been permanently unreachable, and every outpost would have read the same
+status by default — the same collapse-of-differentiation failure this whole redesign was meant to
+fix, just relocated. Fixed by rescaling the raw composite by its own land-wide 99th percentile (the
+same normalization pattern already used elsewhere in this pipeline for distance-based terms, e.g.
+the old distance-to-Círculo layer) so the genuinely most favorable ~1% of land approaches 1.0.
+Relative ordering is unchanged; the absolute thresholds are now real.
+
+**Outposts now sample this new field directly** — `status_prior` is Nico's ≥0.9/<0.15 bands applied
+to `nacre_suitability_120m.npy` at each outpost site, replacing v5's ad-hoc ridge-crest-distance
+signal from earlier in the session (superseded, one real threat signal instead of two parallel
+ones). Real, striking consequence worth flagging clearly, not buried: **0 of the 18 outposts now
+read "active."** 10 read "temporary refuge," 8 read "abandoned" — because outpost siting already
+favors ridge-crest proximity (v5, resource-driven) and cove placement also concentrates near the
+ridge crest, so the two are strongly correlated; every outpost site the composite likes is also a
+site Nacre's own suitability likes. This may be exactly the "constant threat, dangerous and safer
+areas" feel Nico asked for — a frontier where nowhere is fully safe — but it does mean the "active"
+outpost status is currently unreachable given the current siting criteria and Nacre weights
+together. Not fixed unilaterally: whether this is the intended read, or whether outpost siting or
+Nacre's weights should be adjusted so some genuinely safer sites exist, is Nico's call.
+
+**Retired this session:** `nacre_exclusão` (hard biome mask), `nacre_exposure_120m.npy` (Tier 2,
+distance-decay from the massif mask), `nacre_massif_labels_120m.npy` (2-zone massif raster) — all
+replaced by the single graduated `nacre_suitability_120m.npy` plus the new 4-zone
+`nacre_pack_territory_120m.npy`. The two retired `.npy`/`.tif` file pairs should be deleted
+locally; this script no longer regenerates them.
+
+**v7 — outposts widened to include Permanent Snow & Ice, Nico's call.** "Distribute the huts
+between the two alpine biomes and the Permanent Ice biome." The original v1-era exclusion of PSI
+("obviously unbuildable") was checked, not just reversed on faith: 41% of PSI area has
+`slope_suit > 0.3`, comparable to the 26.9% already found suitable in Alpine Fellfield/Tundra back
+when that number first justified v5 — real buildable ground exists there too, just colder (climate
+mildness maxes at 0.196 in PSI vs. higher elsewhere). Resource proximity still dominates the
+composite (60% weight), so PSI candidates are genuinely feasible, not token inclusions. Kept as an
+outposts-only widening — Nacre's own `alpine_mask` (ids 2–3, used for caves/coves/alpine affinity)
+is unchanged, since Permanent Snow & Ice has no vegetation or prey base and stays out of that model.
+
+**Real distribution problem found and corrected before delivering, not left as the literal
+first result:** the naive area-proportional, greedy-per-ridge-segment approach put 13 of 18
+candidates (72%) in Permanent Snow & Ice, because PSI cells sit directly on parts of the ridge
+crest (maximizing resource proximity) and the 25% climate-mildness weight doesn't penalize it
+enough relative to Alpine Fellfield/Tundra to change the per-segment winner. That's a real,
+reproducible result, not a bug — but it reads as "PSI-dominated," not "distributed between" the
+three biomes the way Nico asked. Fixed by splitting each massif's target count as evenly as
+possible across whichever of the three biomes actually has area in that massif's zone (not by
+biome area, deliberately — an even split, since "distribute between" reads as wanting real
+representation from each, not proportional dominance by whichever is largest), each still spread
+along the ridge and separation-checked globally. Result: main spine — 6 Permanent Snow & Ice / 6
+Alpine Fellfield / 5 Alpine Tundra (17 total); South Branch — 1, landed in Permanent Snow & Ice
+(with only 1 slot available there, no further split was possible). Status: 14 temporary refuge, 4
+abandoned — 0 active, same finding as v6 (see above), unaffected by this biome change.
+
+**Side effect flagged at the time:** South Branch's target count fell from 2 (post-v6) to just 1,
+because adding Permanent Snow & Ice grew the main-spine search zone far more (852.1 → 1821.7 km²)
+than South Branch's (136.4 → 148.8 km²) — the area-proportional split (unchanged from v3–v6)
+shifted further toward main spine. South Branch now gets only one outpost with no biome variety.
+
+**Nacre v6 + outposts v7 — CONFIRMED CLOSED by Nico.** "This version is quite more interesting and
+more related to what I was thinking about. For me this is closed." This closes the whole redesign
+as delivered: the cove/cave/wild-yak/graduated-suitability architecture, the 0.9/0.15 threat bands
+and the 35/20/25/20 weights as computed, the 0/18-outposts-read-"active" consequence, the even
+per-biome outpost split (PSI/Fellfield/Tundra), the uneven cove spacing (follows real cave terrain,
+not forced into a grid), and South Branch's single-candidate side effect — none of these are open
+questions anymore; they're the accepted, final behavior of this system for this stage.
+
+**v8 — cove interior-depth fix, Nico's call.** Reviewing the v6/v7 delivery, Nico caught that some
+Nacre coves sat right at the Subalpine forest edge: "Some of the Nacre's coves are on the edge of
+the subalpine forests... it would make more sense if they just search for food in these other
+faunas, instead of the alpine ones... it would make sense if their coves are more deeper in the
+alpine regions, even in the border of permanent ice." Checked before agreeing, not taken on faith:
+`dist_to_subalpine_km` at the 4 actual v6 cove positions was 0.12 / 0.12 / 2.74 / 0.12 km — 3 of 4
+essentially sitting on the Subalpine boundary — against a real max possible depth of 8.09 km and a
+median of 1.98 km across the whole alpine band. The observation was correct, not just plausible:
+a den that close to Subalpine forest would make Blacknose/Snaketail/Furypack (Subalpine-band
+species) routine prey, contradicting the locked "baseline diet is wild yaks, rare seasonal descents
+into lowlands" lore.
+
+Fix feasibility checked before implementing: of the 17,580 cave-candidate cells (steep + within
+1.5 km of a stream, inside the alpine band), 6,299 sit ≥2 km from Subalpine and 3,694 sit ≥3 km —
+plenty of steep, streamside terrain exists deep in the interior, so biasing cove placement inward
+wasn't going to starve the candidate pool.
+
+Implemented: a new `dist_to_subalpine_km` field — distance to the nearest cell of Subalpine Wet
+Forest/Woodland/Dry Scrub specifically (ids 4-6), **not** to any non-alpine cell, since proximity to
+Permanent Snow & Ice is explicitly fine per Nico's own framing ("even in the border of permanent
+ice") while proximity to Subalpine is the actual lore problem. Normalized by `COVE_INTERIOR_NORM_KM
+= 5.0` (~p90 of the depth distribution) into `interior_depth_score`, then blended into a new
+`cove_score = 0.40 * ruggedness + 0.60 * interior_depth_score`, replacing raw `ruggedness` as the
+ranking function `pick_maxima()` uses for both the 3 main-spine and 1 South-Branch cove picks. The
+cave-candidate eligibility gate itself (steep + near-stream, within `alpine_mask`) is unchanged —
+only which eligible cells get chosen as coves changed.
+
+Result, confirmed after re-running: the 4 coves now sit 5.04 / 5.09 / 5.46 / 6.45 km from the
+Subalpine boundary — all comfortably in Alpine Fellfield/Alpine Tundra, none near Permanent Snow &
+Ice in this particular run (the score rewards depth from Subalpine, not proximity to PSI
+specifically, so PSI-adjacent placement was possible but not guaranteed by this fix — worth noting
+since Nico's phrasing floated it as an option, not a requirement).
+
+**Knock-on effect, not hidden:** moving the coves shifts `nacre_suitability` everywhere downstream
+of it, including at the 18 outpost sites (`status_prior` samples `nacre_suitability` directly).
+Outpost status changed from the v7 finding (14 temporary refuge / 4 abandoned / 0 active) to **13
+temporary refuge / 5 abandoned / 0 active**. All 5 abandoned-status sites are in Alpine
+Fellfield/Alpine Tundra — Outpost_MainSpine_8/10/11/12/16, suitability 0.935-1.0 — which tracks:
+those outposts are close to the ridge crest (their siting priority) and the coves are now also
+concentrated deeper in that same biome band, so the two signals correlate more tightly than before,
+not less. This is a real consequence of the fix, not a bug to patch — flagging it since it changes
+5 outposts' read status from the v7 numbers already documented above.
+
+Regenerated: `nacre_coves.geojson`, `nacre_suitability_120m.npy`, `nacre_pack_territory_
+120m.npy`, `outpost_composite_120m.npy`, `outpost_candidates.geojson`, and their GeoTIFF exports.
+`nacre_threat_band_120m.npy` and `yak_suitability_120m.npy` regenerated too (pipeline re-run) but
+unaffected in substance — the threat-band thresholds and yak model don't depend on cove position
+in a way this change touched materially.
+
+**Still open, not yet decided (within §7):**
+
+- Final authorial status (active / temporary refuge / abandoned) per outpost candidate — Nacre
+  suitability at each site is a strong signal (`status_prior`, `status_is_authorial_final: False`
+  in `outpost_candidates.geojson`), not Nico's actual final call yet.
+- Whether 18 total candidates (17 main-spine / 1 South-Branch, v7 split) is the right final count —
+  a real-world-benchmarked estimate (Aoraki/Mt Cook NP hut density), not a hard number.
+- Coastal/marine/migratory bucket (authorial shapes: seasonal zones, Skydrifter transit corridor,
+  SummerVisitant lake point, Sea Terror/Moonfur conditional zones) — untouched this session, open
+  since before the fauna-map work started.
+- Which population model (mainland-style or island-style percentages, or neither) applies to the
+  two smaller unanalyzed landmasses (230.5 km² combined) surfaced while building the biome-species
+  vector — left null there deliberately, not decided.
+
+**v8 (second item) — Grassmother incursion layer, Nico's call.** Proposal, verbatim in substance:
+model how far Nacre packs would plausibly penetrate from their coves into Lowland Steppe/Grassland
+to hunt Grassmothers, factoring in slope, as a decreasing-value zone rather than a hard boundary —
+an early-spring seasonal read, not year-round. Before implementing, three genuinely open design
+questions were put to Nico directly (`AskUserQuestion`, all three answered with the recommended
+option):
+
+1. **Distance method** — real slope-weighted cost-distance (`skimage.graph.MCP_Geometric`) vs. a
+   cheap Euclidean-distance-plus-slope-penalty approximation. Chose the real cost-distance: the
+   existing `dist_to_cove_km` in this pipeline is pure Euclidean (no slope term at all), so reusing
+   it would not have satisfied "considering the slopes" as asked.
+2. **Target zone** — Grassland only vs. Grassland + transition biomes (Subalpine Dry Scrub,
+   Woodland/Shrubland, where Grassmothers sit at a marginal 15% per the locked percent table).
+   Chose Grassland only — more literal, more conservative for the "rare incursion" lore.
+3. **Integration** — a new, separate raster vs. blending into the already-locked
+   `nacre_suitability_120m.npy`. Chose separate, to avoid reopening the 0.9/0.15 threat-band
+   calibration and the outpost `status_prior` derivation, both already confirmed closed by Nico.
+
+Method: friction surface `1.0 + 2.0 * ruggedness` per cell (`GM_SLOPE_FRICTION = 2.0`, a modeling
+choice reusing the existing normalized ruggedness field, not independently derived), accumulated
+cost-distance from all 4 coves via `MCP_Geometric`, converted to an effective-km figure using the
+grid's real cell size, then exponential decay `exp(-effective_km / GM_DECAY_KM)` masked to Grassland
+only. `GM_DECAY_KM = 15.0` is a real citation, not an arbitrary number or a reused pipeline
+constant: wolves during denning/pup-rearing season are commonly reported restricted to routine
+foraging trips of roughly 10-20km from the den, with rarer, longer forays beyond — 15km (mid-range)
+used as the decay constant.
+
+**Honest finding, not forced to look more dramatic than it is:** the maximum value anywhere in
+Grassland is 0.38, not close to 1.0 — even the nearest Grassland edge to any cove is a substantial
+effective cost-distance away once terrain friction is included. Mean suitability within Grassland
+is 0.079; only 35% of Grassland area exceeds 0.1, and under 0.01% exceeds 0.37 (~the raw 15km decay
+point). Spatially, the hot spots sit exactly where Grassland directly abuts the Alpine/Subalpine
+boundary (the range's eastern flank, and a small distinct zone near the South Branch cove) and fade
+outward — an organic, terrain-driven result, not a manufactured one. Reads as "a real but genuinely
+rare and shallow seasonal event," consistent with the locked lore, not something this fix had to
+force.
+
+New output: `nacre_grassmother_incursion_120m.npy` (+ `.tif`), kept fully separate from
+`nacre_suitability_120m.npy` — no change to outpost status, threat bands, or any previously locked
+number in this section.
+
+**v8b — dist_to_cove switched from Euclidean to slope-weighted cost-distance, Nico's follow-up
+catch.** After seeing the Grassmother incursion layer used real cost-distance, Nico noticed the
+main `nacre_suitability` composite's own `dist_to_cove` term never got the same treatment — it was
+still a straight-line `ndimage.distance_transform_edt` on the cove points, unchanged since v6.
+Nico's own example: an outpost that reads "closest" to a cove by straight-line distance could
+actually be much harder for a pack to reach — and so genuinely safer — if a ravine or cliff sits
+between them, which a Euclidean distance cannot express at all. Correct, and not a hypothetical:
+checked directly by sampling `slope_pct_120m` along the straight line between `Outpost_MainSpine_8`
+and its Euclidean-nearest cove — the path crosses terrain up to 172% grade (a real cliff/ravine
+feature), averaging 57% grade, despite the outpost itself sitting on gentle 9% ground.
+
+Fixed by reusing the exact slope-weighted cost-distance already built for the Grassmother layer
+(`skimage.graph.MCP_Geometric`, friction = `1.0 + SLOPE_FRICTION_WEIGHT * ruggedness`,
+`SLOPE_FRICTION_WEIGHT = 2.0`) — computed once and shared by both `dist_to_cove_km` and the
+Grassmother incursion's `gm_effective_km`, rather than running the cost-distance transform twice.
+`DECAY_KM = 20.0` (already locked) is unchanged — only the distance metric feeding it changed, not
+the decay rate itself.
+
+**Real, material effect, not cosmetic:** `dist_to_cove` is 35% of `nacre_suitability`'s weight —
+the exact signal `status_prior` samples at every outpost. `Outpost_MainSpine_8` flipped from
+"abandoned" (0.935) to "temporary refuge" (0.892), crossing the 0.9 threshold — the ravine/cliff on
+its straight-line path to `Cove_MainSpine_2` genuinely makes it a harder site for that pack to
+reach routinely, and the model now reflects that. Status counts: 13 temporary refuge / 5 abandoned
+→ 14 / 4. Land-wide: mean suitability 0.43 → 0.39, danger band 5.95% → 4.11% of land, safe band
+14.74% → 19.35% — all land reads slightly safer overall, which is mechanically expected and not a
+tuning artifact: friction ≥ 1.0 everywhere, so cost-distance is always ≥ Euclidean distance, meaning
+`dist_to_cove_suit` can only fall or stay flat at every cell, never rise. Confirmed directly against
+the full before/after suitability diff raster — zero cells show an increase.
+
+**Deliberately not changed alongside this (at the time):** `pack_territory` initially stayed
+Euclidean-nearest-cove, flagged as a related open question — see v8c immediately below, where Nico
+asked about it directly and it was fixed the same session.
+
+**v8c — pack_territory switched to cost-distance nearest-cove too, Nico's follow-up ("a change in
+the pack would also be more coherent, right?").** Correct, and grounded in a real citation, not just
+internal consistency for its own sake: carnivore territory/home-range delineation in wildlife
+ecology is standardly done with cost-distance or resistance surfaces, not straight-line Voronoi,
+for exactly the same reason the dist_to_cove fix above was needed — a cell can be closest to one
+cove by ruler distance while genuinely easier to reach from a different cove once real terrain is
+accounted for.
+
+Implementation note: the multi-source cost-distance already computed for `dist_to_cove_km` only
+returns the cost to the *nearest* cove, not *which* cove — no label carried through. Territory
+assignment needed one cost-distance run per cove (4 separate `MCP_Geometric` calls, same friction
+surface) and a per-cell argmin across the 4 resulting rasters. Runtime rose from ~7-10s to ~17.5s
+for the full script — still trivial, no concern.
+
+**Real effect:** 6.14% of land cells (42,208 of 687,792) were reassigned to a different pack's
+territory. One clear, explainable shift: a coastal strip near the SW island flipped from South
+Branch's territory to the westernmost main-spine pack's — the terrain between that strip and the
+South Branch cove is costlier to cross than the alternate route from the main-spine cove, even
+though South Branch is closer as the crow flies.
+
+**Honest trade-off, flagged rather than hidden:** cost-distance boundaries are noisier than the old
+clean Euclidean lines. Checked directly: each of the 4 territories still holds 81-99.5% of its area
+as one contiguous block, but there's minor speckling — small detached patches under 10 cells
+(~1.2km² or less) at contested edges, where local terrain noise makes an isolated cell technically
+cheaper to reach from a farther cove. Invisible at map scale, not smoothed or cleaned — left as the
+model's honest output rather than aesthetically patched. Whether it's worth a cleanup pass (e.g. a
+majority filter) is an open cosmetic question, not a correctness one.
+
+**v9 — species renamed Reaper → Nacre, plus real coloring/lore changes, Nico's call.** Not a
+cosmetic label swap: three linked decisions.
+
+1. **Coloring redesigned.** The small, deliberately subtle iridescent blue-green patches (head/
+   neck/crest only, kept muted specifically so as not to resemble the sky-watcher legend) are
+   replaced by a much larger structurally opalescent blue-white covering the upper body and crest.
+   Function reframed too: not concealment (the species' native alpine prey hunts by sound, so visual
+   camouflage was never relevant to them) but a pack-hunting display tool — used to intimidate and
+   flush sighted, larger prey (Grassmothers-scale game, humans) toward the rest of a waiting pack —
+   plus an incidental camouflage bonus against snow and ice once genuinely in the alpine/Permanent
+   Snow & Ice band. Framed carefully to not contradict the already-locked "forced retreat, not
+   preference" territory logic (see above): the coloring makes Nacre a bigger threat to *humans*
+   once there, it isn't why the species chose to be there.
+2. **Deliberate resemblance to the sky-watcher legend, now intentional.** The old design explicitly
+   kept the iridescent patches subtle "so as not to blur with the sky-watcher's full-body, much more
+   overt iridescence" — i.e. treated the two as separate things needing visual separation. Reversed
+   on purpose: the sky-watcher ("cloud hunter") legend is now, in-world-secretly, an exaggerated
+   folk myth built from rare, partial sightings of Nacre itself — pale iridescent feathers being the
+   only "evidence" ever recovered lines up directly with Nacre's own new coloring. Nacre does not
+   fly; the "giant flying version" belief is pure folklore inflation from distant/obscured sightings
+   (a real citation exists if wanted later: wing-assisted incline running, a genuine paleontological
+   hypothesis for how feathered dromaeosaurids may have used their forearms on steep terrain, could
+   explain a "it practically flies" impression without inventing actual flight).
+3. **GM-only, not written into the public reference doc:** this Nacre/sky-watcher connection is
+   deliberately withheld from `scenario_reference.md`, which explicitly states in-world "nobody has
+   connected them" — writing the real connection into that document would leak it to any player
+   consulting it. This decisions doc is the only place it's recorded.
+
+**Name.** "Reaper" retired — the new proper-noun name is explicitly chosen to evoke beauty rather
+than threat, deliberate irony given how the species is actually experienced by people living near
+it (workshopped by Nico with friends; **Nacre** won over the earlier candidate, Lucent).
+
+**Full rename executed, not partial:** `run_tappa7_fauna_composites.py` (all variables/comments/
+output filenames: `REAPER_W_*` → `NACRE_W_*`, `reaper_suitability_120m.npy` → `nacre_suitability_
+120m.npy`, etc.), this decisions doc, `scenario_reference.md` §16 (title and body), and persistent
+session memory. Verified the rename changed no computed values — `nacre_suitability_120m.npy` and
+`nacre_pack_territory_120m.npy` are byte-for-byte identical to their pre-rename `reaper_*`
+equivalents (`np.array_equal` confirmed both). Old `reaper_*.npy`/`.tif`/`.geojson` files deleted
+from the local working copy; **Nico needs to delete the equivalent stale `reaper_*` files from the
+actual repo folder manually** (same standing limitation as every other retired-file cleanup this
+session — files can be overwritten remotely but not deleted).
+
+**Also this pass (Nico's request):** the white-serpent legend and Nacre are explicitly NOT merged —
+kept as two separate, deliberately unconnected legends, though `scenario_reference.md`'s new §19
+now notes that some in-world tellers informally theorize a link (folk speculation only, not
+confirmed either way, and not obviously supported by Nacre's own known quadrupedal, non-serpentine
+form). A new consolidated "Legends and Rumors" section (§19) was added to `scenario_reference.md`,
+gathering the sky-watcher, the giant serpent, and three items Nico asked for: "the lands overseas,"
+"the hunter of the deep seas" (folded in an existing, previously unattached fishermen's rumor about
+Shadowless Sardine schools scattering without cause — §8 — rather than inventing a disconnected new
+one), and "the guardian of Povo Silencioso." The stale cross-reference in Clicksnake's entry (§11,
+pointing at a "white serpent" paragraph that had been deleted from §18 during Nico's own edits) was
+also cleaned up, now pointing at §19 instead.
 
 **Regular/resident bucket — species × biome percent table, LOCKED and delivered
 (`tappa7_fauna_biome_percent.xlsx`, sent to Nico, not committed — a working spreadsheet
@@ -706,7 +1170,14 @@ percentages item above for this one bucket.
 Method: every biome sits at a real (belt, moisture-tercile) coordinate already locked in
 `05_tappa5_biomes.md` §5 — biome-distance = belt-step difference + moisture-tercile-step
 difference (moisture only applies within Boreal/Cool Temperate). Permanent Snow & Ice = 0% for
-every species in this bucket; no resident regular fauna is placed there. One archetype
+every species in this bucket **except Cryburrow and Deergoat (15% each, their own dual-anchor
+Specialist archetype's distance-1-neighbor value carried through mechanically from Alpine
+Fellfield/Alpine Tundra)** — correction made while building the biome-species vector this
+session: the xlsx (`Species x Biome %` sheet, the actual source of truth) has always had 0.15
+there for these two, but this prose previously stated a blanket 0%, which was inaccurate for
+them specifically; every other species in the bucket is genuinely 0% at Permanent Snow & Ice, so
+"no resident regular fauna is placed there" still holds as a practical read (15% is a marginal
+neighbor value, not a core presence), it just wasn't literally 0% for these two. One archetype
 classification per species (not per species-per-biome), read from each species' own written
 description: **Specialist** (one or two named core biomes = 100%, distance-1 neighbors = 15%,
 else 0% — Grassmothers, Blacknose, Tailstand, Flashfrog, Scattermouse, Snaketail + Furypack
@@ -743,6 +1214,40 @@ Out of scope for this table: the high-threat bucket, domesticated animals, and c
 migratory species (each its own bucket's machinery, per "Map structure" above), and every
 species' mainland/island split (separate model, already locked species-by-species above).
 
+**Biome × species percent vector — NEW this session, delivered.** The regular/resident percent
+table above is now also a real GIS deliverable, not just a spreadsheet: `run_tappa7_biome_species_
+vector.py` polygonizes the Tappa 5 `biome_id` raster and writes `data/processed/fauna/biome_
+species_percent.geojson` (13 polygon features), joining every regular-bucket species' percent
+value as a `<species>_pct` attribute column per feature, split by landmass since mainland and
+island percentages differ (Tailstand island-only via authored introduction, not the join;
+Rustowl split into `Rustowl_mainland_ecotype_pct`/`Rustowl_island_ecotype_pct`, matching the two-
+ecotype lock above). High-threat (Nacre/Twinshadows) and domesticated-animal outputs are
+deliberately **not** columns here — they're raster suitability composites and point/zone lookups,
+not per-biome percentages, so they don't fit this table's column model; they stay in their own
+composite files.
+
+Landmass segmentation: connected-component labeling on `biome_id != Ocean` (8-connectivity) —
+mainland (616,604 cells) and the already-locked SW island (55,178 cells, matches the 794.6 km²
+figure above) as the two largest components, same as the earlier fragmentation check.
+
+**Real finding, previously unflagged: two smaller landmasses exist, 230.5 km² combined**, distinct
+from both the mainland and the SW island — a 50.18 km² Woodland/Shrubland patch and a 180.36 km²
+Grassland patch, confirmed via area arithmetic against `tappa5_biomes_meta.json`'s totals (mainland
++ island + these = the documented total for each biome, exact match). These were never given
+mainland/island percent treatment in any prior pass. Deliberately left with **null** species values
+in the vector (not assumed to follow either the mainland or island model) and flagged with an
+explanatory `note` field — an authorial call on which population model applies (if either) is still
+open, same as the "still open" items elsewhere in this document.
+
+CRS caveat, project-wide and pre-existing, not new to this file: the geojson's coordinates are in
+the project's meter-based LCC projection (`+proj=lcc +lat_1=-44.48 +lat_2=-43.52 +lat_0=-44
++lon_0=42 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs`), preserved in a legacy `crs` member, but
+modern GeoJSON readers (GDAL/geopandas, per RFC7946) ignore that member on read and report
+`EPSG:4326` — the coordinates themselves are not reprojected, only mislabeled. Confirmed this
+matches the same behavior on `circulo_candidate_sites.geojson` (built in an earlier session), so
+it's an inherited project convention, not something introduced here. QGIS users should manually
+assign the CRS from the file's `crs` member/the proj4 string above if precise coordinates matter.
+
 ## 8. Open follow-ups
 
 Direction resolved on all of these; none are implemented in code yet. Per the restructuring above,
@@ -778,7 +1283,7 @@ stage's actual open deliverable, not deferred to a future Tappa.
   out geology (this document) — DONE, (2) develop Povo Silencioso further — DONE, (3) Vértice
   types/mechanics — DONE, (4) other Vértice-adjacent materials beyond jade/pounamu — DONE, see
   geology section above and `scenario_reference.md` for the full domain/verb/tier system.
-- Alpine terrestrial apex predator: **RESOLVED as Reaper** — the last open item from the original
+- Alpine terrestrial apex predator: **RESOLVED as Nacre** — the last open item from the original
   dangerous-creatures seed list, closing the entire fauna build-out initiative. Ordinary wildlife
   (not a Visitante), full design in `scenario_reference.md` §16. The aerial "sky" danger side of
   that same seed list is resolved separately — see `scenario_reference.md`'s public framing; the
