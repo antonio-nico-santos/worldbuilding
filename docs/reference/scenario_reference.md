@@ -757,3 +757,134 @@ Bios is constrained less by unfamiliarity than by its own reality-pushback frict
 living thing's own agency (Mover — physically overpowering a creature's body) is harder than
 adjusting a property it already has (Modificar), which is why Bios's order departs from the
 "expected" universal shape.
+
+## 22. Industries, economy, and technology
+
+Scenario-chat output (see `claude/index.md`'s recommendation to start a dedicated scenario thread),
+building on top of Tappa 6's siting and Tappa 8's lithology. Treat everything in this section as
+more provisional than the geography above — it postdates the current Vértice materials table (§21)
+and will be revisited once Tappa 8's planned granite/limestone additions land.
+
+**22.1 Economic base, no longer a single assumption.** Tappa 6 (`06_tappa6_suitability.md` §3)
+locked "open-field agriculture" as the suitability model's economic assumption, and that's why
+Grassland outscored every other biome. Rather than reopening site selection, economic-base
+diversity is layered on **post-hoc**, the same way architecture style already is (06 doc §0): the
+13 Grassland Círculos read as open-field-agriculture-based; the 2 Temperate Forest sites
+(Circulo_C_25k, Circulo_E3_2k) and 2 Woodland/Shrubland sites read as forestry/craft-leaning
+economies; Circulo_D (SW Island, volcanic) reads as geothermal/mineral-leaning. Círculo
+coordinates from Tappa 6 stay authoritative and current-state; if a future pass narratively
+relocates a Círculo, the new site supersedes the old one for all downstream Tappas (transportation
+routing above all), and the abandoned original becomes a ruins point of interest rather than being
+erased. Given the scale of moving an entire population, a full Círculo relocation is treated as a
+rare, major event — a small (625-2,000 person) Círculo founded as an offshoot of a larger inland
+one is the lower-cost, more demographically plausible way to add a coastal-leaning settlement
+without touching the fixed 17.
+
+**22.2 Fishing.** River/lake fishing is a safe universal baseline given how dense this world's
+stream network already is (82.5% of land within 0.5 km of a stream, Tappa 6 §1) — every Círculo
+plausibly has some access, no siting change needed. Coastal fishing is a much bigger ask
+geographically: only one of the 17 sites sits under 1 km from the ocean, the rest 2-17 km inland
+(06 doc §8). Rather than resiting, coastal fishing economies belong to dedicated small outposts —
+the same pattern already established for alpine resource work along the Spine (§7 above) — not
+full Círculos.
+
+**22.3 Primary sector by lithology.** Tappa 8 v5's locked classes (`08_tappa8_geomorphology.md` §3):
+
+| lithology class | area | Vértice yield (§21) | mundane/industrial yield |
+|---|---|---|---|
+| schist | 1,780.9 km² | gold-quartz veins (Onda), muscovite/biotite mica (Energia) | gold, jade/pounamu (both mundane-valuable, not Vértice) |
+| greywacke | 3,098.5 km² | laumontite (Matéria) | general building/construction stone — open, see Tappa 8's planned granite/limestone additions |
+| sedimentary basin fill | 4,437.3 km² | vivianite (Bios), weak reworked magnetite (Campo) | clay/lime (plaster, already locked in Tappa 8), likely the primary agricultural substrate — spatial overlap with Grassland biome is plausible but **not yet verified against the rasters**, treat as hypothesis |
+| volcanic | 595.7 km² | magnetite (Campo), native silver (Mente) | geothermal potential (3 known vent sites feed the lava-tube model) |
+
+Worth flagging as a real, deliberate tension rather than a gap: volcanic is the scarcest class (6%
+of classified land) and the sole source of both Campo's magnetite and Mente's copper/silver — a
+natural resource-competition point between Vértice practice and any conventional metallurgy that
+also wants magnetite as an iron-ore precursor.
+
+**22.4 Bio-engineered materials — the Bios-Vértice materials industry.** Mechanism: Bios's
+Modificar verb is already established, common trade knowledge (E-tier, §21's mastery table) —
+"altering an intrinsic property" of a living organism is routine, not exceptional. Rather than
+escalating to a rarer verb tier for more dramatic material outcomes, the degree of change scales
+the **labor and reality-pushback cost within the same tier**: minor hardiness/yield tweaks are
+light, sustainable work; inducing a genuinely novel functional property (e.g., electrical
+conductivity) is the same verb and tier, but a much heavier, more fragile daily/weekly maintenance
+burden. This is not a stylistic choice — it's necessitated by Legado/Root being entirely unclaimed
+on every domain (§21): nothing in this system can be made permanent, so a Bios-modified cultivar
+can only be *kept* that way through continuous work. A Bios materials practitioner reads as a
+farmer/agronomist, not a wizard — this industry is a specialized agricultural profession
+(plausibly under a Médios-tier "agriculture" council, §2), not a factory.
+
+Two species, deliberately kept minimal:
+- **Insulator**: a cool-climate latex-bearing cultivar, real-world grounded in *Taraxacum
+  kok-saghyz* (Russian/Kazakh dandelion, a genuine temperate/steppe rubber-latex source,
+  historically grown for rubber in place of tropical Hevea) — fits the Lowland Steppe/Grassland
+  biome (the Central Otago/Mackenzie Basin analog already established in
+  `biome_landscape_characteristics.md`). Natural latex/rubber as an electrical insulator has a
+  century of real precedent (vulcanized rubber, gutta-percha cable insulation).
+- **Conductor**: a bio-conductive material grounded in real cable bacteria — filamentous bacteria
+  genuinely documented conducting electricity over centimeter-scale distances through anoxic
+  sediment. Placed in the same basin-fill floodplain/wetland environment where vivianite already
+  forms (§21: "forms from organic decay in floodplain sediment"), giving the industry's two source
+  materials a shared, lore-consistent home rather than scattered geography.
+
+Both are genuinely new and small-scale (see §22.5 — this industry is only as old as Vértice
+itself), not yet load-bearing infrastructure; conventional copper wiring is assumed to still carry
+the bulk of the grid.
+
+**Explicitly not extended to animals**: Círculo councils would strongly oppose Bios-Modificar
+applied to any sentient being — animal ecotype divergence (yak, reindeer, sheep, dogs, chickens,
+§7) stays entirely mundane-selective-breeding, unrelated to this mechanism. Open question, not yet
+decided: whether this taboo is understood to cover only clearly sapient peoples, or animals
+generally.
+
+**22.5 Two-track technology model.** The setting's tech base splits cleanly into two tracks of very
+different age and distribution, rather than one flat tech tree:
+
+| | Track 1 — the old base | Track 2 — the new layer |
+|---|---|---|
+| age | centuries-old, matured | ~20-30 years, human-only (matches §21's Vértice age) |
+| distribution | universal, all 17 Círculos, politically neutral | uneven — faster among Círculos Progressistas, slower/resisted among Conservadores and de Isolamento (§21) |
+| includes | rail/trams/electric vehicles/kite buggies (§18), solar PV, sodium-ion batteries, geothermal (Caldária), conventional/empirical medicine, telegraph (strung along existing rail corridors, inheriting the same Wet Forest cost penalty as the rail itself), amateur/hobbyist radio (vacuum-tube era, fills the gaps telegraph's fixed wires can't reach — remote outposts, travelers, off-rail small Círculos), typewriters (universal, personal-scale), efficient printing (Médios/Grandes-concentrated; smaller Círculos route manuscripts to the nearest Arquigrado), Hollerith-style electromechanical punch-card tabulation for stock/trade data (Médios/Grandes), paper ledgers/card catalogs (universal) | Bios-Modificar bio-materials (§22.4), Bios-Corpo medicine as an emerging complement/rival to conventional medicine, Onda-based long-range communication/perception — person-bound, requiring no built infrastructure at all, which is what it offers that telegraph/radio structurally can't |
+
+Computing is absent on both tracks — not part of what centuries of indirect,
+prompt-toward-self-discovery guidance ever nudged toward, and nothing in Vértice's own domain set
+naturally substitutes for general-purpose computation the way Onda substitutes for communication or
+Bios-Corpo substitutes for medicine.
+
+Settlement tier (Grande/Médio/Pequeno, §2) tracks Track 1 capital intensity. Progressista/
+Conservador/de Isolamento alignment (named in §21 but never yet mapped onto the 17 actual sites —
+open item) tracks Track 2 adoption, and the two axes are meant to be **partially independent**: a
+small Progressista Círculo can be materially modest but genuinely advanced on Track 2, while a
+large, wealthy Conservador Círculo stays technologically stagnant there despite its size.
+
+**22.6 Craft, philosophy, and the arts.** Consistent with §1's "no rigid hierarchies...
+encouragement toward versatility, study, and individual expression": labor carries no inherent
+negative connotation, and a Círculo with its necessities covered by Track 1 infrastructure plus a
+modest Track 2 layer channels a meaningful share of its effort into personalized craft —
+clothing, textile work, carved doors and furniture — rather than large-scale standardized
+production. Dominant decorative idiom: **Art Nouveau** (organic, plant/vine-derived curvilinear
+form), which fits a Bios-literate, nature-integrated culture with little justification needed.
+**Art Deco** appears narrowly rather than as a competing universal style — its geometric
+sunburst/ray motifs read specifically as solar-energy iconography, reserved for civic or
+energy-infrastructure contexts (a Grande Círculo's solar array housing, a rail station) rather than
+everyday craft goods. This decorative language sits on top of the climate-driven architecture
+styles already locked in §4 (Terrapedra/Trançada/Salina/Caldária/Modular) rather than replacing
+them — structural typology and ornamental idiom are separate layers.
+
+Worth naming explicitly so it doesn't read as an accidental gap: Track 1 infrastructure (rail,
+solar, batteries) still needs disciplined, standardized, unglamorous expert labor to keep running.
+That work carries its own form of respect — expertise and reliability — distinct from the
+personal-identity and status weight carried by decorative craft; the two aren't in competition, but
+the setting should be deliberate that infrastructure work isn't devalued just because it isn't
+where the "craftsman style" applies its energy.
+
+**22.7 Open items**
+- Whether this world's current spoken/written language is a plausible continuation of what this
+  document describes, or has drifted into something distinct — not decided.
+- Progressista/Conservador/de Isolamento never mapped onto the 17 actual Círculos.
+- Whether the animal-modification taboo (§22.4) covers sentient peoples only or animals generally.
+- Basin fill / Grassland-biome spatial overlap (§22.3) is a hypothesis, not yet checked against the
+  rasters.
+- Vértice materials table (§21) and this section's lithology-industry mapping (§22.3) are both
+  provisional pending Tappa 8's planned granite/limestone additions.
