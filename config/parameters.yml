@@ -354,6 +354,52 @@ suitability:
 # (transports), Tappa 10 (interactions). Urban zoom is no longer "Tappa 8"
 # -- retired from the Tappa sequence, now its own untethered Urban Scale
 # track (different technique/resolution from the macro-domain Tappas, not
-# just a different topic). All PAUSED as of this update -- see README.md
-# "Pipeline status". Criteria not yet defined for Tappa 8-10; Urban Scale's
+# just a different topic).
+#
+# Tappa 8 (geomorphology) -- FIRST STEP CLOSED (lithology + caves + jade/
+# pounamu resource; see docs/decisions/08_tappa8_geomorphology.md). Dangerous
+# creatures/conflict zones, dangerous seas, and transportation (the other
+# three domains folded into "Tappa 8" by S9) are still open. Criteria not
+# yet defined for those remaining domains or for Tappa 9-10; Urban Scale's
 # technique was already agreed back at Tappa 0.
+
+geomorphology:
+  # Locked in during Tappa 8 (first step) -- see
+  # docs/decisions/08_tappa8_geomorphology.md. Regenerate with, in order:
+  # run_tappa8_lithology_v5.py, then run_tappa8_caves_v3.py (talus/sea/
+  # glacier-moulin are unchanged since v2/v1 and don't need re-running --
+  # only lava tubes consume the lithology raster).
+  lithology_v5:
+    relief_window_m: 2000.0
+    elev_percentile: 60.0             # mainland-land floor for schist eligibility (AND branch)
+    relief_schist_percentile: 75.0    # mainland-land floor, AND'd with elevation
+    relief_greywacke_percentile: 50.0 # mainland-land floor for greywacke (flank, not schist)
+    high_elev_percentile: 90.0        # OR branch: elevation alone above this qualifies for
+                                        # schist regardless of relief -- fixes rounded-summit
+                                        # crest points (S2 of the decision doc)
+    island_relief_percentile: 25.0    # island's OWN relief population; below -> basin_fill
+                                        # (flat isthmus/apron margin), at/above -> volcanic
+    # all five values above are first-pass placeholders, calibrated as percentiles of this
+    # world's own elevation/relief distributions, not independently tuned against anything
+    # external -- see decision doc S7.
+  jade:
+    n_pods: 10
+    min_separation_km: 5.0
+    radius_range_m: [300.0, 800.0]
+    grade_percentile_threshold: 80.0
+    seed: 13
+  caves:
+    # v1/v2 approved before this session; only lava_tube was re-run this session
+    # (against lithology_v5 instead of lithology_v2) -- see decision doc S4.
+    steep_threshold_pct_talus_sea: 20.14   # p75 of mainland land slope
+    glacier_moulin:
+      snow_mask_local_slope_p75_pct: 22.55
+      margin_depth_threshold_km: 2.48       # median within the snow mask
+    lava_tube:
+      vent_weight_threshold: 0.1
+      gentle_slope_threshold_pct: 8.94      # local p25 within lithology_v5's (smaller)
+                                              # volcanic zone -- was 6.17 under lithology_v2,
+                                              # rose because removing the flat island margin
+                                              # from the population makes it steeper on average
+    talus_stream_buffer_km: 0.5
+    sea_coastal_buffer_km: 0.5

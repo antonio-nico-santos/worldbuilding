@@ -4,12 +4,22 @@ outposts, domesticated-animal point/zone lookups).
 
 Reuses layers already produced by Tappa 5/6 (biome_id, biotemperature_c,
 slope_suitability_120m, slope_pct_120m, solar_suitability_annual_120m,
-suitability_povo_livre_120m) and Tappa 4 (stream_mask.npy, 30m -- resampled
-to this grid) plus the real 17-Circulo site table and terrain_ridges.geojson.
+suitability_povo_livre_120m), Tappa 4 (stream_mask.npy, 30m -- resampled to
+this grid), and Tappa 8 (cave_talus_pseudokarst.npy, 30m -- resampled to this
+grid, v13) plus the real 17-Circulo site table and terrain_ridges.geojson.
 Method locked in docs/decisions/07_tappa7_regional_scenario.md; this script
 is the first real computation of it -- run once this session, after several
 search-zone/weight corrections documented inline (see NACRE/TWINSHADOWS/
 OUTPOST sections below).
+
+v13 (Nico's call): Nacre's cave_candidate_mask (gating which cells are eligible
+to become a cove/den) was switched from a v6-era slope+stream PROXY to Tappa 8's
+real cave_talus_pseudokarst.npy layer, once that real geomorphology data existed
+-- checked first: only 2/4 existing coves actually sat on real cave ground, so
+the proxy was retired rather than kept alongside the real data. 3/4 coves moved
+as a result; pack_territory (nearest-cove cost-distance) redrew 76.25% of land
+cells; 3/18 outpost statuses flipped from abandoned to temporary refuge. Full
+before/after numbers in the decisions doc's v13 note.
 
 v6 (Nico's redesign): Nacre's whole architecture was rebuilt this pass --
 caves -> coves (dens) -> a wild-yak prey layer -> one graduated suitability
@@ -56,13 +66,28 @@ lore instead (wide, roughly straight band over the North plains). DELETE the
 stale skydrifter_route_area_120m.npy/.tif files locally -- this script no
 longer regenerates them.
 """
-import numpy as np, json, math
+import numpy as np, json, math, os, gzip
 from scipy import ndimage
 from skimage.graph import MCP_Geometric
 
 BASE = 'data/processed'
 INPUT = 'data/input'
 OUT = 'data/processed/fauna'
+
+
+def load_npy_maybe_gz(path):
+    """Tappa 8 geomorphology outputs (data/processed/geomorphology/) are stored gzipped
+    on disk (unlike every earlier Tappa's .npy convention) -- this repo's actual copy on
+    Nico's machine only has the .gz, no plain .npy alongside it. Loads either, so this
+    script runs unmodified on both the container's ad-hoc decompressed copy and the real
+    repo layout."""
+    if os.path.exists(path):
+        return np.load(path)
+    gz_path = path + '.gz'
+    if os.path.exists(gz_path):
+        with gzip.open(gz_path, 'rb') as f:
+            return np.load(f)
+    raise FileNotFoundError(f'Neither {path} nor {gz_path} exists')
 
 meta = json.load(open(f'{BASE}/biomes/tappa5_biomes_meta.json'))
 g = meta['grid']
@@ -234,31 +259,45 @@ def main():
     # architecture entirely): caves -> coves (dens) -> wild yak prey base -> a single
     # graduated suitability field, no hard biome mask. ---
     #
-    # 1. Cave candidates: reuses the "talus/pseudokarst cave" mechanism already
-    # documented (decision-only) in 07_tappa7_regional_scenario.md sec.2 -- steep
-    # relief intersected with a nearby stream, rock-type agnostic. stream_mask.npy is
-    # a Tappa 4 layer at 30m resolution (this grid is 120m) -- resampled by nearest-
-    # neighbor coordinate lookup, not a block-reduce, since the two grids' cell counts
-    # don't divide evenly (5334/4334 vs 1334/1084 -- off by a few cells, a small
-    # padding difference between the two pipelines, not a bug in either).
-    stream_mask_30m = np.load(f'{BASE}/hydrology/stream_mask.npy')
-    dist_stream_km_30m = ndimage.distance_transform_edt(~stream_mask_30m) * 30.0 / 1000.0
-    ny_s, nx_s = stream_mask_30m.shape
+    # 1. Cave candidates -- v13 (Nico's call, replacing the v6 slope+stream PROXY with the
+    # real thing): Tappa 8 has since computed actual cave-eligibility layers
+    # (data/processed/geomorphology/cave_*.npy, 30m resolution) from real geomorphology, not
+    # a stand-in. Checked directly against the 4 already-placed coves before touching
+    # anything: only 2 of 4 actually sat on real cave-eligible ground (own-120m-cell overlap
+    # with cave_talus_pseudokarst.npy at 92% and 80%; the other two had 0% overlap, nearest
+    # real cave cell 255-258m away) -- the old proxy (alpine-relative steep slope + near-
+    # stream) genuinely didn't track the real geomorphology closely enough to trust. Fixed
+    # by gating on the real `cave_talus_pseudokarst` layer directly -- the type matching the
+    # documented mechanism (steep relief intersected with rock, rock-type agnostic); the
+    # other three real cave types (glacier_moulin, lava_tube, sea_cave) are ice/volcanic/
+    # coastal-specific and don't fit a den for an alpine quadruped, so intentionally excluded
+    # rather than unioned in. Resampled from 30m to this 120m grid by nearest-neighbor
+    # coordinate lookup, same pattern already used for stream_mask/lake_mask elsewhere in
+    # this pipeline -- note the cave grid's own origin is ymax=80020.0 (not this grid's
+    # 80000.0, a 20m difference, real and accounted for below, not assumed identical).
+    cave_cxmin, cave_cymax, cave_cres = -65000.0, 80020.0, 30.0
+    cave_talus_30m = load_npy_maybe_gz(f'{BASE}/geomorphology/cave_talus_pseudokarst.npy').astype(bool)
+    cny, cnx = cave_talus_30m.shape
     rows_120, cols_120 = np.arange(ny), np.arange(nx)
     y_centers = ymax - (rows_120 + 0.5) * res_y
     x_centers = xmin + (cols_120 + 0.5) * res_x
+    r_c = np.clip(((cave_cymax - y_centers) / cave_cres).astype(int), 0, cny - 1)
+    c_c = np.clip(((x_centers - cave_cxmin) / cave_cres).astype(int), 0, cnx - 1)
+    cave_talus_120m = cave_talus_30m[np.ix_(r_c, c_c)]
+    cave_candidate_mask = alpine_mask & cave_talus_120m
+    # Real availability check before relying on this as a gate (not assumed sufficient):
+    # 25,824 alpine cells (371.5km2) are real cave-eligible ground project-wide -- 24,140 on
+    # the main spine, 1,684 on South Branch, comfortably enough for 3+1 coves at the existing
+    # 15km min-separation.
+    # dist_stream_km is kept below (still used for the coves.geojson attribute and the wild-
+    # yak-adjacent reporting), but is NO LONGER a cave-eligibility gate -- the real cave layer
+    # supersedes the old stream-proximity proxy criterion entirely.
+    stream_mask_30m = np.load(f'{BASE}/hydrology/stream_mask.npy')
+    dist_stream_km_30m = ndimage.distance_transform_edt(~stream_mask_30m) * 30.0 / 1000.0
+    ny_s, nx_s = stream_mask_30m.shape
     r_s = np.clip(((ymax - y_centers) / 30.0).astype(int), 0, ny_s - 1)
     c_s = np.clip(((x_centers - xmin) / 30.0).astype(int), 0, nx_s - 1)
     dist_stream_km = dist_stream_km_30m[np.ix_(r_s, c_s)]
-    # Honest finding, consistent with every other stream-density check already in this
-    # doc (Mudlizard, water_suitability_120m): 99.9% of the alpine band is already
-    # within 1km of a mapped stream, so "near stream" barely discriminates candidates
-    # here -- it's kept as a real criterion (matches the documented cave mechanism)
-    # but in practice the cave score below is driven almost entirely by slope.
-    CAVE_SLOPE_PCTILE = 75  # steep relative to the alpine band itself, not the whole map
-    cave_slope_threshold = np.nanpercentile(slope_pct[alpine_mask], CAVE_SLOPE_PCTILE)
-    CAVE_STREAM_KM = 1.5
-    cave_candidate_mask = alpine_mask & (slope_pct >= cave_slope_threshold) & (dist_stream_km <= CAVE_STREAM_KM)
 
     # v8 (Nico's call, lore consistency catch): checked the v6 cove placements directly --
     # 3 of the 4 sat just 0.12km from the Subalpine boundary (real max possible depth into
@@ -749,13 +788,13 @@ def main():
             'land_area_pct_in_danger_band': round(float(100 * (nacre_threat_band[land] == 2).mean()), 2),
             'land_area_pct_in_safe_band': round(float(100 * (nacre_threat_band[land] == 0).mean()), 2),
             'cave_candidates': {
-                'slope_percentile_within_alpine': CAVE_SLOPE_PCTILE,
-                'stream_proximity_km': CAVE_STREAM_KM,
-                'honest_finding': '99.9% of the alpine band is already within 1km of a mapped stream (same '
-                                   'dense-hydrology pattern already documented elsewhere in this doc), so the '
-                                   'stream-proximity criterion barely discriminates candidates here -- the cave '
-                                   'score is driven almost entirely by slope in practice.',
+                'method': 'v13: real cave_talus_pseudokarst.npy (Tappa 8 geomorphology, 30m) intersected '
+                          'with alpine_mask -- replaces the v6 slope+stream PROXY entirely (see v13 note '
+                          'in the decisions doc for why: only 2/4 existing coves actually sat on real cave '
+                          'ground when checked).',
                 'n_candidate_cells': int(cave_candidate_mask.sum()),
+                'n_candidate_cells_main_spine': int((cave_candidate_mask & main_spine_mask).sum()),
+                'n_candidate_cells_south_branch': int((cave_candidate_mask & south_branch_mask).sum()),
             },
             'coves': {
                 'n_main_spine': len(main_spine_coves), 'n_south_branch': len(south_branch_coves),

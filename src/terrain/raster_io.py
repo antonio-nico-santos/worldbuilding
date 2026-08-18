@@ -58,6 +58,12 @@ def write_prj(path: str, proj4_string: str):
 _ENVI_DTYPE = {
     "f4": (4, "<f4"),   # (ENVI data type code, numpy dtype string) -- float32
     "i2": (2, "<i2"),   # int16
+    "u1": (1, "<u1"),   # unsigned byte -- added Tappa 8, for small-integer
+                         # categorical/boolean rasters (lithology class codes
+                         # 0-4, cave/jade eligibility masks 0-1) where int16's
+                         # extra byte/cell is pure waste; halves file size for
+                         # exactly this data shape with zero precision loss
+                         # (ENVI data type code 1 = Byte, standard).
 }
 
 
@@ -105,6 +111,8 @@ def write_envi_raw(
     out = np.where(np.isnan(array), nodata, array)
     if dtype == "i2":
         out = np.clip(np.round(out), -32768, 32767)
+    elif dtype == "u1":
+        out = np.clip(np.round(out), 0, 255)
     out.astype(np_dtype).tofile(path_stem + ".bin")   # BSQ = band-sequential,
     # which for a C-ordered (bands, ny, nx) array is exactly its memory layout
 

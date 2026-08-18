@@ -1324,6 +1324,55 @@ explicitly temporary; (3) cleanup confirmed — Nico deleted the stale `reaper_*
 listing (`data/processed/fauna/` now clean). See the "still open" list above for the corresponding
 closures.
 
+**v13 — Nacre cove placement switched to real Tappa 8 cave data, Nico's call, real effect on outpost
+statuses (fixed too).** Follow-up to the cave-verification check above: Nico asked to actually adjust
+cove placement using the new real cave layers and check whether it changes outpost status, fixing it
+if so.
+
+*Method change*: `cave_candidate_mask` (the gate feeding the cove-picking score) previously used a
+v6-era PROXY — steep slope relative to the alpine band (p75) plus proximity to a mapped stream,
+neither of which is real cave data, since none existed yet at the time. Replaced entirely with the
+real `cave_talus_pseudokarst.npy` (Tappa 8 geomorphology, 30m resolution) intersected with
+`alpine_mask`, resampled to this 120m grid by nearest-neighbor coordinate lookup (same pattern
+already used for `stream_mask`/`lake_mask` elsewhere in this pipeline — note the cave grid's own
+origin is `ymax=80020.0`, 20m off this grid's `80000.0`, handled explicitly, not assumed identical).
+Of Tappa 8's four real cave types, only `talus_pseudokarst` was used — it matches the documented den
+mechanism (steep relief intersected with rock, rock-type agnostic); `glacier_moulin`, `lava_tube`,
+and `sea_cave` are ice/volcanic/coastal-specific and don't fit an alpine quadruped's den, so
+deliberately not unioned in. Real availability checked before relying on it as a gate: 25,824 alpine
+cells (371.5km²) are real cave-eligible ground project-wide — 24,140 on the main spine, 1,684 on
+South Branch, comfortably enough for the existing 3+1 coves at 15km min-separation. Stream distance
+is no longer a cave-eligibility criterion (kept only as a `nacre_coves.geojson` attribute) — the real
+cave layer supersedes it.
+
+*Result*: 3 of the 4 coves moved to new locations (only the one that already sat on real cave ground,
+92% coverage per the earlier check, was retained as-is — now `Cove_MainSpine_1`). South Branch's cove
+shifted ~960m. Verification map sent to Nico shows old vs. new cove positions and the resulting
+territory redraw side by side.
+
+*Downstream effects, checked and real, not assumed absent*: pack_territory (nearest-cove
+cost-distance) reassigned **76.25% of land cells** to a different pack — expected given 3 of 4 den
+locations genuinely moved, not a bug, but a materially different map from before, much larger than
+the 6.14% reassignment from the v8c cost-distance fix. `nacre_threat_band` changed on 2.55% of land.
+Land-wide `nacre_suitability` barely moved (mean 0.394→0.392, danger band 4.11%→3.98%, safe band
+19.35%→19.28%) — the aggregate signal is stable, the effect concentrates locally around the moved
+dens, which is exactly where it should show up.
+
+**Outpost status_prior: 3 of 18 flipped, all danger→lower** (checked directly, not assumed from the
+aggregate stability above):
+- `Outpost_MainSpine_10`: abandoned (0.998) → temporary refuge (0.766)
+- `Outpost_MainSpine_11`: abandoned (0.972) → temporary refuge (0.846)
+- `Outpost_MainSpine_16`: abandoned (0.993) → temporary refuge (0.784)
+
+Status counts: 4 abandoned / 14 temporary refuge (old) → **1 abandoned / 17 temporary refuge (new)**.
+All three flipped sites got LESS dangerous, not more — consistent with cove positions moving toward
+genuine cave ground and (on the main spine specifically) generally away from where those three
+outposts sit. This is now the locked, current state — `outpost_candidates.geojson`'s
+`status_prior`/`nacre_suitability_at_site` fields reflect it; `status_is_authorial_final` is still
+`False` for all 18 (Nico's final authorial call on outpost status remains deliberately deferred to
+future story development, per the v10 "still open" entry — this fixes the computed *signal*, not
+the authorial decision that reads it).
+
 **Real finding, previously unflagged: 230.5 km² of land exists beyond the mainland and the SW
 island** — a 50.18 km² Woodland/Shrubland total and a 180.36 km² Grassland total, confirmed via area
 arithmetic against `tappa5_biomes_meta.json`'s totals (mainland + island + this = the documented
