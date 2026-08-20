@@ -681,6 +681,17 @@ themselves, and nobody has connected any of them to each other or to a known spe
   contact to something beyond ordinary isolation — a guardian, described inconsistently from telling
   to telling, said to keep outsiders from getting close to the NE archipelago at all.
 
+- **The restless ground** — a reputation attached, inconsistently but persistently, to granite
+  country wherever it's found (one of the new candidate rock types from the geomorphology surveys).
+  People who live or work there for long stretches describe a vague, hard-to-pin-down unease —
+  sleep that doesn't sit right, a sense of time passing unevenly, tools and animals behaving as if
+  something is "off." Nobody has ever produced a Vértice crystal from granite for Tempo, and no
+  Tempo practitioner exists to confirm or deny anything — the domain has no known access method at
+  all. The rumor is never connected to Tempo by name in-world; it's just granite's reputation.
+  (In our real world, granite does carry the highest natural background radioactivity of common
+  rock types, from trace uranium, thorium, and potassium-40 — a real, slow, physical clock ticking
+  inside the stone. Whether that's the seed of this rumor is left open and unconfirmed on purpose.)
+
 Room for further entries as other lore develops (an eventual increment to the Povo Silencioso
 material is the likeliest next addition).
 
@@ -709,15 +720,25 @@ harmonics," not a property of the crystal at all.
 | domain | Substantivos | crystal | source rock | note |
 |---|---|---|---|---|
 | Matéria | Sólido / Líquido / Gasoso | laumontite (zeolite) | greywacke | veinlets/joints, real NZ citation |
-| Onda | Som / Luz / Calor | quartz | schist | same orogenic veins as gold, birefringence |
+| Onda | Som / Luz / Calor | quartz (common); optical-grade calcite (rare, superior grade) | schist (quartz, primary); sedimentary limestone (calcite, rare secondary); granite (quartz, minor tertiary source) | same orogenic veins as gold, birefringence — calcite's birefringence (Δn≈0.17) is roughly 20x stronger than quartz's (Δn≈0.009), the real "Iceland spar"/Viking sunstone effect, but it's confined to clear crystals in limestone cavities, which are far rarer to find intact than vein quartz, so it's a prized upgrade, not a replacement |
 | Bios | Fauna / Flora / Corpo | vivianite | sedimentary basin fill | forms from organic decay in floodplain sediment |
-| Energia | Cinética / Potencial / Elétrica | mica (muscovite/biotite) | schist | rarer than the quartz from the same veins, piezoelectric |
+| Energia | Cinética / Potencial / Elétrica | mica (muscovite/biotite) | schist (primary); granite (secondary source, same mineral) | rarer than the quartz from the same veins, piezoelectric — granite deposits give some Círculos a second, unrelated place to find workable Energia mica without depending on schist country |
 | Campo | Gravidade / Magnetismo / Pressão | magnetite | volcanic (primary); reworked placer in sedimentary basin fill (weak, secondary) | real paleomagnetism citation |
 | Mente | Pensamento / Emoção / Memória | copper (common) / silver (rare), refined with a black fungus native to Wet Forest | volcanic amygdules (copper), volcanic epithermal veins (silver) | the only domain requiring an assembled device, not a single mineral — refinement method still under study, only discovered a few years ago |
 | Tempo | — | none | — | no crystal exists; nobody has ever accessed this domain |
 
 Gold and jade/pounamu, both schist-associated, are valuable mundane materials, not Vértice
 crystals — neither has a property that gates a domain.
+
+**Marble**, one of the three new candidate rock types flagged by the Tappa 8 geomorphology handoff, is
+deliberately given no Vértice-domain assignment. It's recrystallized calcite, but the recrystallization
+that makes it marble also destroys the parallel crystal lattice birefringence depends on — marble is
+optically cloudy/scattering, not clear, and its underlying calcite retains a center-of-symmetry crystal
+structure that isn't piezoelectric either. It stays purely mundane: construction and monumental stone,
+the material of choice for anything built to look permanent and important. Its real subsurface
+light-scattering property (the soft glow under a thin, polished, backlit surface) is left as unclaimed
+flavor texture — a plausible future tie to funerary/Arquigrados monument-building (§23.1) if that's ever
+wanted, not committed to now.
 
 **The verbs**, roughly ordered by how invasive the intervention is: Sentir/Localizar (perceive),
 Emitir/Ativar (trigger something latent), Mover/Direcionar (relocate), Moldar/Formatar (reshape),
@@ -763,7 +784,8 @@ adjusting a property it already has (Modificar), which is why Bios's order depar
 Scenario-chat output (see `claude/index.md`'s recommendation to start a dedicated scenario thread),
 building on top of Tappa 6's siting and Tappa 8's lithology. Treat everything in this section as
 more provisional than the geography above — it postdates the current Vértice materials table (§21)
-and will be revisited once Tappa 8's planned granite/limestone additions land.
+and will be revisited again once Tappa 8's granite/limestone discussion (still "NOT authored, NOT
+implemented" per that doc's own §8) actually lands.
 
 **22.1 Economic base, no longer a single assumption.** Tappa 6 (`06_tappa6_suitability.md` §3)
 locked "open-field agriculture" as the suitability model's economic assumption, and that's why
@@ -788,21 +810,73 @@ geographically: only one of the 17 sites sits under 1 km from the ocean, the res
 the same pattern already established for alpine resource work along the Spine (§7 above) — not
 full Círculos.
 
-**22.3 Primary sector by lithology.** Tappa 8 v5's locked classes (`08_tappa8_geomorphology.md` §3):
+**22.3 Primary sector by lithology.** Tappa 8 v5's locked classes (`08_tappa8_geomorphology.md` §3),
+updated with the candidate additions raised in that doc's §8 (still not authored/implemented there,
+but adopted here as the working scenario assumption per this session's decision):
 
 | lithology class | area | Vértice yield (§21) | mundane/industrial yield |
 |---|---|---|---|
-| schist | 1,780.9 km² | gold-quartz veins (Onda), muscovite/biotite mica (Energia) | gold, jade/pounamu (both mundane-valuable, not Vértice) |
-| greywacke | 3,098.5 km² | laumontite (Matéria) | general building/construction stone — open, see Tappa 8's planned granite/limestone additions |
-| sedimentary basin fill | 4,437.3 km² | vivianite (Bios), weak reworked magnetite (Campo) | clay/lime (plaster, already locked in Tappa 8), likely the primary agricultural substrate — spatial overlap with Grassland biome is plausible but **not yet verified against the rasters**, treat as hypothesis |
+| schist | 1,780.9 km² | gold-quartz veins (Onda), muscovite/biotite mica (Energia) | gold, jade/pounamu (both mundane-valuable, not Vértice), PV-grade quartz feedstock (§22.15 — competes with Onda's own quartz demand on the same, second-smallest lithology class) |
+| greywacke | 3,098.5 km² | laumontite (Matéria) | general building/construction stone — awaiting Tappa 8's granite/limestone authoring |
+| sedimentary basin fill | 4,437.3 km² | vivianite (Bios), weak reworked magnetite (Campo) | clay for plaster (confirmed baseline — **not** clay/lime; lime plaster is a future upgrade contingent on limestone actually being authored, corrected from an earlier draft of this section), bog iron (goethite/limonite — see §22.4), primary agricultural substrate — spatial overlap with Grassland biome is plausible but **not yet verified against the rasters**, treat as hypothesis |
 | volcanic | 595.7 km² | magnetite (Campo), native silver (Mente) | geothermal potential (3 known vent sites feed the lava-tube model) |
 
-Worth flagging as a real, deliberate tension rather than a gap: volcanic is the scarcest class (6%
-of classified land) and the sole source of both Campo's magnetite and Mente's copper/silver — a
-natural resource-competition point between Vértice practice and any conventional metallurgy that
-also wants magnetite as an iron-ore precursor.
+**Copper and aluminum are both deliberately scarce, locked this session, not gaps to fix:**
+- **Copper** stays confined to volcanic amygdules/epithermal veins (§21) — the scarcest lithology
+  class, 6% of land — with no second source proposed anywhere. That makes it the precious conductor
+  metal of this world, gives Circulo_D (the SW Island Círculo, the only large Círculo actually
+  sitting in the volcanic zone) real strategic weight as one of very few copper sources, and is the
+  direct reason telegraph/radio wiring (§22.5) can't be assumed cheap or universal.
+- **Aluminum** stays effectively absent as a **technology gate, not a resource gate** — real NZ does
+  have small, genuinely subeconomic lateritic bauxite deposits (Northland, largest ~20 Mt), so "ore
+  exists but isn't worth working" is the defensible framing, not "no ore anywhere." The real reason
+  to lock it out: electrolytic aluminum refining (Hall-Héroult, 1886 in the real world) is one of
+  the most electricity-hungry industrial processes that exists, and it postdates aluminum's real
+  history as a *precious* metal — more valuable than gold or silver until electrolysis made it cheap
+  (Napoleon III reserved aluminum tableware for his most honored guests; the 1884 Washington
+  Monument capstone is aluminum specifically because it was the era's costliest displayable metal).
+  Any aluminum in this world reads the same way: rare, prestige, ornamental — plausibly an Art
+  Nouveau/Deco luxury material (§22.6) — never an industrial input. This sits alongside computing
+  (§22.5) as a second deliberate Track 1 ceiling: not everything Earth eventually industrialized is
+  assumed to exist here just because centuries of guided development occurred.
 
-**22.4 Bio-engineered materials — the Bios-Vértice materials industry.** Mechanism: Bios's
+**22.4 Basin fill's internal zonation — an authored classification, not a DEM-derived one.**
+Basin fill (4,437.3 km², the largest single class) was flagged as doing too many jobs in the same
+breath: it's the presumed primary farmland, vivianite's Vértice source, and now also home to two
+new candidate resources (bog iron, and the bio-conductor cultivar below) — all three of the new
+additions specifically wanting the same *kind* of anoxic, waterlogged ground that ordinary
+agriculture doesn't want. Rather than leave that unexamined, basin fill splits into three named
+sub-uses, following real floodplain geomorphology (natural levees vs. backswamp/wetland are
+genuinely different micro-environments within a single floodplain, not an invented distinction) and
+reusing spatial fields Tappa 8's own pipeline already computes, so this needs no new spatial
+primitive when it's actually authored as geometry:
+
+1. **Arable** — better-drained, higher local relief within basin fill (a `relief_2km`-style
+   threshold, the same field v5 already uses elsewhere). The clear majority of the class area;
+   this is the actual agricultural substrate the hypothesis in §22.3 refers to.
+2. **Freshwater wetland/backswamp** — poorly-drained, low local relief, inland (not
+   coastal-adjacent). Where vivianite already forms (§21) and where bog iron would form alongside
+   it — both are anoxic, iron-and-organic-rich floodplain-sediment minerals, genuinely the same
+   micro-environment, so this document treats them as **co-located uses of one zone**, not
+   competing sub-zones: a single wetland patch plausibly yields both, worked by different
+   specialists (mundane iron-workers raking bog ore; Bios Vértice practitioners or prospectors
+   digging vivianite nodules).
+3. **Estuarine/coastal margin** — basin fill specifically near the coast (a `dist_to_ocean`-style
+   threshold, another field already committed in Tappa 8's cave pipeline). This is where the
+   bio-conductor cultivar (§22.5) belongs, corrected from an earlier draft of this section that
+   placed it in generic floodplain wetland alongside vivianite: real cable bacteria are most
+   robustly documented in marine/brackish coastal sediment specifically (where the phenomenon was
+   first discovered), with freshwater/lake occurrences existing in the literature but on much
+   thinner evidence. Given most of the 17 Círculos sit 2-17 km inland (§22.2), this also makes the
+   bio-conductor industry more geographically restricted than earlier drafted — consistent with, and
+   reinforcing, its already-established framing as small, new, and experimental.
+
+Exact area/threshold percentiles for all three sub-uses are left for Tappa 8 to calibrate against
+the actual rasters, the same "percentile against this world's own data, not asserted a priori"
+convention already used for every other threshold in that document (S7 of `08_tappa8_geomorphology.md`)
+— nothing here should be read as a locked number, only a locked logic.
+
+**22.5 Bio-engineered materials — the Bios-Vértice materials industry.** Mechanism: Bios's
 Modificar verb is already established, common trade knowledge (E-tier, §21's mastery table) —
 "altering an intrinsic property" of a living organism is routine, not exceptional. Rather than
 escalating to a rarer verb tier for more dramatic material outcomes, the degree of change scales
@@ -824,13 +898,46 @@ Two species, deliberately kept minimal:
   century of real precedent (vulcanized rubber, gutta-percha cable insulation).
 - **Conductor**: a bio-conductive material grounded in real cable bacteria — filamentous bacteria
   genuinely documented conducting electricity over centimeter-scale distances through anoxic
-  sediment. Placed in the same basin-fill floodplain/wetland environment where vivianite already
-  forms (§21: "forms from organic decay in floodplain sediment"), giving the industry's two source
-  materials a shared, lore-consistent home rather than scattered geography.
+  sediment. Sited at basin fill's estuarine/coastal margin specifically (§22.4), not generic
+  inland floodplain — the stronger, better-attested real citation, and a deliberate correction from
+  this section's first draft.
 
-Both are genuinely new and small-scale (see §22.5 — this industry is only as old as Vértice
-itself), not yet load-bearing infrastructure; conventional copper wiring is assumed to still carry
-the bulk of the grid.
+Both started as a small experimental program but have matured into an actively cultivated
+industry over the ~20-30 years since Vértice rediscovery — a plausible response to already
+knowing copper and silver were scarce, combined with no longer having Visitante guidance nudging
+development in any particular direction, which left self-motivated problem-solving as the only
+path forward (real economic precedent for this kind of acceleration under a known shortage plus
+removed external guidance: both synthetic-dye and aluminum-refining research moved unusually fast
+once a specific, felt scarcity met available science). That maturity has real limits, worth being
+precise about rather than letting "matured" quietly become "solved":
+
+- **Substitutes for copper, not silver.** Real cable-bacteria conductivity, even generously
+  extrapolated across the domesticated cultivar's whole existence, remains many orders of magnitude
+  below metallic copper — not a close contest, and treating it as one would break the same
+  real-citation discipline that's kept every other material in this document honest (kok-saghyz
+  staying a temperate latex analog rather than a wonder-rubber; aluminum staying gated by real 1886
+  electrochemistry rather than hand-waved away). What the industry can credibly deliver is
+  default-grade wiring for low-current, distributed, non-critical infrastructure — telegraph runs,
+  local household and workshop circuits — freeing scarce copper for genuinely high-current or
+  precision use (heavy Track 1 infrastructure, Mente-Vértice devices). Silver isn't touched by any
+  of this: its role is the refined Mente-Vértice interface material (§21), a Vértice-domain
+  property, not a bulk-conductivity one, and an organic Bios-domain material has no principled way
+  to substitute for a Mente-domain material without blurring a domain boundary this system
+  otherwise keeps clean.
+- **Still needs continuous tending, at real industrial scale now.** Scaling this cultivar up to
+  genuine infrastructure use doesn't get around Legado/Root being unclaimed (§21) — it means a
+  real, sizeable agricultural-industrial labor force of Bios-tenders maintaining living conductive
+  material as their trade, not an install-and-forget wiring product. Deliberate texture, not an
+  oversight: this world quite literally farms part of its electrical grid.
+- **Geographically concentrated, which creates trade.** Production is tied to basin fill's
+  estuarine/coastal margin (§22.4), and most Círculos sit inland (§22.2). Coastal-adjacent Círculos
+  and outposts become the industry's producers and plausible exporters of cultivated material or
+  finished cable; inland Círculos stay comparatively more copper-and-telegraph-dependent unless the
+  still-open freshwater-citation question (§22.19) is resolved later. That dependency is a real
+  lever for the political-alignment framework below (§22.14): a Conservador Círculo that happens to
+  sit on ideal cultivation ground doesn't have to adopt the industry itself to be affected by it.
+
+See §22.8 for the full two-track age/distribution picture this industry sits inside.
 
 **Explicitly not extended to animals**: Círculo councils would strongly oppose Bios-Modificar
 applied to any sentient being — animal ecotype divergence (yak, reindeer, sheep, dogs, chickens,
@@ -838,39 +945,152 @@ applied to any sentient being — animal ecotype divergence (yak, reindeer, shee
 decided: whether this taboo is understood to cover only clearly sapient peoples, or animals
 generally.
 
-**22.5 Two-track technology model.** The setting's tech base splits cleanly into two tracks of very
+**22.6 Mining and extraction, without gunpowder.** No industrial explosive exists anywhere in this
+world (§22.7 explains why), which raises a real question for anything at quarry or vein scale:
+schist gold-quartz veins, greywacke building stone, volcanic copper amygdules. Two non-explosive
+methods cover it, one per track:
+
+- **Fire-setting and hydraulic mining (Track 1).** Both real, historically attested pre-explosive
+  techniques: fire-setting heats a rock face, then quenches it fast with water, and the thermal
+  shock fractures it; hydraulic mining erodes a face with directed high-pressure water (real
+  precedent: Roman "hushing," and later the California Gold Rush). Both are slow relative to
+  blasting — consistent with, not a problem for, a craft-over-industry culture (§22.12).
+- **Matéria-Vértice extraction (Track 2).** Matéria is already this world's "rock" domain
+  (laumontite/greywacke, §21), so it's a clean extension that Matéria practitioners are also this
+  world's quarriers and miners — softening or destabilizing a rock face directly (Moldar/Modificar,
+  both E-tier) instead of blasting or grinding it. No chemistry, no fumes, no explosive at all.
+
+Neither method scales to industrial mass-extraction the way blasting does, and that's deliberate:
+it gives a second, independent reason (alongside the volcanic-only source, §22.3) for why copper
+in particular stays genuinely scarce rather than merely nominally so — extraction itself is slow,
+skilled, small-batch work under either track, not an automatable process. The same "skilled
+specialist, not mass production" character already established for Bios materials work (§22.5)
+applies here too.
+
+**22.7 Defense, conflict, and why there's no weapons industry.** ~700 years without organized war
+makes a standing weapons industry implausible rather than merely undesirable — there was never
+sustained pressure to build one. Real threats still exist and still need answering: Nacre and
+Twinshadows (§16, §13), hunting for food, and rare internal or Povo Livre disputes. The answer is
+dual-use tools rather than dedicated arms:
+
+- **Everyday tools that double as weapons.** A machete (real dual-use precedent in multiple actual
+  cultures) covers agricultural and exploration work and self-defense in one object, rather than a
+  culture maintaining swords as a separate category. Bows and crossbows are ancient, mundane,
+  entirely non-industrial technology — real, pre-gunpowder hunting and defense tools needing no
+  chemical industry at all.
+- **Pneumatic (compressed-air) weapons, real and citable.** Compressed-air weapons aren't
+  speculative — the Girardoni air rifle (Austria, 1780s) was genuine military-issue equipment: a
+  repeating air rifle with a pre-pumped reservoir, no gunpowder involved, roughly contemporary with
+  this world's other Track 1 technologies. That's a solid anchor for treating pneumatic weapons as
+  a real, established Track 1 branch here too, and it isn't a one-off: the same compressed-air
+  technology plausibly extends to tools generally (§22.8) and to mining drills (§22.6), not just
+  weapons.
+- **Vértice sensing over Vértice weaponry.** Threat detection — a Nacre pack's approach, a
+  Twinshadows pair nearby, tracking a dispute — plausibly leans on Campo and Onda's existing
+  Sentir/Localizar capability (both E-tier, §21) rather than any dedicated combat application. This
+  keeps "Vértices substitute for technology" doing the same work here it does everywhere else in
+  this document, instead of introducing a separate subsystem.
+
+**Gunpowder is explicitly locked out, and it's worth being honest about why.** The raw materials
+aren't actually the obstacle: this world's volcanic lithology class (§22.3) is a completely
+standard real-world sulfur source, and charcoal is trivial. A culture with 700 years, an active
+chemistry-adjacent industry (photographic emulsion, §22.9; dye, §22.10), and a known volcanic
+sulfur source stumbling onto black powder by accident would be mildly suspicious if the story
+leaned on ignorance. The more consistent explanation is the same mechanism already used for
+computing and cheap aluminum (§22.3, §22.8): centuries of indirect Visitante guidance simply never
+pointed development toward violent or extractive technology, on either track. Not a resource gap —
+a guided-development gap, deliberately and consistently applied.
+
+**22.8 Two-track technology model.** The setting's tech base splits cleanly into two tracks of very
 different age and distribution, rather than one flat tech tree:
 
 | | Track 1 — the old base | Track 2 — the new layer |
 |---|---|---|
 | age | centuries-old, matured | ~20-30 years, human-only (matches §21's Vértice age) |
 | distribution | universal, all 17 Círculos, politically neutral | uneven — faster among Círculos Progressistas, slower/resisted among Conservadores and de Isolamento (§21) |
-| includes | rail/trams/electric vehicles/kite buggies (§18), solar PV, sodium-ion batteries, geothermal (Caldária), conventional/empirical medicine, telegraph (strung along existing rail corridors, inheriting the same Wet Forest cost penalty as the rail itself), amateur/hobbyist radio (vacuum-tube era, fills the gaps telegraph's fixed wires can't reach — remote outposts, travelers, off-rail small Círculos), typewriters (universal, personal-scale), efficient printing (Médios/Grandes-concentrated; smaller Círculos route manuscripts to the nearest Arquigrado), Hollerith-style electromechanical punch-card tabulation for stock/trade data (Médios/Grandes), paper ledgers/card catalogs (universal) | Bios-Modificar bio-materials (§22.4), Bios-Corpo medicine as an emerging complement/rival to conventional medicine, Onda-based long-range communication/perception — person-bound, requiring no built infrastructure at all, which is what it offers that telegraph/radio structurally can't |
+| includes | rail/trams/electric vehicles/kite buggies (§18), solar PV (grounding corrected, §22.15), wind and hydro power — mechanical and electric (§22.15), sodium-ion batteries, geothermal (Caldária), conventional/empirical medicine, telegraph (strung along existing rail corridors, inheriting the same Wet Forest cost penalty as the rail itself; scarce copper, §22.3, keeps this infrastructure real but not lavish), amateur/hobbyist radio (vacuum-tube era, fills the gaps telegraph's fixed wires can't reach — remote outposts, travelers, off-rail small Círculos), typewriters (universal, personal-scale), efficient printing (Médios/Grandes-concentrated; smaller Círculos route manuscripts to the nearest Arquigrado), Hollerith-style electromechanical punch-card tabulation for stock/trade data (Médios/Grandes), paper ledgers/card catalogs (universal), pneumatic/compressed-air technology (real Girardoni-air-rifle-era precedent, §22.7 — tools, mining drills §22.6, local pneumatic-tube message routing within larger Círculos), dual-use tools and bow/pneumatic weaponry (§22.7) | Bios-Modificar bio-materials (§22.5), Bios-Corpo medicine as an emerging complement/rival to conventional medicine, Onda-based long-range communication/perception — person-bound, requiring no built infrastructure at all, which is what it offers that telegraph/radio structurally can't; an experimental Campo+Matéria spherical-drive utility vehicle (magnetic-float suspension substituting for the unsolved real-world axle/control problem, directed rotation via Matéria's Mover verb) — rare, requires a Vértice practitioner physically present to operate, treated as a prestige/research curiosity rather than standard transportation (§18) |
 
-Computing is absent on both tracks — not part of what centuries of indirect,
-prompt-toward-self-discovery guidance ever nudged toward, and nothing in Vértice's own domain set
-naturally substitutes for general-purpose computation the way Onda substitutes for communication or
-Bios-Corpo substitutes for medicine.
+Computing and cheap industrial aluminum (§22.3) are both absent on both tracks, for the same
+underlying reason: neither was ever part of what centuries of indirect,
+prompt-toward-self-discovery guidance nudged toward, and nothing in Vértice's own domain set
+naturally substitutes for either the way Onda substitutes for communication or Bios-Corpo
+substitutes for medicine.
 
-Settlement tier (Grande/Médio/Pequeno, §2) tracks Track 1 capital intensity. Progressista/
-Conservador/de Isolamento alignment (named in §21 but never yet mapped onto the 17 actual sites —
-open item) tracks Track 2 adoption, and the two axes are meant to be **partially independent**: a
-small Progressista Círculo can be materially modest but genuinely advanced on Track 2, while a
-large, wealthy Conservador Círculo stays technologically stagnant there despite its size.
+Settlement tier (Grande/Médio/Pequeno, §2) tracks Track 1 capital intensity. The
+Progressista/Conservador/de Isolamento alignment framework (§22.14) tracks Track 2 adoption
+specifically, and the two are meant to be **partially independent**: a small Progressista Círculo
+can be materially modest but genuinely advanced on Track 2, while a large, wealthy Conservador
+Círculo stays technologically stagnant there despite its size.
 
-**22.6 Craft, philosophy, and the arts.** Consistent with §1's "no rigid hierarchies...
+**22.9 Entertainment, media, and print culture.** All grounded in Track 1 technology already
+locked above, not a separate track:
+
+- **Music.** Vacuum-tube-era amplification and speakers (above) support live concerts and simple
+  public-address use; playback and recording use mechanical methods that predate magnetic tape
+  entirely — wax-cylinder or wire recording, both real, non-electronic technologies. No new
+  resource category is needed, but it's honest to note this stacks another consumer onto
+  already-scarce copper (voice coils, wiring), alongside telegraph, radio, and Mente-Vértice
+  devices (§22.3) — a feature to keep in mind, not a problem, since it reinforces why copper
+  carries real strategic weight.
+- **Cinema, still tied to theater.** Real photographic emulsion is silver-halide chemistry, and
+  silver is already this world's rare/achieved-tier Mente material (§21) — a genuine, unplanned
+  synergy rather than an invented justification: it explains for free why cinema stays small and
+  just-starting rather than becoming a mass medium, exactly the "still very related with a play
+  structure" framing this grew from. Worth flagging as open texture rather than deciding now: real
+  early nitrocellulose film stock is dangerously flammable, a real driver of historical theater
+  fires — left open whether that's a hazard this world lives with or a problem a Bios/Matéria
+  application quietly solves (§22.19).
+- **Theater, at production scale.** Vértice-driven effects (rigging, lighting, staged
+  transformation) substitute for the industrial stage machinery (hydraulics, motorized flying rigs)
+  a real modern musical-scale production needs — consistent with the craft-over-industry cultural
+  choice already locked (§22.12), not a new exception to it.
+- **Reading and writing.** Academic research, philosophy, and novels sit directly on the typewriter
+  and efficient-printing infrastructure already established above — no new resource or technology
+  needed, just cultural emphasis.
+
+**22.10 Textiles and fashion.** The artisanal-plus-modern silhouette (a deliberately more
+contemporary read than the setting's technology level alone would suggest, roughly a real
+1960s-70s reference point) needs one genuine resource decision this document hasn't made yet: a
+fiber crop. Cotton needs a subtropical/warm climate this world's Grassland-dominant biome
+distribution doesn't clearly support (the same climate-mismatch problem already corrected once,
+when the Amazon-Hevea rubber reference was replaced with the temperate kok-saghyz citation,
+§22.5) — flax (linen) is the better-grounded choice: a real, ancient-to-industrial-era temperate
+fiber crop, and "linen reading as a cotton/denim-weight fabric" is a believable stylistic liberty
+for the silhouette being aimed at. Screen printing needs no new chemistry — stencil, mesh, and
+textile paint is achievable entirely within Track 1, without touching the silver/photo-emulsion
+economy cinema depends on (§22.9). Dye is easy: indigo is a real, ancient, non-industrial natural
+dye source. None of this is decided as final — flax specifically is a proposal, not yet locked
+(§22.19).
+
+**22.11 Vértice-assisted architecture.** Matéria, Energia, and Bios all plausibly contribute to
+construction, and the framing that keeps this consistent with everything else in the system is the
+one already offered: the modification is **process-only**. Softening marble to shape it like clay,
+or lightening a beam to move it into a difficult position, is active during construction and
+released once the piece is set — the finished structure stands on ordinary, unmodified material
+afterward. That matters because Legado/Root is unclaimed on every domain (§21): if a building's
+structural integrity permanently depended on a softened or lightened state, it would need the same
+continuous upkeep Bios materials require (§22.5), and a city that collapses the week nobody's
+maintaining it is a bad outcome. Scoping the effect to construction-time only avoids that entirely,
+and is consistent with the phrase this idea started from — "using the impermanent aspect as a
+tool." Separately, "seeing the true limits of what a material can handle" maps directly onto
+Matéria's Sentir/Localizar verb (both E-tier) — Vértice-assisted structural sensing standing in
+for engineering calculation, the same "Vértices replace an analytical technology" pattern already
+used elsewhere in this document (§22.6's mining, §21's general framing).
+
+**22.12 Craft, philosophy, and the arts.** Consistent with §1's "no rigid hierarchies...
 encouragement toward versatility, study, and individual expression": labor carries no inherent
 negative connotation, and a Círculo with its necessities covered by Track 1 infrastructure plus a
 modest Track 2 layer channels a meaningful share of its effort into personalized craft —
-clothing, textile work, carved doors and furniture — rather than large-scale standardized
+clothing, textile work (§22.10 covers the fiber/fabric basis), carved doors and furniture — rather than large-scale standardized
 production. Dominant decorative idiom: **Art Nouveau** (organic, plant/vine-derived curvilinear
 form), which fits a Bios-literate, nature-integrated culture with little justification needed.
 **Art Deco** appears narrowly rather than as a competing universal style — its geometric
 sunburst/ray motifs read specifically as solar-energy iconography, reserved for civic or
 energy-infrastructure contexts (a Grande Círculo's solar array housing, a rail station) rather than
-everyday craft goods. This decorative language sits on top of the climate-driven architecture
-styles already locked in §4 (Terrapedra/Trançada/Salina/Caldária/Modular) rather than replacing
-them — structural typology and ornamental idiom are separate layers.
+everyday craft goods. Scarce aluminum (§22.3) plausibly finds its niche here too — an ornamental,
+prestige inlay material rather than anything structural. This decorative language sits on top of
+the climate-driven architecture styles already locked in §4 (Terrapedra/Trançada/Salina/Caldária/
+Modular) rather than replacing them — structural typology and ornamental idiom are separate layers.
 
 Worth naming explicitly so it doesn't read as an accidental gap: Track 1 infrastructure (rail,
 solar, batteries) still needs disciplined, standardized, unglamorous expert labor to keep running.
@@ -879,12 +1099,369 @@ personal-identity and status weight carried by decorative craft; the two aren't 
 the setting should be deliberate that infrastructure work isn't devalued just because it isn't
 where the "craftsman style" applies its energy.
 
-**22.7 Open items**
+**22.13 Sports and inter-Círculo leagues.** Organized competition — local matches scaling up to
+Olympic-style inter-Círculo leagues — carries no real material cost beyond what any settlement
+already has, and it does real structural work worth naming explicitly rather than treating as a
+free addition: it's the plausible outlet for competitive and physical-training energy a society
+with no war and no military tradition (§22.7) would otherwise have nowhere to put. Framed that way
+rather than as an unrelated cultural detail, it directly answers "what replaces military training
+here."
+
+**22.14 Political/cultural alignment: two independent axes, not one three-way label.**
+Progressista/Conservador/de Isolamento (§21) reads as a single spectrum from its name, but
+collapsing it into one axis would remove exactly the kind of tension worth having — a
+resource-rich Círculo that resists the technology built on its own ground, for instance. Splitting
+it into two separate, independently-set axes keeps that possible:
+
+1. **Adoption axis (Conservador ↔ Progressista)** — how eagerly and how deeply a Círculo integrates
+   Track 2 (Vértice-augmented) technology and industry into daily life, governance, and production.
+   This axis is authored/narrative, not derived from any existing raster — assigned per-Círculo
+   based on founding history, size tier, or simply deliberate choice, and deliberately **not** tied
+   to local resource endowment, so mismatches are possible and expected rather than avoided.
+2. **Engagement axis (de Isolamento ↔ Networked)** — how much a Círculo participates in
+   inter-Círculo trade, travel, and information exchange generally, independent of its stance on
+   Vértice technology specifically. Unlike the adoption axis, this one has a real, already-computed
+   grounding available: Tappa 6's transportation/cost-distance network (`06_tappa6_suitability.md`)
+   already establishes which Círculos sit central to the rail/tram backbone versus which are
+   peripheral or costly to reach — reusing that existing field for this axis needs no new spatial
+   authoring, the same discipline already applied to the basin-fill zonation (§22.4).
+
+A Círculo's position is a point in this two-axis space, not a single bucket — which is what makes
+the tension mechanic work concretely: a Conservador-but-Networked Círculo sitting on ideal
+bio-conductor cultivation ground (§22.5) can decline to build the industry itself while still
+trading raw cultivar or land access to Progressista neighbors, or face real internal pressure
+(younger residents pushing adoption against a more traditional council) — a concrete instance of
+the "local variation" §1's horizontal governance already allows for, rather than a new mechanic
+bolted on.
+
+**The Adoption axis is graded, not binary — five tiers, not two poles.** Real diffusion-of-
+innovation research (Rogers, 1962, still the standard framework) splits adoption into Innovators
+(originate something new), Early Adopters (adopt fast once something exists, without originating
+it), Early Majority, Late Majority, and Laggards — a genuine, citable distinction between "creates
+new things" and "gladly applies new things," which is exactly the resolution this world's version
+of Conservador–Progressista needed. One deliberate disambiguation, worth stating explicitly since
+Rogers' own real-world "Laggard" category partly conflates adoption-resistance with social
+isolation: **here, Laggard means adoption-resistant only.** Isolation is already fully owned by the
+Engagement axis above, and letting the two blur back together would undo the reason the two-axis
+split exists.
+
+This world's population (17 Círculos, not a statistical sample) departs from Rogers' real
+proportions in one deliberate way: this is a society that finds real pleasure in philosophy,
+reading, and science, currently living through an actual scientific awakening (Vértice
+development), which plausibly raises the Innovator rate above Earth's ~2.5% baseline (itself drawn
+from ordinary mid-century farming communities, not a population like this one) — while also
+plausibly raising resistance in proportion, since visible, consequential change reliably provokes a
+countermovement roughly scaled to it (real citation: Zald and Useem's countermovement theory in
+social-movement sociology), consistent with §3's own "ideological and generational divergence"
+already on record. **Locked distribution:** 2 Innovator / 3 Early Adopter / 5 Early Majority /
+4 Late Majority / 3 Laggard (Laggard = Innovator + 1), with a hard constraint that no more than one
+of the four Grande Círculos sits in the combined Innovator/Early Adopter tier, and the four Grande
+Círculos are not permitted to land on a single, homogeneous tier — consistent with §2's own
+"[Grande Círculos are] where cultural tension and social innovation manifest most intensely."
+
+**Results, drawn under those constraints and locked, not a draft:**
+
+| Círculo | Tier | Population | Biome at site | Adoption |
+|---|---|---|---|---|
+| Circulo_A_40k | Grande | 40,000 | Lowland Steppe/Grassland | Early Adopter |
+| Circulo_B_35k | Grande | 35,000 | Lowland Steppe/Grassland | Early Majority |
+| Circulo_C_25k | Grande | 25,000 | Temperate Forest | Early Majority |
+| Circulo_D_20k | Grande | 20,000 | Lowland Steppe/Grassland (SW Island, volcanic lithology) | **Laggard** |
+| Circulo_E1_2k | Médio | 2,000 | Lowland Steppe/Grassland | Early Adopter |
+| Circulo_E2_2k | Médio | 2,000 | Woodland/Shrubland | Early Majority |
+| Circulo_E3_2k | Médio | 2,000 | Temperate Forest | Early Majority |
+| Circulo_E4_2k | Médio | 2,000 | Lowland Steppe/Grassland | Late Majority |
+| Circulo_E5_2k | Médio | 2,000 | Lowland Steppe/Grassland | Late Majority |
+| Circulo_F1_small | Pequeno | 625 | Lowland Steppe/Grassland | **Innovator** |
+| Circulo_F2_small | Pequeno | 625 | Lowland Steppe/Grassland | Late Majority |
+| Circulo_F3_small | Pequeno | 625 | Lowland Steppe/Grassland | Late Majority |
+| Circulo_F4_small | Pequeno | 625 | Lowland Steppe/Grassland | Laggard |
+| Circulo_F5_small | Pequeno | 625 | Lowland Steppe/Grassland | Early Majority |
+| Circulo_F6_small | Pequeno | 625 | Woodland/Shrubland | Early Adopter |
+| Circulo_F7_small | Pequeno | 625 | Lowland Steppe/Grassland | Laggard |
+| Circulo_F8_small | Pequeno | 625 | Lowland Steppe/Grassland | **Innovator** |
+
+Source of truth for these values is now `data/processed/suitability/circulo_candidate_sites.geojson`
+(an `adoption` property on each of the 17 site features) — this table mirrors it, not the reverse.
+
+Two results carry real narrative weight worth recording rather than leaving implicit: **Circulo_D**
+— the sole large Círculo sitting on copper and native silver (§22.3), with real strategic weight
+over the entire Mente supply chain — drew Laggard, not Innovator. Read as the resource-curse
+story discussed when this framework was designed: a Círculo materially powerful and structurally
+important precisely because of what it controls, with correspondingly little internal pressure to
+also be where anyone pushes the Vértice frontier — a gatekeeper, not a pioneer. And **Circulo_F6**,
+the single Woodland/Shrubland site among the eight small Círculos and already flagged in §22.1 as
+reading a forestry/craft-leaning economy rather than open-field agriculture, drew Early Adopter —
+the one economically-atypical small Círculo also turning out unusually receptive to Track 2,
+an unforced pairing rather than a designed one.
+
+Engagement axis (de Isolamento ↔ Networked) positions remain unassigned — that pass still needs
+Tappa 6's cost-distance network data and is deliberately left for later (§22.19).
+
+**22.15 Energy portfolio: solar, wind, hydro, and geothermal.** Four sources, deliberately not one
+undifferentiated "clean energy" bucket — each has its own sourcing story, and those stories differ
+in ways worth keeping straight.
+
+**Solar PV — a correction, not just an addition.** The existing Track 1 entry for solar PV was
+never checked against another already-locked decision: no computing exists anywhere in this world
+(§22.8). That's a real problem, because genuine high-efficiency crystalline-silicon PV manufacturing
+depends on very-high-purity silicon refinement — technologically adjacent to semiconductor-grade
+purification, not to telegraph-era engineering, and not something to wave past just because solar
+panels were locked first. The fix: PV-grade silicon purification (real precedent — the Siemens
+process, invented in the 1950s, which does not itself require computing to run) was developed
+narrowly for photovoltaic use and never generalized into broader semiconductor or computing
+application — the same guided-development-gap logic already used for gunpowder, industrial
+aluminum, and computing itself (§22.3, §22.7, §22.8). This keeps solar coherent without reopening
+the no-computing decision, and it produces a real resource story: PV-grade silicon is refined
+quartz, and quartz is already schist's Onda-Vértice material (§21) — the same second-smallest
+lithology class (1,780.9 km², §22.3) now carries a mundane-vs-Vértice demand competition, an echo
+of copper's existing competition with Campo (§22.3), not a new kind of scarcity mechanic.
+
+**Wind.** Already half-established without being named: a consistent, strong prevailing wind
+bearing already defines kite-buggy routing (§18) and Grassmothers' windward fur ecotype (§9) — a
+real resource, not an invented one. Splits the same way everything else in this section does:
+mechanical windmills (grinding, pumping — ancient, pre-electrical, no scarce material needed) sit
+at Track 1's oldest end; wind turbines generating electricity need a generator (copper winding plus
+a magnet — the same electromagnetic-induction technology class as a telegraph dynamo), placing
+wind-electric at Track 1's newer, "modern-mundane" end rather than its ancient-mill baseline.
+Favorable terrain — open, exposed ground along the established wind bearing, plausibly stronger
+still near the coast — maps loosely onto Grassland, this world's dominant biome (13 of 17
+Círculos), making wind a broadly distributed resource rather than a scarce, lithology-locked one.
+
+**Hydraulic and mechanical water power.** This one is closer to a retroactive fix than a genuinely
+new idea: 82.5% of land already sits within 0.5 km of a stream (`06_tappa6_suitability.md` §1), a
+figure this document already leans on for fishing (§22.2) — real economies with that kind of
+stream density historically build grain and saw mills as some of their earliest infrastructure,
+well before steam power. Waterwheels are ancient, mechanically simple, and need no scarce material;
+they pair naturally with mining (§22.6) as the processing step after extraction — a real
+water-powered stamp mill or trip hammer crushing ore is genuine pre-industrial technology. Small-
+scale, run-of-river hydroelectric generation sits at the same "modern-mundane" Track 1 tier as
+wind-electric, sharing the same generator-tech material stack.
+
+**Track 1 has an internal age gradient, worth stating explicitly.** "Track 1" has always spanned a
+wide real-world range — ancient mills and windmills through 19th-/20th-century electrical
+generation (telegraph, radio, and now wind/hydro-electric) through the present-day mundane
+technologies already listed (§22.8) — rather than being one flat, single-era tech tier. Naming that
+gradient explicitly avoids future confusion about why "Track 1" covers both a waterwheel and a
+vacuum-tube radio.
+
+**Net effect on the energy portfolio**: solar is quartz-constrained and competes with Onda;
+geothermal is volcanic-only and tied to Circulo_D (§22.3); wind and hydro are the broadly
+distributed legs, gated by terrain and climate rather than lithology, available to most of the 17
+Círculos regardless of which rock class they sit on. Generator-based wind/hydro-electric does add a
+further consumer to the already-scarce copper pool (§22.3) alongside telegraph, radio, and music
+(§22.9) — but distributed local generation also plausibly reduces how much long-distance
+transmission copper a Círculo needs to import power from elsewhere, a partial offset worth naming
+rather than treating this purely as more strain on the same bottleneck.
+
+**Scope, deliberately held here.** This section locks logic, not geometry — consistent with how
+this document has treated every other spatial question (§22.4's basin-fill zonation, above all).
+Actual siting belongs to whichever Tappa handles the terrain-cost/transport pass, reusing relief,
+wind-bearing, and stream-density fields the pipeline likely already computes rather than requesting
+new spatial primitives. Unlike copper, aluminum, or the granite/limestone question, none of this
+needs to wait on Tappa 8 closing lithology — wind and hydro potential are terrain/climate-driven,
+not rock-type-driven, so they're free to be sited independently and on their own schedule.
+
+**22.17 Círculo naming conventions.** Names are being developed on standby, as they come, rather
+than all 17 assigned at once — this section locks the toolkit, not a completed name list. Two
+separate axes are worth keeping distinct: what a name refers to (its meaning) and how the word is
+built (its form). A name can, and ideally does, work on more than one register on the first axis at
+once, rather than picking exactly one.
+
+*What a name refers to:*
+- **Geographic** — a landscape or lithology feature at the site itself (schist, greywacke, basin
+  fill, volcanic, §22.3; biome, `06_tappa6_suitability.md`). The overwhelming majority of real-world
+  place names work this way.
+- **Cultural/functional** — the Círculo's historical role, reputation, or industry, independent of
+  terrain (a founding event, a trade specialty, a character trait like steadfastness or
+  restlessness). §22.18 below is a direct source of material for this register — a name can
+  commemorate what a Círculo *used to be*, not only what it currently is.
+
+*How the word is built*, following the precedent already set by the architecture styles in §4
+(Terrapedra, Caldária, Trançada): real Portuguese roots, but not necessarily real Portuguese words.
+Three methods, meant to be mixed across the map rather than applied uniformly — 17 Círculos built
+by one mechanical formula would read as generated, not settled:
+- **Portmanteau-compound** — two real roots fused into one word (Terrapedra = *terra* + *pedra*).
+- **Suffixed neologism** — a real root plus a Latinate suffix pattern that isn't itself a real word
+  (Caldária = *caldeira* + *-ária*).
+- **Direct reuse of an existing but unusual real word**, chosen for connotation over literal
+  description (*matagal*, real Portuguese for thicket/scrubland, for a Woodland/Shrubland site;
+  *arraigada*, real Portuguese for deeply-rooted/entrenched, reserved for a Círculo whose founding-
+  era result (§22.18) shows it was genuinely resistant from the start, not one that only looks
+  resistant recently).
+
+**Locked: Circulo_D_20k is Caldária.** Doubly motivated, not simply reused from the architecture
+style it likely inspired: *caldeira* is real Portuguese for both a volcanic caldera — the literal
+geology, since Circulo_D is the sole large Círculo on volcanic lithology (§22.3) — and a
+cauldron/boiler, the same root underlying *siderurgia* (ironworking, the metal industry). The name
+carries the site's geology and its history as this world's original industrial and
+electrical-conduction vanguard (§22.18) in a single word, without forcing either reading onto it.
+
+**22.18 A second temporal layer on the Adoption axis: founding-era character.** The Adoption axis
+(§22.14) measures Vértice-track adoption specifically, which can't have existed before Vértices did
+(~20-30 years old, §21) — so a literal "past version of the same axis" would be a category error.
+What this layer actually represents instead: each Círculo carries an underlying, centuries-old
+cultural disposition toward embracing or resisting new ideas generally — this society has valued
+philosophy, study, and individual expression as a foundational trait since well before Vértices
+existed (§1, §3; honoring the dead through told deeds, and libraries as a central institution, both
+predate Vértice rediscovery by centuries) — and Vértice-track adoption is simply the *current*
+expression of that older trait, not a new one appearing from nothing. This layer re-rolls the same
+five-tier distribution (§22.14: 2 Innovator / 3 Early Adopter / 5 Early Majority / 4 Late Majority /
+3 Laggard) independently, anchored at or near each Círculo's founding — the point real settlement
+names actually get assigned — with no constraints this time, since there's no equivalent reason to
+force variety onto a single historical snapshot the way the present-day Grande-cap does.
+
+This is deliberately a repeatable technique, not a one-time table: re-run it, or narratively author
+a result directly, for whichever Círculo's history becomes relevant, rather than committing all 17
+founding-era values at once. One Círculo has been resolved so far.
+
+**Circulo_D / Caldária — vanguard to gatekeeper, an authored result.** Founding-era: Early Adopter.
+Present: Laggard. The story built from that trajectory: centuries ago, when Visitante-guided
+development brought this world's knowledge of electrical conduction (§22.8), Circulo_D's sole
+large-scale copper deposit (§22.3) made it the obvious site for the first Track 1 electrical
+industries — not necessarily where every invention originated, but where inventions from anywhere
+were first actually built and put to use, making it this world's original industrial and
+technological vanguard for the better part of Track 1's history. Then Vértices arrived, only
+~20-30 years ago, discovered by humans rather than granted (§21) — and within that same short
+window, other Círculos began producing real alternatives to Circulo_D's copper monopoly, the
+bio-conductor cultivar (§22.5) foremost among them. Circulo_D's older generations are watching a
+centuries-long position of unmatched relevance erode within a single generation, and their
+resistance to Vértice technology isn't blanket technophobia — it's the specific, well-precedented
+reluctance of an incumbent to embrace the thing eroding what made it powerful in the first place
+(real citation: this is the shape of Clayton Christensen's innovator's dilemma — the actor
+best-positioned to benefit from an existing technology is often structurally the slowest to adopt
+what threatens it). Circulo_D still holds real leverage — the copper and native silver are still
+only there (§22.3) — so this reads as a slow-motion, contested decline, not a collapse.
+
+**22.19 Open items**
 - Whether this world's current spoken/written language is a plausible continuation of what this
   document describes, or has drifted into something distinct — not decided.
-- Progressista/Conservador/de Isolamento never mapped onto the 17 actual Círculos.
-- Whether the animal-modification taboo (§22.4) covers sentient peoples only or animals generally.
+- The Progressista/Conservador/de Isolamento **framework is locked, and the Adoption axis is fully
+  assigned** (§22.14, mirrored in `circulo_candidate_sites.geojson`'s `adoption` property). The
+  **Engagement axis (de Isolamento ↔ Networked) is still unassigned** — needs Tappa 6's cost-distance
+  network data, a dedicated pass not yet started.
+- Whether the animal-modification taboo (§22.5) covers sentient peoples only or animals generally.
 - Basin fill / Grassland-biome spatial overlap (§22.3) is a hypothesis, not yet checked against the
   rasters.
+- §22.4's basin-fill zonation is a logic, not a raster — exact thresholds, and whether Tappa 8
+  actually authors it as real geometry, are both open.
+- Whether a weaker, freshwater-lake-sediment cable-bacteria citation is worth keeping as a secondary
+  option for inland Círculos, alongside the primary coastal/estuarine siting (§22.4-22.5) — not
+  decided, flagged rather than silently dropped.
 - Vértice materials table (§21) and this section's lithology-industry mapping (§22.3) are both
-  provisional pending Tappa 8's planned granite/limestone additions.
+  provisional pending Tappa 8's granite/limestone discussion actually being authored.
+- Flax as the fiber-crop source (§22.10) is a proposal, not yet locked.
+- Whether nitrocellulose film's real flammability hazard (§22.9) stays a lived risk in this world's
+  cinema industry or gets a Bios/Matéria in-world solution — not decided.
+- Scope of the experimental spherical-drive vehicle (§22.8) — how rare, whether any Círculo treats
+  it as more than a research curiosity — left open.
+- Whether pneumatic-tube local message routing (§22.8) exists at every settlement tier or only
+  Médios/Grandes — not decided.
+- Wind/hydro/solar siting (§22.15) is logic only, deliberately — actual geometry belongs to
+  whichever Tappa handles the terrain-cost/transport pass (9 or 10), not this document.
+- Naming toolkit is locked (§22.17); only Circulo_D (Caldária) has an actual name so far — the
+  other 16 are deliberately on standby, not a gap to rush.
+- Founding-era Adoption layer (§22.18) is a repeatable technique, not a completed table; only
+  Circulo_D has been resolved into it so far.
+
+## 23. Religion, mortality, and the Visitantes' legacy
+
+Scenario-chat output, deliberately kept as its own top-level section rather than folded into §22:
+this is cosmology and mortality-culture, not industry or economy, and §22 is already large enough
+that mixing domains into it would repeat the scope-blur the fauna arc (Tappa 7) is already on
+record as a cautionary tale for. Like §22, this stays entirely within the public framing — "humans
+are residents; mysterious Visitantes appeared yearly from nowhere, then stopped" — and says nothing
+beyond that about who or why.
+
+**23.1 Baseline: a secular-humanist society, not an areligious one.** The majority-non-theistic
+premise this section starts from is better supported by something already written into this
+document than by the mechanism first proposed for it. "The Visitantes' guidance discouraged
+seeking supernatural explanations" leans on E.B. Tylor's dated "religion explains the unknown"
+theory, which doesn't survive contact with populations that have perfectly good explanations for
+everything and keep practicing anyway. The stronger case is Durkheimian: religion's real, durable
+function is social cohesion and meaning-making around mortality (also see the real psychological
+research tradition following Ernest Becker's terror-management work), not explaining nature — and
+this society already has a functioning answer to that on the books. The funerary rite (§3) —
+collective memory-books recording a person's real deeds, scaled to their impact, stored in
+Arquigrados — **is** this society's answer to death: legacy through community and written memory,
+not metaphysics. No organized doctrine-and-priesthood religion is the dominant mode anywhere on
+this island; this is why, not a side effect of the guidance style.
+
+**23.2 A third, independent axis: Devotion.** How much organized reverence toward the Visitantes a
+Círculo carries, separate from Adoption (§22.14, Vértice-tech stance) and Engagement (network
+position). Deliberately not modeled on Rogers' diffusion curve (§22.14) — devotion isn't a
+technology spreading through a population, it's a different kind of social variable, better served
+by the real sociology-of-religion distinction between practiced/public religion and private belief
+(Grace Davie's "believing without belonging," and its inverse). Three tiers, not five:
+**Secular-rationalist** (Visitantes read as history/folklore, no ritual weight), **Diffuse-reverent**
+(folk respect, seasonal observance, no organization or theology), and **Organized-devout** (real
+cultic practice). Explicitly independent of the other two axes — a devout-but-Progressista Círculo
+can read Vértice mastery as continuing the Visitantes' own spirit of self-discovery, while an
+equally devout Conservador one reads the same development as betrayal; same devotion, opposite
+conclusions, and both are meant to be live possibilities rather than one being the "correct" read.
+Devotion is also currently unchecked in a way it wasn't for centuries: while the Visitantes
+actually appeared, their own repeated behavior was itself the strongest corrective against
+organized worship; nothing has replaced that correction since they stopped, so intensity should be
+read as plausibly still rising, not a fixed background fact.
+
+**For the four Grande Círculos specifically, a Devotion value is a dominant/public posture, not a
+homogeneous population fact.** §2 already holds that Grande Círculos are "where cultural tension
+and social innovation manifest most intensely" — that claim isn't specific to Vértice adoption, it
+should apply here too. A Secular-rationalist-majority Grande Círculo still has a real devout
+minority; a devout-majority one still has a vocal secular faction. What gets assigned below for A,
+B, C, and D is the posture that's publicly performed and politically invoked, which can diverge
+from what most of that Círculo's population actually privately believes — a real, well-documented
+pattern (elites invoking tradition or faith to legitimize policy that also happens to serve their
+material interests, across most of real history) worth treating as a live source of internal
+conflict, not resolved by picking one "true" average sentiment.
+
+**23.3 Results.** Drawn under an 8 Secular-rationalist / 5 Diffuse-reverent / 4 Organized-devout
+target across all 17, with Circulo_D and Circulo_F4 authored directly rather than drawn (their
+values were already load-bearing for existing lore, §22.18 and §23.4 below), and a constraint that
+the three remaining Grande Círculos (A, B, C) not all land on the same tier — the same
+non-homogeneity principle already applied to the Adoption axis, satisfied here without needing a
+reroll:
+
+| Círculo | Devotion | Note |
+|---|---|---|
+| Circulo_A_40k | Secular-rationalist | |
+| Circulo_B_35k | Secular-rationalist | |
+| Circulo_C_25k | **Organized-devout** | Also Early Majority on Adoption (§22.14) — devout and genuinely open to Vértices at once, the mismatch case named above, made concrete. |
+| Circulo_D_20k | **Organized-devout** | Official/political posture (§23.2), not asserted as most residents' private belief — compounds the gatekeeper story (§22.18): resisting Vértices is framed as honoring what the Visitantes gave Circulo_D, not only protecting its copper monopoly. |
+| Circulo_E1_2k | Secular-rationalist | |
+| Circulo_E2_2k | Organized-devout | |
+| Circulo_E3_2k | Secular-rationalist | |
+| Circulo_E4_2k | Diffuse-reverent | |
+| Circulo_E5_2k | Diffuse-reverent | |
+| Circulo_F1_small | Secular-rationalist | Current Innovator (§22.14), and a recent bloom at that (Late Majority at founding, §22.18) — an uncomplicated rationalist innovator, no religious layer to its story. |
+| Circulo_F2_small | Diffuse-reverent | |
+| Circulo_F3_small | Diffuse-reverent | |
+| Circulo_F4_small | **Organized-devout** | Authored, not drawn — see §23.4. |
+| Circulo_F5_small | Secular-rationalist | |
+| Circulo_F6_small | Secular-rationalist | |
+| Circulo_F7_small | Secular-rationalist | Laggard on Adoption but *not* devout — its resistance reads as fear/grievance-driven (the Nacre-incursion scapegoating dynamic already sketched) rather than religious conviction, a deliberately different motive from F4's. |
+| Circulo_F8_small | Diffuse-reverent | Current Innovator with a centuries-deep tradition of originating things (Innovator at founding too, §22.18) — inventive and quietly reverent at once, not purely rationalist; the more historically coherent of the two current Innovators. |
+
+Source of truth is intended to become `circulo_candidate_sites.geojson`'s properties (a `devotion`
+key, mirroring how `adoption` was added, §22.14) — handed off to whichever chat owns that file
+rather than edited here.
+
+**23.4 Worked example: Circulo_F4 and Circulo_F1 — a local rivalry with room to escalate.** F4
+(Laggard on Adoption, Organized-devout here, Laggard at founding too — a genuinely unbroken
+traditionalist character, §22.17-§22.18) sits close to F1 (current Innovator, Secular-rationalist,
+a recent and surprising bloom). The authored premise: in F4, change of any kind is read as a sign
+that action must be taken to preserve the old world — and a Vértice-originating neighbor sitting
+nearby is exactly the kind of visible, nearby change that reading demands a response to. What
+starts as ordinary local rivalry between two adjacent small Círculos has a real, specific
+mechanism to escalate past politics into something violent, grounded in F4's devotion rather than
+asserted as generic conservatism.
+
+**23.5 Open items**
+- F1/F4 escalation is authored as a live possibility, not a scripted outcome — how far it actually
+  goes is a session/GM matter, not something this document should pre-resolve.
+- Whether Circulo_D's actual private-belief distribution (as opposed to its official posture,
+  §23.2) is ever worth putting a number on — not decided, and may not need one.
+- Whether other Círculos get worked examples (in the sense of §23.4) beyond D and F4/F1 — left for
+  later, not a gap to rush.
+- This section's confidentiality boundary is the same as everywhere else in this document: nothing
+  here should ever expand past "appeared yearly, then stopped."
