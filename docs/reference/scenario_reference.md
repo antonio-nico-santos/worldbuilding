@@ -541,6 +541,13 @@ band, each with a semi-mapped territory informally tracked and named by nearby c
 cardinal/relative direction (e.g. "the South family") — the same way real communities near large
 carnivores often track and name specific known individuals or groups.
 
+Den sites sit inside the glacier moulin cave systems threaded through their territory (§19) — ground
+that's a genuine, well-documented lethal hazard for people (hidden vertical shafts under snow bridges)
+is simply home terrain each pack has moved through for generations. Not a new danger, just a fact
+worth having on record: it's one more reason the alpine/tundra band stays effectively unassailable to
+people rather than merely remote, and it means a pack pursued or cornered has somewhere to go that
+nothing human can safely follow into.
+
 **Pack structure.** Each pack numbers 4-6: a breeding pair plus offspring of mixed maturity
 (subadults and juveniles). Real fossil support, honestly hedged rather than treated as settled: a
 real Utahraptor bonebed (the Utah "Utahraptor Ridge"/Stikes Quarry site) preserved multiple
@@ -691,6 +698,38 @@ themselves, and nobody has connected any of them to each other or to a known spe
   (In our real world, granite does carry the highest natural background radioactivity of common
   rock types, from trace uranium, thorium, and potassium-40 — a real, slow, physical clock ticking
   inside the stone. Whether that's the seed of this rumor is left open and unconfirmed on purpose.)
+
+- **Something lost in the sea caves.** Real cave systems, not open water — this world's actual sea
+  caves (a distinct, mapped geology, not folklore) run 431 km² of coastal tunnels, genuinely
+  labyrinthine in places. Sailors, cave-diving hobbyists, and a handful of coastal Círculo residents
+  tell of glimpsing something large moving in the dark water inside them — and the question nobody
+  has ever answered is whether it's Sea Terror itself, occasionally wandering in from the open
+  corridors it's known to travel (§18), or something else: a related, unnamed species, a parent
+  lineage, something that only resembles Sea Terror in poor light and panic. Nor is it agreed whether
+  there's one such creature or several — sightings are too scattered, too rare, and too badly lit to
+  compare against each other. Nobody has mounted an expedition to actually find out, and given how
+  dangerous open cave-diving already is without also going looking for whatever this is, that's
+  likely to stay true.
+
+- **The blind hunter.** Real troglomorphism — blindness and pigment loss as documented, repeated
+  adaptations to permanent darkness — grounds something that's occasionally, unmistakably real: a
+  cave-dwelling predator glimpsed at the mouths of karst and talus/pseudokarst caves alike (the two
+  systems connect underground in real, mapped places, so it isn't bound to either), and rarely, on
+  the darkest nights, seen briefly at the surface near a cave entrance before it withdraws. Enough
+  people have seen it, close enough and consistently enough, that — unlike most of this list — its
+  existence isn't seriously doubted. What it actually is, how many of it there are, and what the rest
+  of the underground ecosystem it presumably belongs to looks like is deliberately left undeveloped
+  for now (§22.19) — known to be real, not yet detailed.
+
+**Two related, non-folkloric hazards, locked as real geography rather than rumor.** Glacier moulins
+(136 km² of vertical meltwater shafts within this world's glacier margins) are a genuine
+terrain hazard exactly as they are in the real world — hidden under snow bridges, a real and
+well-documented cause of fatal falls for anyone crossing glacier terrain, no creature required for
+people; Nacre packs (§16) den directly in these same systems and know their own territory's shafts
+intimately, so the same ground that's lethal to an outsider is simply home for them. Lava
+tubes (33 km², tied to the volcanic zone and Circulo_D specifically) carry a real risk of pooled
+volcanic gas (CO2 is the well-documented real hazard in lava-tube caves) — a literal danger sitting
+under the same ground already carrying Circulo_D's political weight (§22.18).
 
 Room for further entries as other lore develops (an eventual increment to the Povo Silencioso
 material is the likeliest next addition).
@@ -1262,6 +1301,96 @@ new spatial primitives. Unlike copper, aluminum, or the granite/limestone questi
 needs to wait on Tappa 8 closing lithology — wind and hydro potential are terrain/climate-driven,
 not rock-type-driven, so they're free to be sited independently and on their own schedule.
 
+**22.16 Durable goods, comfort, and material culture.** This society is deliberately not
+subsistence-austere and not consumerist — a solarpunk-consistent middle ground, not a contradiction:
+people have real comforts (hot water, stoves and ovens, electrical lamps, sound systems, tabletop
+games with rules shared and pieces handmade across Círculos, printing and books, and — see below —
+shared cooling), but with no commercial pressure to move units and no planned obsolescence, goods are
+built to be repaired and recycled rather than replaced, and routinely last for generations. This
+matters for material accounting: it means the relevant question for a scarce material like copper
+was never simply "how much gets mined," but a stock-versus-flow question — how large the
+already-circulating, repairable stock is, versus how fast genuinely new demand is added to it.
+
+*Copper: comfortable for generations, now thinning — not because the ore changed, but because the
+flow did.* Copper is one of the few materials that's genuinely close to infinitely recyclable without
+quality loss (real-world copper roofing, plumbing, and statuary routinely survive a century or more;
+Bronze Age copper artifacts still exist), which is exactly the kind of material a repair-and-recycle,
+no-obsolescence culture would keep circulating almost indefinitely off a comparatively modest original
+stock (§22.3's copper/silver pods are a small footprint by design). For most of this society's
+history, slow-growing Track 1 technology plus that near-perfect recyclability meant the existing stock
+comfortably kept pace with demand. What's changed is the last ~20-30 years since Vértice rediscovery,
+which stacked several genuinely new copper-consuming technologies onto the same pool in a short
+window — telegraph and radio expansion, music amplification (§22.9), wind/hydro-electric generation
+(§22.15), and Mente-Vértice devices (§21) — without a matching increase in the underlying stock. The
+cable-bacteria industry's rise (§22.5) reads as this society's own adaptive response to that squeeze
+already starting to bite, not a coincidence running in parallel to it. Worth being precise about:
+copper scarcity itself isn't new or newly discovered — what's new is the rate at which it's being
+drawn down, which is why "comfortable for generations, now getting thinner" is the honest shape of
+the story rather than a sudden crisis.
+
+*Refrigeration and cooling: no personal units, and no Vértice shortcut.* A Vértice-based Onda-Calor
+cooling effect is explicitly not viable as a "install and forget" refrigerator — Legado/Root ("make
+it permanent") remains entirely unclaimed on every domain (§21), so any Vértice cooling effect would
+require a practitioner actively renewing it on a routine basis, the same continuous-tending problem
+already true of the cable-bacteria industry (§22.5). Cooling and food preservation instead run
+entirely on Track 1, non-copper methods, layered by need rather than solved by one single technology:
+
+- **Root and cold cellars** — the universal baseline. Excavation into stable-temperature ground,
+  viable in any biome or climate, no scarce material, reuses the same excavation know-how already
+  established for mining (§22.6). Every Círculo has this regardless of tier.
+- **Ice harvesting and insulated ice-houses** — seasonal and regional rather than universal: winter
+  ice/snow (this world already has a snow system, per Tappa 3) is harvested and stored insulated
+  (straw, sawdust, wool) for use through warmer months. Mountain-adjacent and high-elevation Círculos
+  are natural producers; ice becomes a genuine traded seasonal good moving along the same rail
+  corridors already carrying telegraph traffic and passengers (§18), giving lowland Círculos access
+  through trade rather than local production.
+- **Spring houses** — built over a cold stream or spring, using flowing water to carry heat away.
+  Available wherever the right water source exists (Tappa 4's hydrology layer would determine where);
+  no scarce material, no moving parts.
+- **Pneumatic (vortex-tube) cooling** — the active, on-demand layer, and a direct extension of
+  technology already locked rather than a new resource category: a real, physically simple device (a
+  Ranque-Hilsch vortex tube, historically 1930s-40s) splits compressed air into a hot stream and a
+  cold stream using nothing but tube geometry — no refrigerant chemistry, no compressor beyond the
+  same compressed-air source already established for tools, mining drills, and message tubes
+  (§22.6-§22.8), and no copper. The real tradeoff worth keeping honest: vortex tubes are energy-hungry
+  per unit of cooling and a poor fit for large industrial-scale cold storage, but a genuinely good fit
+  for a modest unit shared by a family group or a small collective — which is also the socially
+  correct scale here. There are deliberately no personal household refrigerators: shared collective-
+  scale cooling isn't just resource-appropriate, it's the historically honest choice — personal home
+  refrigeration is specifically a 20th-century mass-consumer invention, and pre-refrigerator societies
+  almost universally relied on shared ice-houses, communal cellars, and shared spring houses instead.
+- **Traditional preservation** — drying, salting, smoking, fermenting, and pickling handle a real
+  share of staple food preservation without needing active cooling at all, alongside whichever cooling
+  method a given Círculo has access to.
+
+*Other durable goods, added to round out the picture rather than left implicit:*
+
+- **Mechanical clocks and timepieces** — spring- or weight-driven, brass/iron gearwork, no copper
+  dependency, genuinely heirloom-grade under this culture's repair-and-recycle norm. Worth keeping as
+  more than a generic good: this is a world where Tempo (§21) is the one Vértice domain nobody has
+  ever reached, no crystal for it exists, and no one has ever accessed it — mechanical timekeeping is
+  humanity's entirely mundane answer to the same problem magic never solved, an unplanned but fitting
+  resonance rather than a forced one.
+- **Clockwork as a craft base, not just clocks.** The same gear-cutting, spring-tensioning, and
+  precision-fitting knowledge that makes clocks possible generalizes naturally to other small
+  mechanisms — wind-up toys, music boxes, mechanical puzzles, automata. This slots directly into the
+  handmade-pieces culture already established for tabletop games (above) and the craft-over-industry
+  choice locked in §22.12: clockmaking isn't a narrow specialist trade producing one product, it's a
+  precision-mechanism tradition that toy- and small-object-making draw on as a shared skill base.
+- **Acoustic musical instruments** — strings, winds, percussion, entirely craft-built and separate
+  from the vacuum-tube amplification already locked in §22.9; no scarce material, no infrastructure
+  dependency. Fills a real gap: music before this document only existed in amplified/recorded form.
+- **Ceramics and pottery** — jars, crocks, pitchers, tableware. Closes a loop with the food-storage
+  methods above (fermenting and pickling both want ceramic vessels) and uses about as unconstrained a
+  material as this document has.
+- **Bicycles** — the copper-free, universal counterpart to the electric utility vehicles already in
+  §18, filling the low-tech, everyone-can-own-one tier that transportation was otherwise missing
+  between "electric vehicle" and "riding animal."
+- **Eyeglasses and simple optical lenses** — close to a free addition rather than a new capability:
+  vacuum-tube radio and amplification (§22.9) already require glass-blowing and vacuum-sealing know-how
+  to exist, so ground-glass lenses follow from craft already assumed present, and there's obvious
+  in-world demand (an aging population needing correction) nothing else in this document addresses.
+
 **22.17 Círculo naming conventions.** Names are being developed on standby, as they come, rather
 than all 17 assigned at once — this section locks the toolkit, not a completed name list. Two
 separate axes are worth keeping distinct: what a name refers to (its meaning) and how the word is
@@ -1363,6 +1492,9 @@ only there (§22.3) — so this reads as a slow-motion, contested decline, not a
   other 16 are deliberately on standby, not a gap to rush.
 - Founding-era Adoption layer (§22.18) is a repeatable technique, not a completed table; only
   Circulo_D has been resolved into it so far.
+- The karst/talus-pseudokarst underground ecosystem (§19, "The blind hunter") is confirmed to exist
+  and connect across both cave types, but deliberately not developed further yet — full biology,
+  population, and danger tier are intentionally deferred, not forgotten. Revisit when it's wanted.
 
 ## 23. Religion, mortality, and the Visitantes' legacy
 
