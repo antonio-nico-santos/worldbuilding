@@ -179,6 +179,35 @@ def sea_cave_candidates(
     return land_mask & (dist_to_ocean_km <= coastal_buffer_km) & (slope_pct >= steep_threshold_pct)
 
 
+def karst_cave_candidates(
+    lithology: np.ndarray,
+    land_mask: np.ndarray,
+    dist_to_stream_km: np.ndarray,
+    stream_buffer_km: float = 0.5,
+):
+    """Dissolution karst -- a fifth, mechanistically distinct cave type (NCKRI/DOC:
+    karst forms by chemical dissolution of soluble rock, not magma conduits,
+    mass-wasting, ice, or wave action -- none of the other four types' mechanisms).
+    Real citations: Waitomo (Te Kuiti Group limestone), Harwoods Hole and the Oparara
+    Arches (Takaka/Arthur Marble) -- i.e. it needs the two soluble classes lithology v6
+    added (marble, sedimentary_limestone), which is why this wasn't buildable before.
+
+    Eligibility = soluble lithology AND close to a stream -- dissolution needs actual
+    water movement through the rock, not just the right mineral present. Reuses the
+    SAME 0.5 km `stream_buffer_km` convention `talus_pseudokarst_candidates` already
+    established (this module's docstring: Tappa 6's `water_gentle_km`), rather than
+    inventing a new distance. Deliberately no slope condition -- unlike
+    talus/sea/lava-tube, real NZ karst doesn't consistently correlate with steep
+    relief (Waitomo is rolling hill country, Harwoods Hole is alpine, Punakaiki is a
+    low coastal platform), so adding one here would be an invented constraint, not a
+    citation.
+    """
+    from .lithology import CLASS_MARBLE, CLASS_SEDIMENTARY_LIMESTONE
+
+    soluble = (lithology == CLASS_MARBLE) | (lithology == CLASS_SEDIMENTARY_LIMESTONE)
+    return soluble & land_mask & (dist_to_stream_km <= stream_buffer_km)
+
+
 def distance_to_ocean_km(land_mask: np.ndarray, cellsize_m: float):
     """Euclidean distance from each LAND cell to the nearest ocean cell --
     the mirror of every other distance_transform_edt usage in this

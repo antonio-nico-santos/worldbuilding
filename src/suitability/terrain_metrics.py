@@ -30,6 +30,7 @@ __all__ = [
     "block_max",
     "block_any",
     "block_mean",
+    "block_mode",
     "compute_slope_pct",
     "slope_suitability",
     "distance_to_stream_km",
@@ -84,6 +85,39 @@ def block_mean(a: np.ndarray, factor: int) -> np.ndarray:
     a = _pad_to_factor(a, factor)
     ny, nx = a.shape
     return a.reshape(ny // factor, factor, nx // factor, factor).mean(axis=(1, 3))
+
+
+def block_mode(a: np.ndarray, factor: int, n_classes: int) -> np.ndarray:
+    """Block-mode (majority-vote) downsample for CATEGORICAL class-code
+    rasters (e.g. lithology_v6, 8 classes 0-7) -- added for the transport
+    lithology-cost multiplier follow-up, the first consumer of a categorical
+    30m source in this module (everything else here is continuous/boolean,
+    hence block_mean/block_max/block_any instead).
+
+    Neither block_mean (would average class CODES together into meaningless
+    fractional values) nor block_any/block_max (would let the numerically
+    largest class code always win a tie, an arbitrary bias with no physical
+    meaning) is correct for class labels -- "what's the dominant lithology in
+    this 120m cell" is a majority-vote question, so this computes the
+    per-class occupied-fraction of each block (via `n_classes` calls to
+    block_mean on a one-hot mask -- reuses the already-validated block_mean
+    padding/reshape logic rather than writing new block-reduce machinery) and
+    returns the argmax class per block. Ties (a block split evenly between
+    two classes) resolve to the LOWER class code (np.argmax's own tie-
+    breaking rule) -- an arbitrary but deterministic and rare edge case at
+    this grid's 16x area-ratio (120m/30m = 4, 16 native cells per block).
+
+    `n_classes` must cover every code actually present in `a` (codes are
+    assumed to run 0..n_classes-1 contiguously, true for lithology_v6's
+    0=ocean..7=granite).
+    """
+    if factor == 1:
+        return a.astype(np.int64, copy=True)
+    counts = np.stack(
+        [block_mean((a == c).astype(np.float64), factor) for c in range(n_classes)],
+        axis=0,
+    )
+    return np.argmax(counts, axis=0).astype(np.int64)
 
 
 def compute_slope_pct(dem: np.ndarray, cellsize_m: float) -> np.ndarray:

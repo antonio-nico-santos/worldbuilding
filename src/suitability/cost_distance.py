@@ -49,6 +49,28 @@ neighbouring 120 m cells, not a hazard-conservative worst-case within a
 cell -- see terrain_metrics.py's module docstring for why block-max is
 used THERE instead).
 
+LITHOLOGY FRICTION (optional, added for the transport lithology-cost
+multiplier follow-up -- see geomorphology/lithology.py's
+`travel_friction_multiplier` docstring for the actual per-class values,
+citations, and honest caveats): `build_cost_graph`'s new `friction_multiplier`
+parameter is a generic per-cell 0-1-ish multiplier applied to LAND-LAND edge
+speed only (sea/boat edges are untouched -- lithology is only defined on
+land). Deliberately kept lithology-agnostic HERE -- this module still only
+knows about elevation and land/sea, exactly like before; it has no import of
+anything from geomorphology, matching how it already doesn't know about lakes
+either (that exclusion happens in the calling run script via `land_mask`, not
+here). The caller assembles whatever friction field it wants (lithology,
+later maybe biome or vegetation) and passes the array in; passing None
+(default) reproduces the EXACT previous behaviour bit-for-bit -- this keeps
+every already-locked Tappa 6 result (site_selection's 17/17 placement, 0
+violations) reproducible without this parameter ever being touched, since
+lithology friction is a NEW, separate, not-yet-signed-off layer, not a retro-
+active correction to what's already committed.
+
+An edge's friction is the arithmetic mean of its two endpoint cells' own
+multipliers (a property of the ground being crossed, not of travel
+direction -- unlike slope, which already IS directional and stays that way).
+
 Performance note: the full graph has ~1.45M nodes (this world's 120 m grid)
 and ~8 directed edges per node (~11.6M edges). A single-source Dijkstra over
 that (scipy.sparse.csgraph.dijkstra) is what cost_distance_from_source runs
@@ -88,13 +110,23 @@ def tobler_speed_kmh(slope_ratio: np.ndarray) -> np.ndarray:
 
 
 def build_cost_graph(
-    dem_120m: np.ndarray, land_mask: np.ndarray, cellsize_km: float
+    dem_120m: np.ndarray,
+    land_mask: np.ndarray,
+    cellsize_km: float,
+    friction_multiplier: np.ndarray | None = None,
 ) -> csr_matrix:
     """Directed 8-connected cost graph (edge weight = travel time in HOURS)
     over the full ny*nx grid (land and sea both included as nodes -- sea
     nodes are only ever traversed at BOAT_SPEED_KMH, never scored as a
     Circulo site elsewhere in this pipeline, but they must exist as graph
     nodes for a sea crossing to be a path at all).
+
+    `friction_multiplier`: optional, same shape as `land_mask` -- a per-cell
+    multiplier (<=1.0 slows travel, >1.0 would speed it up, though nothing in
+    this project currently produces a >1.0 value) applied to LAND-LAND edge
+    speed only, via the mean of the edge's two endpoint multipliers. None
+    (default) reproduces prior behaviour exactly -- see module docstring's
+    "LITHOLOGY FRICTION" section.
     """
     ny, nx = land_mask.shape
     node_id = np.arange(ny * nx, dtype=np.int64).reshape(ny, nx)
@@ -117,6 +149,11 @@ def build_cost_graph(
 
         slope_ratio = (dst_elev - src_elev) / edge_dist_m
         speed_land = tobler_speed_kmh(slope_ratio)
+        if friction_multiplier is not None:
+            src_fric = friction_multiplier[r0:r1, c0:c1]
+            dst_fric = friction_multiplier[sr0:sr1, sc0:sc1]
+            edge_friction = 0.5 * (src_fric + dst_fric)
+            speed_land = np.maximum(speed_land * edge_friction, _MIN_SPEED_KMH)
         cost_land = edge_dist_km / speed_land
         cost_sea = edge_dist_km / BOAT_SPEED_KMH
 
