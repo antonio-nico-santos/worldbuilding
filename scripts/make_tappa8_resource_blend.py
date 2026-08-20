@@ -1,49 +1,67 @@
 """
-Tappa 8 -- blend all seven Vertice/mundane resource-pod eligibility masks into ONE
-raster, mirroring `make_tappa8_cave_blend.py`'s exact bitmask convention (Nico's
-request there: "one file with the pixel value carrying type info" -- same ask, applied
-to the resource-pod layer instead of the cave layer).
+Tappa 8 -- blend all THIRTEEN Vertice/mundane resource-pod eligibility masks into ONE
+raster, mirroring `make_tappa8_cave_blend.py`'s exact bitmask convention (Nico's request
+there: "one file with the pixel value carrying type info" -- same ask, applied to the
+resource-pod layer instead of the cave layer).
 
-The seven materials that HAVE a pod raster (four from S8e, jade from S5, two more from
-S10 -- see docs/decisions/08_tappa8_geomorphology.md):
-  jade              (schist -- ALSO carries schist's gold-bearing quartz veins/mica,
-                      which resources.py's own spatial_note says co-locate with jade,
-                      no separate raster)
+The thirteen materials that HAVE a pod raster (four from S8e, jade from S5, two more
+from S10, three more from S13, three more from S14 -- see
+docs/decisions/08_tappa8_geomorphology.md):
+  jade              (schist, S5)
+  quartz            (schist, primary -- Onda, S13, independent of jade as of S13)
+  mica              (schist, secondary -- Energia, S13, independent of jade as of S13)
+  gold              (schist, mundane_only, S13, independent of jade as of S13)
   laumontite        (greywacke, primary)
   vivianite         (basin_fill, primary)
   bog_iron          (basin_fill, mundane_only -- co-located with vivianite, S10)
-  placer_magnetite  (basin_fill, secondary_weak)
-  silver_copper     (volcanic, secondary -- silver+copper together, one reservoir,
-                      differentiated by kind in tappa8_resource_pods_meta.json's
-                      pod_kinds list, not by separate spatial footprints)
+  placer_magnetite  (basin_fill, secondary_weak, restricted to estuarine_coastal, S12)
+  silver_copper     (volcanic, secondary)
   bauxite           (volcanic, mundane_only, S10)
+  calcite           (sedimentary_limestone, secondary -- Onda, S14)
+  mica_granite      (granite, secondary -- Energia, S14; SAME mineral as schist's mica,
+                     DIFFERENT host rock/raster -- do not confuse with bit 256)
+  quartz_granite    (granite, tertiary -- Onda, S14; SAME mineral as schist's quartz,
+                     DIFFERENT host rock/raster -- do not confuse with bit 128)
 
 Excluded, same reasoning as S8e/S10: volcanic's magnetite (primary) is a disseminated
 bulk mineral through the whole basalt class, not vein/pod-localized -- inventing a pod
 footprint for it would be LESS geologically honest than what resources.py already does
-(a class-level fact). No raster, no bit.
+(a class-level fact). No raster, no bit. marble is also excluded -- S21 (scenario_
+reference.md, relayed by Nico) assigns it NO Vertice domain at all, a deliberate null,
+not a gap -- see resources.py's marble entry. No raster, no bit.
+
+DTYPE: still int16 (S13's change from S11's original uint8) -- 13 bits, max possible
+value 8191, comfortably inside int16's positive range (32767). No further dtype change
+needed this round.
 
 UNLIKE the five cave types (independent phenomena that can genuinely co-occur on the
 same ground), overlap here is structurally CONSTRAINED, not open -- worth checking
 directly rather than assuming either "none" or "same as caves":
-- jade/laumontite/{vivianite,bog_iron,placer_magnetite}/{silver_copper,bauxite} each
-  draw their eligible_mask from a DIFFERENT lithology class (schist / greywacke /
-  basin_fill / volcanic), and lithology classes are mutually exclusive by construction
-  (one code per cell) -- so a jade pod and a laumontite pod CANNOT overlap, structurally,
-  not just empirically. Checked below to confirm the data agrees with the geometry.
-- WITHIN basin_fill, vivianite/bog_iron/placer_magnetite are three INDEPENDENT
-  stochastic draws over the same eligible ground (bog_iron is the one exception --
-  identical to vivianite BY DESIGN, S10 -- so its bit is fully redundant with
-  vivianite's, kept separate only for per-material catalogue completeness, not because
-  it carries new spatial information). vivianite and placer_magnetite use different
-  weight fields (wetness vs. coastal-x-volcanic proximity) and different seeds, so any
-  overlap between THEM is incidental, not structural -- checked below, not assumed.
-- WITHIN volcanic, silver_copper and bauxite are two independent stochastic draws
-  (vent-proximity vs. flatness weighting) -- same "incidental, not structural" status.
+- Materials from DIFFERENT lithology classes (schist / greywacke / basin_fill /
+  volcanic / sedimentary_limestone / granite) CANNOT overlap, structurally, since
+  lithology classes are mutually exclusive by construction (one code per cell).
+  Checked below to confirm the data agrees with the geometry.
+- WITHIN schist, jade/quartz/mica/gold are four INDEPENDENT stochastic draws over the
+  same eligible ground (jade uses lithology_v5's schist extent, the other three use
+  lithology_v6's -- a real, flagged divergence, see resources.py's spatial_note) --
+  overlap among them is incidental, not structural, checked below.
+- WITHIN basin_fill, vivianite/bog_iron/placer_magnetite are three draws (bog_iron is
+  the one exception -- identical to vivianite BY DESIGN, S10 -- so its bit is fully
+  redundant with vivianite's, kept separate only for per-material catalogue
+  completeness). vivianite and placer_magnetite are now structurally non-overlapping
+  too (S12 restricted both to mutually-exclusive S9 sub-zones) -- checked, not assumed.
+- WITHIN volcanic, silver_copper and bauxite are two independent stochastic draws --
+  incidental non-overlap status, same as before.
+- sedimentary_limestone has only calcite (one material, so no within-class pair to
+  check). WITHIN granite, mica_granite/quartz_granite are two independent stochastic
+  draws over the SAME small (13.84 km2) eligible ground -- checked below, same as the
+  schist trio, since a zone this small leaves little room for the 5 km separation rule
+  to keep two independent draws apart.
 
-Run after run_tappa8_iron_aluminium.py (needs resource_bog_iron.npy/resource_bauxite.npy)
-and with jade_pods_v5.npy staged (Tappa 8 S5, closed stage, committed separately from
-this session's other resource work).
+Run after run_tappa8_iron_aluminium.py, run_tappa8_placer_magnetite_restrict.py,
+run_tappa8_schist_vein_materials.py, and run_tappa8_limestone_granite_materials.py
+(needs their combined thirteen output rasters) and with jade_pods_v5.npy staged
+(Tappa 8 S5, closed stage, committed separately).
 """
 import sys, time, json
 
@@ -60,7 +78,7 @@ def log(msg):
     print(f"[{time.time() - t_start:7.1f}s] {msg}", flush=True)
 
 
-log("=== Tappa 8 -- blend all 7 resource-pod eligibility masks into one bitmask raster ===")
+log("=== Tappa 8 -- blend all 13 resource-pod eligibility masks into one bitmask raster ===")
 
 params = load_params("config/parameters.yml")
 domain = params["domain"]
@@ -78,17 +96,23 @@ BITS = [
     ("placer_magnetite", "resource_placer_magnetite.npy", "basin_fill", 16),
     ("silver_copper", "resource_silver_copper.npy", "volcanic", 32),
     ("bauxite", "resource_bauxite.npy", "volcanic", 64),
+    ("quartz", "resource_quartz.npy", "schist", 128),
+    ("mica", "resource_mica.npy", "schist", 256),
+    ("gold", "resource_gold.npy", "schist", 512),
+    ("calcite", "resource_calcite.npy", "sedimentary_limestone", 1024),
+    ("mica_granite", "resource_mica_granite.npy", "granite", 2048),
+    ("quartz_granite", "resource_quartz_granite.npy", "granite", 4096),
 ]
 
-log("loading all seven resource-pod masks...")
+log("loading all 13 resource-pod masks...")
 masks = {}
 for name, fname, lith_class, bit in BITS:
     masks[name] = np.load(f"{OUTPUT_DIR}/{fname}").astype(bool)
 
 ny, nx = next(iter(masks.values())).shape
-blend = np.zeros((ny, nx), dtype=np.uint8)
+blend = np.zeros((ny, nx), dtype=np.int16)
 for name, fname, lith_class, bit in BITS:
-    blend |= (masks[name].astype(np.uint8) * bit)
+    blend |= (masks[name].astype(np.int16) * bit)
 
 log("computing overlap diagnostics -- checked directly, not assumed, since the "
     "structural-vs-incidental distinction above needs real numbers to back it up...")
@@ -120,8 +144,8 @@ log(f"cross-lithology-class overlap found: {cross_class_overlap_found} "
     "so this would indicate a real bug if True)")
 assert not cross_class_overlap_found, (
     "Cross-lithology-class overlap detected between resource pods -- this should be "
-    "structurally impossible given lithology_v6's mutual-exclusivity; investigate "
-    "before shipping, do not silently proceed."
+    "structurally impossible given lithology's mutual-exclusivity; investigate before "
+    "shipping, do not silently proceed."
 )
 bog_iron_vivianite_km2 = float((masks["vivianite"] & masks["bog_iron"]).sum() * cell_km2)
 log(f"vivianite+bog_iron overlap: {bog_iron_vivianite_km2:.4f} km2 -- expected to equal "
@@ -133,38 +157,61 @@ assert np.array_equal(masks["vivianite"], masks["bog_iron"]), (
 )
 log("  confirmed: bog_iron is a byte-for-byte structural subset (in fact exact match) "
     "of vivianite -- flagged in the meta JSON below, not hidden.")
+placer_wetland_km2 = float(
+    (masks["placer_magnetite"] & (masks["vivianite"] | masks["bog_iron"])).sum() * cell_km2
+)
+log(f"placer_magnetite vs vivianite/bog_iron overlap: {placer_wetland_km2:.4f} km2 -- "
+    "expected exactly 0.0 since S12 restricted them to mutually-exclusive S9 sub-zones "
+    "(estuarine_coastal vs wetland_backswamp) -- checking that now...")
+assert placer_wetland_km2 == 0.0, (
+    "Expected zero overlap between placer_magnetite (estuarine_coastal, S12) and "
+    "vivianite/bog_iron (wetland_backswamp, S10) -- S9's sub-zones are supposed to be "
+    "mutually exclusive by construction. A nonzero value means that assumption broke."
+)
+log("  confirmed: zero overlap, as expected from S9's sub-zone exclusivity.")
 
-log("round-trip verification: decoding all 7 bits back out of the blend must reproduce "
+mica_quartz_granite_km2 = float((masks["mica_granite"] & masks["quartz_granite"]).sum() * cell_km2)
+log(f"mica_granite vs quartz_granite overlap: {mica_quartz_granite_km2:.4f} km2 -- both "
+    "draw from the SAME tiny (13.84 km2) granite eligible ground with independent seeds "
+    "(S14) -- checked directly rather than assumed, same reasoning as the schist trio.")
+
+log("round-trip verification: decoding all 13 bits back out of the blend must reproduce "
     "every source mask exactly...")
 for name, fname, lith_class, bit in BITS:
     decoded = (blend & bit) > 0
     assert np.array_equal(decoded, masks[name]), f"round-trip mismatch for {name}!"
-log("  all 7 materials round-trip exactly.")
+log("  all 13 materials round-trip exactly.")
 
 log("exporting blended bitmask raster...")
 np.save(f"{OUTPUT_DIR}/resource_blend.npy", blend)
 description = (
-    "Tappa 8 resource-pod eligibility BITMASK (OR of all seven materials that have a "
+    "Tappa 8 resource-pod eligibility BITMASK (OR of all 13 materials that have a "
     "pod raster): " + ", ".join(f"{bit}={name}" for name, _, _, bit in BITS)
     + ". Decode a single material with (value & bit); value==0 means no pod material "
       "present; value>0 means at least one. NOTE: bit 8 (bog_iron) is by construction "
       "IDENTICAL to bit 4 (vivianite) -- co-located deposit (S10), not independent "
-      "information. Volcanic's magnetite (primary) has no bit -- disseminated bulk "
-      "mineral, not pod-localized, stays a class-level fact in resources.py."
+      "information. bit 128 (quartz, schist) and bit 4096 (quartz_granite) are the "
+      "SAME mineral in DIFFERENT host rocks, not duplicates of each other -- same for "
+      "bit 256 (mica, schist) and bit 2048 (mica_granite). Volcanic's magnetite "
+      "(primary) and marble have no bit -- magnetite is a disseminated bulk mineral, "
+      "not pod-localized; marble carries no Vertice domain at all (S21) -- both stay "
+      "class-level facts in resources.py, no raster. Stored as int16 (S13, up from "
+      "S11's uint8) -- 13 bits (max value 8191) still fit comfortably."
 )
 write_envi_raw(
     f"{OUTPUT_DIR}/resource_blend", blend.astype(np.int16),
     xmin=domain["xmin"], ymin=domain["ymin"], cellsize=RES_M,
-    description=description, dtype="u1",
+    description=description, dtype="i2",
 )
 write_prj(f"{OUTPUT_DIR}/resource_blend.prj", CRS_PROJ4)
 
 meta = {
-    "encoding": "bitmask, not category code -- mirrors cave_blend.npy's exact convention "
-    "(S8d). Unlike the five cave types, overlap here is structurally CONSTRAINED (each "
-    "material's eligible_mask is drawn from one lithology class, and lithology classes "
-    "are mutually exclusive by construction) rather than open -- verified directly, see "
-    "cross_lithology_class_overlap_found below, not assumed.",
+    "encoding": "bitmask, not category code -- mirrors cave_blend.npy's convention (S8d), "
+    "stored as int16 (S13's dtype change from S11's original uint8, still sufficient at "
+    "13 bits/S14). Unlike the five cave types, overlap here is structurally CONSTRAINED "
+    "(each material's eligible_mask is drawn from one lithology class, and lithology "
+    "classes are mutually exclusive by construction) rather than open -- verified "
+    "directly, see cross_lithology_class_overlap_found below, not assumed.",
     "bits": {name: bit for name, _, _, bit in BITS},
     "lithology_class_per_material": {name: lith_class for name, _, lith_class, _ in BITS},
     "area_km2": area_km2,
@@ -178,12 +225,29 @@ meta = {
     "independent placement. Kept as its own bit for per-material catalogue completeness "
     "(consistent with resources.py listing it as its own mundane_only material), not "
     "because it adds spatial information beyond vivianite's own bit.",
+    "placer_magnetite_flag": "bit 16 (placer_magnetite) and bits 4/8 (vivianite/bog_iron) "
+    "are now STRUCTURALLY non-overlapping (S12 restricted placer_magnetite to "
+    "estuarine_coastal, vivianite/bog_iron to wetland_backswamp -- S9's mutually "
+    "exclusive sub-zones) -- confirmed 0.0 km2 by assertion, not assumed.",
+    "quartz_mica_gold_flag": "bits 128/256/512 (quartz/mica/gold, S13) use "
+    "lithology_v6's CURRENT schist extent for their eligible mask; bit 1 (jade, S5) "
+    "still uses lithology_v5's -- 9013 cells (8.11 km2) that were schist in v5 are "
+    "marble in v6. A real, flagged pre-existing divergence between jade's raster and "
+    "the three new ones, not reconciled here (out of scope) -- see resources.py.",
+    "granite_pods_below_target_flag": "granite's eligible ground (13.84 km2, 'Granite "
+    "South' alone) is far smaller than any other material's -- mica_granite placed only "
+    "3/8 target pods, quartz_granite only 2/8, under the SAME 5 km min_separation_km "
+    "used everywhere else in this project. Not rescaled -- reported as-is (see S14) -- "
+    "but worth flagging that the standard 5 km separation constant may be a poor fit for "
+    "a zone this small if Nico wants granite's pod count closer to the other materials'.",
+    "mica_granite_quartz_granite_overlap_km2": mica_quartz_granite_km2,
     "excluded_no_raster": {
-        "schist_gold_quartz_mica": "co-locates with jade (bit 1) per resources.py's own "
-        "spatial_note -- no separate bit, would be double-counting the same footprint.",
         "volcanic_magnetite_primary": "disseminated bulk mineral in basalt, not vein/"
-        "joint/pod-localized like the other seven -- stays a class-level fact in "
+        "joint/pod-localized like the other twelve -- stays a class-level fact in "
         "resources.py, same reasoning as S8e/S10.",
+        "marble": "S21 (scenario_reference.md, relayed by Nico from the Scenario chat) "
+        "assigns marble NO Vertice domain -- a deliberate null, not an omission. Stays "
+        "a plain-text mundane entry in resources.py, no pod raster, no bit.",
     },
     "how_to_decode": "single_material_mask = (raster_value & bit_value) > 0; "
     "any_resource_mask = raster_value > 0",
