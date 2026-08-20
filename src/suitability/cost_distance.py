@@ -78,6 +78,17 @@ once per already-placed Circulo during greedy placement -- `limit_hours`
 lets scipy stop expanding once accumulated cost exceeds the limit, which
 matters a lot here since we only ever need to know whether a candidate is
 >= some threshold, not its exact cost past that point.
+
+PREDECESSOR EXTRACTION / PATH RECONSTRUCTION (Tappa 9, additive only --
+`cost_distance_from_source` above is untouched, byte-for-byte, so every
+already-locked Tappa 6/8 result stays reproducible). Tappa 6/8 only ever
+needed COSTS (is this candidate >= some hour threshold from an already-
+placed site) -- Tappa 9's road-network work needs the actual PATH a route
+would follow, not just its length. scipy's dijkstra already computes a
+shortest-path tree as a side effect of finding the distances; the only
+thing missing was asking for it (`return_predecessors=True`) and having a
+function to walk it back into a cell sequence. See
+`cost_distance_from_source_with_predecessors` and `reconstruct_path` below.
 """
 
 from __future__ import annotations
@@ -91,6 +102,8 @@ __all__ = [
     "tobler_speed_kmh",
     "build_cost_graph",
     "cost_distance_from_source",
+    "cost_distance_from_source_with_predecessors",
+    "reconstruct_path",
 ]
 
 BOAT_SPEED_KMH = 6.0
@@ -114,6 +127,7 @@ def build_cost_graph(
     land_mask: np.ndarray,
     cellsize_km: float,
     friction_multiplier: np.ndarray | None = None,
+    sea_mode: str = "boat",
 ) -> csr_matrix:
     """Directed 8-connected cost graph (edge weight = travel time in HOURS)
     over the full ny*nx grid (land and sea both included as nodes -- sea
@@ -127,7 +141,27 @@ def build_cost_graph(
     speed only, via the mean of the edge's two endpoint multipliers. None
     (default) reproduces prior behaviour exactly -- see module docstring's
     "LITHOLOGY FRICTION" section.
+
+    `sea_mode` (Tappa 9 road-network fix, additive -- default UNCHANGED from
+    every already-locked Tappa 6/8 call site): "boat" (default) reproduces
+    the original behaviour byte-for-byte -- any edge touching a non-land
+    cell (ocean OR lake; this module has never distinguished the two, both
+    are simply "not land_mask") costs `edge_dist_km / BOAT_SPEED_KMH`,
+    appropriate for Tappa 6's isochrone/tier-distance siting use case, where
+    a real (if slow) boat crossing is a legitimate way to reach a site.
+    "impassable" is NEW: any edge touching a non-land cell gets cost=inf
+    (the edge is effectively removed from the graph) -- for a *road*
+    network specifically, a route can't be "built" across open water or a
+    lake the way it can be walked/boated for a distance check; those
+    crossings belong to a real ferry connection (a separate, not-yet-built
+    Tappa 9 sub-build), not a road. Using "impassable" can leave some
+    node-pairs at infinite cost (no all-land path exists between them) --
+    that is not a bug, it is the correct signal that those two points need
+    a ferry, not a road; the caller must handle disconnected components
+    (see `src/transport/network.py`'s minimum-spanning-FOREST, not -tree).
     """
+    if sea_mode not in ("boat", "impassable"):
+        raise ValueError(f"sea_mode must be 'boat' or 'impassable', got {sea_mode!r}")
     ny, nx = land_mask.shape
     node_id = np.arange(ny * nx, dtype=np.int64).reshape(ny, nx)
     dist_m = cellsize_km * 1000.0
@@ -155,7 +189,13 @@ def build_cost_graph(
             edge_friction = 0.5 * (src_fric + dst_fric)
             speed_land = np.maximum(speed_land * edge_friction, _MIN_SPEED_KMH)
         cost_land = edge_dist_km / speed_land
-        cost_sea = edge_dist_km / BOAT_SPEED_KMH
+        cost_sea = (
+            edge_dist_km / BOAT_SPEED_KMH
+            if sea_mode == "boat"
+            else np.inf  # "impassable" -- broadcasts fine, scipy's csr_matrix
+                         # just stores a finite-looking inf entry; dijkstra
+                         # treats it as an edge that's never worth taking
+        )
 
         both_land = src_land & dst_land
         cost = np.where(both_land, cost_land, cost_sea)
@@ -163,9 +203,23 @@ def build_cost_graph(
         src_id = node_id[r0:r1, c0:c1]
         dst_id = node_id[sr0:sr1, sc0:sc1]
 
-        rows_all.append(src_id.ravel())
-        cols_all.append(dst_id.ravel())
-        data_all.append(cost.ravel())
+        # "impassable" mode: drop inf-cost entries from the sparse matrix
+        # entirely rather than storing them -- an explicit stored inf would
+        # still occupy space and, worse, would make the node LOOK connected
+        # to csr_matrix/scipy machinery that treats "has a stored entry" and
+        # "reachable" as different questions in some code paths (e.g.
+        # `.nnz`-based checks); dropping the edge is the same "no edge here"
+        # a plain non-land cell that's never adjacent to anything already
+        # represents.
+        if sea_mode == "impassable":
+            keep = np.isfinite(cost.ravel())
+            rows_all.append(src_id.ravel()[keep])
+            cols_all.append(dst_id.ravel()[keep])
+            data_all.append(cost.ravel()[keep])
+        else:
+            rows_all.append(src_id.ravel())
+            cols_all.append(dst_id.ravel())
+            data_all.append(cost.ravel())
 
     rows = np.concatenate(rows_all)
     cols = np.concatenate(cols_all)
@@ -185,3 +239,69 @@ def cost_distance_from_source(
     src_id = row * nx + col
     dist = dijkstra(graph, directed=True, indices=[src_id], limit=limit_hours)[0]
     return dist.reshape(ny, nx)
+
+
+def cost_distance_from_source_with_predecessors(
+    graph: csr_matrix, row: int, col: int, shape: tuple[int, int], limit_hours: float = np.inf
+) -> tuple[np.ndarray, np.ndarray]:
+    """Same single-source Dijkstra as `cost_distance_from_source`, but also
+    returns the predecessor array scipy computes as a side effect of
+    building the shortest-path tree -- needed to reconstruct an actual
+    route, not just read off its cost. Returns (dist_grid, predecessors),
+    where `predecessors` is scipy's raw flat-node-id array (shape (ny*nx,),
+    -9999 = "never reached this node from the source" INCLUDING the source
+    cell itself, which is scipy's own convention, not a bug) -- pass it to
+    `reconstruct_path` rather than indexing it directly.
+    """
+    ny, nx = shape
+    src_id = row * nx + col
+    dist, predecessors = dijkstra(
+        graph, directed=True, indices=[src_id], limit=limit_hours, return_predecessors=True
+    )
+    return dist[0].reshape(ny, nx), predecessors[0]
+
+
+def reconstruct_path(
+    predecessors: np.ndarray,
+    shape: tuple[int, int],
+    source_row: int,
+    source_col: int,
+    target_row: int,
+    target_col: int,
+) -> list[tuple[int, int]] | None:
+    """Walk `predecessors` (from `cost_distance_from_source_with_predecessors`,
+    same source cell it was computed from) back from the target to the
+    source, returning an ordered list of (row, col) cells SOURCE -> TARGET
+    (scipy's own chain runs target -> source, reversed here to the more
+    useful direction for building a route polyline).
+
+    Returns None if the target was never reached within whatever
+    `limit_hours` the predecessor array was computed with -- checked by
+    confirming the walked-back chain actually terminates AT the source
+    (scipy's -9999 sentinel means "no predecessor recorded", which is true
+    both for a genuinely unreached node and, correctly, for the source cell
+    itself; the two are told apart here by checking which node the walk
+    stopped at, not just whether it stopped).
+    """
+    ny, nx = shape
+    source_id = source_row * nx + source_col
+    node = target_row * nx + target_col
+    if node == source_id:
+        return [(source_row, source_col)]
+
+    path_ids = [node]
+    seen = {node}
+    while predecessors[node] != -9999:
+        node = int(predecessors[node])
+        if node in seen:
+            # defensive only -- a valid shortest-path tree is acyclic by
+            # construction, this should never trigger
+            return None
+        seen.add(node)
+        path_ids.append(node)
+
+    if node != source_id:
+        return None  # target unreachable (or outside limit_hours)
+
+    path_ids.reverse()
+    return [(pid // nx, pid % nx) for pid in path_ids]
