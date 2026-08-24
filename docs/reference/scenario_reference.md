@@ -27,6 +27,40 @@ Three human settlement tiers, consistent with the population bands already locke
 - **Grandes** — tens of thousands, defined hierarchies, trade networks, broader political
   influence — where cultural tension and social innovation manifest most intensely.
 
+**Auxiliary settlements — a distinct, fourth category, structurally not a smaller Círculo.** Mines,
+mountain huts (waypoint shelters for herders and travelers crossing alpine terrain), coastal
+communities, and the ferry-dock settlement all share a structure none of the three tiers above have:
+they're always administratively attached to one or more nearby Círculos, never independent, and
+provisioned by their parent(s) rather than self-sufficient — food and supplies flow out from the
+attached Círculo(s); raw material, in a mine's case, flows back. Attachment to more than one Círculo
+at once is normal, not an edge case (a mine can be jointly run by two or three), and where the
+attached Círculos differ in Adoption/Devotion posture, that's a real, low-grade source of friction
+worth allowing rather than smoothing away — it's the same two-axis tension the rest of this document
+is built on, just showing up at a shared work site instead of within a single Círculo. Auxiliary
+settlements don't carry their own Adoption/Devotion/Engagement values; they inherit whichever
+Círculo(s) they're attached to.
+
+They split into two structurally different kinds, not one — three named examples so far, landing on
+either side:
+
+- **Populated** — real temporary or permanent residents, counted as their own population, distinct
+  from any attached Círculo's (§20).
+  - **Coastal villages** — fishing-based, doubling as the ferry-connection point where geography
+    allows rather than needing a separate settlement type for that function.
+  - **Forest posts** — smaller and more modest than a coastal village, sited upstream within a
+    Círculo's own water basin wherever it has forest (§22.3). Populated rather than infrastructure-
+    only because timber, unlike ore, is a renewable, tended resource: sustainable harvest (selective
+    cutting, letting stands regrow) needs people who know that specific woodland across years, not an
+    interchangeable rotating crew — the same "tend, don't just extract" logic already established for
+    the cable-bacteria industry (§22.5). Population plausibly swells during peak cutting/log-drive
+    season around a smaller, stable year-round core.
+- **Infrastructure-only** — no resident population at all, just the functional structures needed to
+  support a rotating workforce (quarters, bathrooms, storage): mines and mountain huts are the clear
+  examples. This is a real, well-documented modern mining pattern (fly-in/fly-out operations exist
+  specifically because remote or harsh extraction sites can't support permanent family settlement) —
+  workers here are already counted in their home Círculo's population and shouldn't be counted again
+  (§20).
+
 ## 3. Daily life and culture
 
 Life is marked by natural cycles, celebration, learning, and creation. Relationship and family
@@ -741,6 +775,12 @@ established Círculos (~135,000 combined, across 4 large/5 medium/8 small settle
 remainder — roughly 65,000 — are accounted for by nomadic groups, Povo Livre, and smaller unlisted
 settlements.
 
+**Auxiliary settlements (§2) and this count.** Only the *populated* kind of auxiliary settlement —
+coastal communities, likely the ferry-dock settlement — adds to this figure; they're what "smaller
+unlisted settlements" above already refers to. *Infrastructure-only* auxiliary settlements (mines,
+mountain huts) don't: their rotating workforce is drawn from, and already counted within, whichever
+Círculo(s) they're attached to, so tallying them again here would double-count the same people.
+
 ## 21. Vértices — the magic system
 
 Public framing only: how Vértice practice actually works, mechanically and materially. Where this
@@ -847,7 +887,22 @@ plausibly has some access, no siting change needed. Coastal fishing is a much bi
 geographically: only one of the 17 sites sits under 1 km from the ocean, the rest 2-17 km inland
 (06 doc §8). Rather than resiting, coastal fishing economies belong to dedicated small outposts —
 the same pattern already established for alpine resource work along the Spine (§7 above) — not
-full Círculos.
+full Círculos. These are the coastal villages of §2, doubling as the ferry-connection point where
+geography allows.
+
+**Timber, basin-local by design, not an export good.** Deliberately not treated as a good that
+moves between Círculos: different Círculos sit in different water basins, this world has no cheap
+bulk cross-basin transport (rail is copper-constrained and reserved for passengers/telegraph/higher-
+value cargo, not raw logs), and a "basic industry" claiming scarce infrastructure to move a bulk,
+low-value good long-distance isn't a defensible use of it. Instead, timber stays strictly
+self-contained per Círculo: a Círculo with forest upstream in its own water basin (the forestry-
+leaning Temperate Forest and Woodland/Shrubland sites above, and potentially others depending on
+their specific basin) sites a forest post there (§2) and floats cut timber downstream to itself —
+real log driving, the dominant pre-rail timber-transport method historically, needing minimal built
+infrastructure beyond the river itself. A water-powered sawmill at the receiving end reuses the same
+waterwheel technology already locked for ore-processing (§22.15), not a new technology. Círculos
+whose own basin has no forest upstream — the North Plains above all — simply don't have this option,
+and their construction rests on other techniques entirely (§4, open item).
 
 **22.3 Primary sector by lithology.** Tappa 8 v5's locked classes (`08_tappa8_geomorphology.md` §3),
 updated with the candidate additions raised in that doc's §8 (still not authored/implemented there,

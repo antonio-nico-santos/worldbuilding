@@ -133,6 +133,7 @@ from transport.network import (
     compute_pairwise_cost_distance,
     connected_components,
     edge_path_cells,
+    _tree_path_cost,
 )
 from terrain.raster_io import write_envi_raw, write_prj
 
@@ -154,8 +155,19 @@ OUT = "data/processed/transport"
 os.makedirs(OUT, exist_ok=True)
 
 # --- reproduce Tappa 6/8's exact 120m grid -------------------------------
+# **REVISED 2026-08-23, land_mask/true-ocean reconciliation (Nico's request,
+# following the Coastal_Village_03/11 coastline investigation).** Loads
+# land_mask_reconciled_v1.npy (build_land_mask_reconciled.py) instead of the
+# raw land_mask.npy -- a MONOTONIC/ADDITIVE-ONLY superset (26,062 cells /
+# 1.80% of the grid added, 0 removed) built from the newer lithology_v6-
+# derived true-ocean mask. See that script's docstring for the full method
+# and for why block_any (not a >=0.5 majority) was used. Because this is
+# purely additive over the mask this backbone was originally verified
+# against, the "0 edges touching ocean or lake" property can only stay true
+# or get MORE true -- see docs/decisions/09_tappa9_transports.md for the
+# direct re-run diff against the previously-locked 21-edge topology.
 log("loading inputs (reproducing Tappa 6/8's grid exactly)...")
-land = np.load("data/processed/climate/land_mask.npy").astype(bool)
+land = np.load("data/processed/transport/land_mask_reconciled_v1.npy").astype(bool)
 lake30 = np.load("data/processed/hydrology/lake_mask.npy")
 dem30 = np.load("data/processed/dem_v3_final_30m_eroded.npy")
 lithology30 = np.load("data/processed/geomorphology/lithology_v6.npy")
@@ -334,7 +346,73 @@ redundant_edges = add_redundant_edges(
 )
 log(f"  {len(redundant_edges)} redundant edge(s) added")
 
-road_edges = [(i, j, w, "mst") for i, j, w in mst_edges] + [(i, j, w, "redundant") for i, j, w in redundant_edges]
+# --- MANUAL exception edge: Circulo_F1_small <-> Circulo_F2_small --------
+# Nico noticed this connection missing on direct QGIS review of this same
+# run (2026-08-20). Checked directly rather than assumed, using the exact
+# numbers add_redundant_edges itself uses: F1-F2 is NOT unreachable (both
+# already connect via Circulo_B_35k, 3.7111h combined) and a direct edge
+# clears add_redundant_edges' own tree-path-shortcut bar with room to
+# spare (2.7469h direct vs 3.7111h via the tree = 26.0% cheaper, well
+# inside the 21.0%-43.4% range of the 5 redundant edges already shipped).
+# It fails the OTHER required check, redundancy_factor=1.4-of-cheapest-
+# neighbour, on BOTH ends: F1's cheapest neighbour is Circulo_B_35k
+# (1.8103h; F1-F2's 2.7469h is 8.4% over the 1.4x=2.5345h gate) and F2's
+# cheapest neighbour is ALSO Circulo_B_35k (1.9008h; 3.2% over its own
+# 1.4x=2.6611h gate). Both sites route through the same comparatively
+# cheap hub, which pulls each site's own "cheapest neighbour" baseline
+# down and makes any third option -- even a good one -- look
+# proportionally too far by that gate's specific logic, a real edge case
+# of the redundancy_factor design, not a bug in it.
+#
+# Nico's explicit call: add this ONE pair as a manual exception rather
+# than loosen redundancy_factor network-wide, which would very likely
+# reopen the excessive-edges problem from the 2nd-pass review (see
+# fixes_from_second_pass.excessive_redundant_edges above) -- a looser gate
+# would also admit other proportionally-distant candidates elsewhere in
+# the network that have NOT been checked for genuine shortcut value the
+# way this one specifically was. Not a config/threshold change: a single
+# named-pair addition, same ad-hoc-exception discipline as
+# EXCLUDED_FROM_ROAD_NETWORK above, just in the opposite direction (adding
+# a connection instead of removing a site).
+MANUAL_EXTRA_EDGES = [("Circulo_F1_small", "Circulo_F2_small")]
+name_to_idx = {s["name"]: k for k, s in enumerate(sites)}
+sym_hours_for_manual = 0.5 * (hours_road + hours_road.T)
+existing_edge_pairs = {(min(i, j), max(i, j)) for i, j, _ in mst_edges + redundant_edges}
+manual_edges = []
+manual_edges_meta = []
+for name_a, name_b in MANUAL_EXTRA_EDGES:
+    ia, ib = name_to_idx[name_a], name_to_idx[name_b]
+    pair = (min(ia, ib), max(ia, ib))
+    tree_cost_manual = _tree_path_cost(mst_edges, ia, ib)
+    direct_cost_manual = float(sym_hours_for_manual[ia, ib])
+    if pair in existing_edge_pairs:
+        log(f"  MANUAL_EXTRA_EDGES: {name_a}<->{name_b} already present, skipping")
+        continue
+    manual_edges.append((pair[0], pair[1], direct_cost_manual))
+    manual_edges_meta.append({
+        "from": name_a, "to": name_b,
+        "direct_cost_hours": round(direct_cost_manual, 4),
+        "tree_path_cost_hours": round(float(tree_cost_manual), 4) if tree_cost_manual else None,
+        "tree_path_shortcut_improvement_pct": round(
+            100 * (tree_cost_manual - direct_cost_manual) / tree_cost_manual, 1
+        ) if tree_cost_manual else None,
+        "reason": "Nico noticed this connection missing on direct QGIS review. Clears "
+        "add_redundant_edges' own >=20% tree-path-shortcut bar (26.0%) but fails "
+        "redundancy_factor=1.4 on both endpoints (8.4% / 3.2% over each site's own "
+        "cheapest-neighbour gate) because both sites route cheaply through the same hub "
+        "(Circulo_B_35k). Added as a manual exception rather than loosening "
+        "redundancy_factor network-wide -- see this script's own inline comment at "
+        "MANUAL_EXTRA_EDGES for the full reasoning.",
+    })
+    log(f"  MANUAL_EXTRA_EDGES: added {name_a}<->{name_b} ({direct_cost_manual:.4f}h, "
+        f"{manual_edges_meta[-1]['tree_path_shortcut_improvement_pct']}% shortcut over the "
+        f"tree path) -- Nico's explicit call")
+
+road_edges = (
+    [(i, j, w, "mst") for i, j, w in mst_edges]
+    + [(i, j, w, "redundant") for i, j, w in redundant_edges]
+    + [(i, j, w, "manual_exception") for i, j, w in manual_edges]
+)
 
 log("reconstructing real land-only route geometry for every road edge (reusing the already-"
     "computed predecessor arrays -- no new Dijkstra runs)...")
@@ -439,11 +517,23 @@ else:
 
 def _route_feature(i, j, w_hours, path, edge_type, hours_matrix):
     si, sj = sites[i], sites[j]
+    # Nico found (2026-08-21, network-connections review): every road edge's
+    # LineString endpoint snapped to its 120m CELL CENTER instead of the
+    # site's own exact authored coordinate, so the point layer (Circulo
+    # dots) and the line layer visibly didn't touch in QGIS -- up to ~85m
+    # apart at this grid resolution. Fixed here: every INTERIOR vertex
+    # still comes from the routed path's cell centers (that's the real
+    # route geometry, correctly discretized), but the first and last
+    # vertices are overridden with the two sites' own exact x_km/y_km, so
+    # the line's endpoints exactly match the point features they connect.
     coords = []
     for r, c in path:
         x = XMIN + (c + 0.5) * cs_x
         y = YMAX - (r + 0.5) * cs_y
         coords.append([x, y])
+    if coords:
+        coords[0] = [si["x_km"] * 1000.0, si["y_km"] * 1000.0]
+        coords[-1] = [sj["x_km"] * 1000.0, sj["y_km"] * 1000.0]
     seg_km = sum(
         float(np.hypot(coords[k + 1][0] - coords[k][0], coords[k + 1][1] - coords[k][1]))
         for k in range(len(coords) - 1)
@@ -608,7 +698,10 @@ meta = {
     "cost between the same two sites by at "
     "least that fraction), over symmetrized (mean of both directions) combined-friction "
     "cost-distance (hours) on the LAND-ONLY graph -- see src/transport/network.py's module "
-    "docstring.",
+    "docstring. PLUS a small set of MANUAL exception edges added by explicit, individually "
+    "justified decision where the automatic rule's two gates (proximity-to-cheapest-neighbour "
+    "AND tree-path-shortcut) disagreed on a specific pair -- see manual_extra_edges below; "
+    "these are NOT a change to the automatic rule itself.",
     "connected_components": [
         {"members": [sites[i]["name"] for i in comp], "size": len(comp)} for comp in components
     ],
@@ -700,9 +793,11 @@ meta = {
     "river_crossing_friction (all <=1.0, independent physical properties, combined "
     "multiplicatively, same 'friction stacks' logic as Tappa 8 S8f/S8g).",
     "resolution_m": [cs_x, cs_y],
+    "manual_extra_edges": manual_edges_meta,
     "n_sites": len(sites),
     "n_mst_edges": len(mst_edges),
     "n_redundant_edges": len(redundant_edges),
+    "n_manual_extra_edges": len(manual_edges),
     "n_road_edges_total": len(road_edges),
     "n_candidate_ferry_crossings": len(ferry_edges),
     "total_road_route_km": round(total_road_km, 2),
@@ -724,5 +819,6 @@ with open(f"{OUT}/tappa9_road_network_meta.json", "w") as f:
     json.dump(meta, f, indent=2)
 
 log(f"=== DONE in {time.time() - t_start:.1f}s -- {len(mst_edges)} MST + {len(redundant_edges)} "
-    f"redundant = {len(road_edges)} road edges ({total_road_km:.1f} km), "
-    f"{len(ferry_edges)} candidate ferry crossing(s) ({total_ferry_km:.1f} km) ===")
+    f"redundant + {len(manual_edges)} manual exception = {len(road_edges)} road edges "
+    f"({total_road_km:.1f} km), {len(ferry_edges)} candidate ferry crossing(s) "
+    f"({total_ferry_km:.1f} km) ===")

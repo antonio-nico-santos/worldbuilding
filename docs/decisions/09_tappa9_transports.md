@@ -15,7 +15,7 @@ than Grassland) but never quantified.
 Rail's grade-ceiling cost function, ferry corridor authoring, the kite wind-shadow mask,
 and sea navigability are **not** covered here — still open, see §9.
 
-**This doc covers THREE passes in one session, plus two same-day follow-ups.** The first pass
+**This doc covers THREE passes in one session, plus four same-day follow-ups.** The first pass
 (§1-§4 below, as originally shipped) had four real problems Nico caught by opening the
 output in QGIS — §6 is the second-pass fix for all four. That second pass then drew two
 more findings from Nico (§7): one still-crossing-the-sea line that needed a different fix
@@ -27,7 +27,14 @@ see §10 for why that distinction matters) answering which of the 21 friction/to
 parameters actually move the deliverable. **§11**: same day, Nico then asked whether
 Strahler order implies a river's real width/depth — it doesn't, directly, and answering that
 properly led to replacing the river-crossing friction layer's order-bucket table with a
-continuous model driven by an actual per-reach width estimate.
+continuous model driven by an actual per-reach width estimate. **§12**: Nico then noticed
+routes crossing several minor streams for free in a short span — the order>=4 friction gate
+was hiding 92% of the network's real crossings; widened to all orders. **§13**: Nico then
+noticed a missing direct connection between two nearby Circulos (F1/F2) — checked directly
+against `add_redundant_edges`' own two gates, found a genuine edge case (clears the
+shortcut-improvement bar, fails the cheapest-neighbour-proximity bar on both ends because
+both sites share a cheap hub), added as one explicit manual exception rather than loosening
+the general rule.
 
 ## 1. Predecessor extraction — `cost_distance.py`, additive only
 
@@ -683,3 +690,408 @@ re-point to the new name). `river_crossing_friction_multiplier_120m.*` and
 river-affected land fraction grew from 1.22% to 17.99% of effective land now carrying some
 crossing penalty). `road_network_mst.geojson` and `tappa9_road_network_meta.json`
 regenerated with the new `stream_crossing_report` field.
+
+**Known device-side leftover, not a pipeline bug**: after this fix shipped, Nico reported
+that a reviewed Strahler-3 stretch "still looked the same." Checked directly rather than
+assumed: the committed `road_network_mst.geojson`/`tappa9_road_network_meta.json` on his
+machine matched the corrected local output byte-for-byte (same file sizes, mtimes from the
+same commit batch) — the pipeline output was correct. The likely cause: the OLD
+`major_stream_geometry.geojson` (pre-§12, order>=4-only) was never actually deleted on
+Nico's machine — file delivery only writes files, it can't delete stale ones — so it sat
+next to the new `stream_geometry_full.geojson` and could easily be the one opened by
+mistake; separately, an already-open QGIS layer doesn't auto-refresh when the file
+underneath it changes (needs a manual Reload). Confirmed separately, and NOT a bug: even
+with the correct file open, some routes are SUPPOSED to keep crossing several minor streams
+in a short span, because that is still the cheapest available path even after correctly
+pricing every crossing (see `Circulo_E4_2k↔Circulo_F4_small`, 40 crossings, above) — Nico
+confirmed this reading after the check.
+
+## 13. Manual exception edge — Circulo_F1_small ↔ Circulo_F2_small
+
+Nico noticed a missing direct road between two nearby Circulos, F1 and F2, on the same
+QGIS review pass as §12. Checked directly, using the exact same numbers
+`add_redundant_edges` (§8/§9) itself computes, rather than assuming the complaint was a bug:
+
+F1 and F2 were never disconnected — both already reach each other via `Circulo_B_35k`
+(1.8103h + 1.9008h = 3.7111h combined). A direct F1↔F2 edge costs 2.7469h — **26.0% cheaper
+than that tree path**, comfortably past `add_redundant_edges`' own `min_shortcut_improvement`
+bar (>=20%, and within the 21.0%-43.4% range of the 5 redundant edges §9 already shipped).
+So by the "does this edge actually save real travel time" test, F1-F2 clearly qualifies.
+
+It was never added because it fails the OTHER required gate, `redundancy_factor=1.4`-of-
+each-site's-own-cheapest-neighbour, **on both ends**: F1's cheapest neighbour is
+`Circulo_B_35k` at 1.8103h (gate: <=2.5345h; F1-F2's 2.7469h is 8.4% over) and F2's cheapest
+neighbour is *also* `Circulo_B_35k` at 1.9008h (gate: <=2.6611h; F1-F2's 2.7469h is 3.2%
+over). Both sites happen to share the same comparatively cheap hub, which pulls each site's
+own "cheapest neighbour" baseline down and makes any third option — even a genuinely good
+one — look proportionally too far by that specific gate's logic. This is a real edge case
+of the `redundancy_factor` design (see §9/`add_redundant_edges`'s own docstring on why that
+gate exists: to keep candidates scoped to a site's genuinely near neighbours, not arbitrary
+long-distance chords), not a bug in it, and not something the earlier sensitivity analysis
+(§10) would have caught either — it tested global parameter values, not specific
+site-pair edge cases like this one.
+
+**Decision (Nico's explicit call, offered three options — add as a one-off manual
+exception, loosen `redundancy_factor` network-wide, or leave as-is):** add the single
+F1↔F2 pair as a named MANUAL exception, not a threshold change. Loosening
+`redundancy_factor` for the whole network was explicitly rejected — it would very likely
+reopen the excessive-redundant-edges problem §9 already fixed once (a looser gate admits
+other proportionally-distant candidates elsewhere in the network that have NOT been vetted
+for genuine shortcut value the way this one specifically was, by hand, with real numbers).
+
+**Implementation**: `MANUAL_EXTRA_EDGES` (new, `run_tappa9_road_network.py`, right after
+`add_redundant_edges` runs) — a small named list of `(site_a, site_b)` pairs added directly
+to `road_edges` as a distinct `edge_type: "manual_exception"` (not folded into
+`"redundant"`, so it stays visually and programmatically distinguishable in the GeoJSON and
+in any future edge-type-based analysis), reusing the already-computed `hours_road` matrix
+for its weight (no new Dijkstra runs) and skipping automatically if the pair is already
+present. `tappa9_road_network_meta.json` gets a new `manual_extra_edges` field recording
+the full justification (direct cost, tree-path cost, shortcut %) per edge, and
+`n_manual_extra_edges`/`n_road_edges_total` updated accordingly. Same ad-hoc-exception
+discipline as `EXCLUDED_FROM_ROAD_NETWORK` (§9's `Circulo_D_20k` exclusion) — a single
+named site (or, here, site-pair) decision, explicit and documented, not a rule change.
+
+**Network re-run, checked directly**: 15 MST + 5 redundant + 1 manual = 21 road edges
+(465.2 km, up from 451.5 km — the new edge's own 13.7 km route), 284 total stream crossings
+(up from 282 — the new edge crosses 2 streams on its own way through). No other edge
+changed. `Circulo_F1_small`/`Circulo_F2_small` now have a direct 13.7 km road
+(`edge_weight_hours=2.7469`, `route_km=13.725`, vs. `straight_line_km=12.907` — a modest,
+expected detour around terrain, not a straight line).
+
+## 14. Connecting Tappa 10's 94 auxiliary settlements as spokes (2026-08-21, fifth follow-up)
+
+A different chat (Tappa 10, opened 2026-08-21) sited 94 auxiliary settlements — 71 mining
+posts, 2 mountain huts, 14 coastal villages, 7 forest posts — each administratively attached
+to one or more of the 17 Círculos via an `attached_circulos` property, but never actually
+connected to this backbone. Nico asked how to connect them, offering three rough options
+himself (attach only to the named Círculo; search the closest/cheapest path; re-run the
+whole MST+redundancy topology with these included) and explicitly asked for an opinion
+before anything was built.
+
+**Recommendation given and approved (Nico: "Implementar como descrito")**: treat every
+settlement as a SPOKE off the already-locked 21-edge backbone, computed on the exact same
+locked land-only combined-friction graph (`combined_friction_multiplier_120m.npy` loaded
+directly, nothing recomputed) — explicitly NOT folding these 94 points into the
+MST+redundancy algorithm as peer nodes. Two reasons: these settlements are leaves by
+nature (nothing routes *through* a mining post to reach a Círculo), and admitting them as
+peer nodes risked the solver finding it cheaper to route between two unrelated Círculos via
+a side settlement, plus it would reopen a topology already reviewed three times (§5-§8) for
+no benefit.
+
+**Implementation** (`run_tappa10_network_connections.py`, new script, not folded into
+`run_tappa9_road_network.py` since it operates on a different tier — settlement-to-backbone,
+not backbone topology): mountain huts get no new edge at all — verified directly against the
+existing edges' real reconstructed route cells that both huts sit exactly 0 cells from their
+named crossing's path, confirming the Tappa 10 chat's own placement intent rather than
+assuming it. Satellite mining posts (10, already consolidated into hub camps by Tappa 10's
+own revision) spoke to their HUB, not a Círculo, matching that chat's hub/satellite design.
+Settlements with 2+ `attached_circulos` that already share a direct Tappa 9 edge — checked
+directly, 12 of 21 such multi-attached settlements qualified, not assumed from proximity —
+get one T-junction spoke onto that edge's cheapest real-cost-distance tie-in point rather
+than duplicate spokes (modeling a real side-road-meets-highway junction). Everything else
+spokes to its single cheapest attached Círculo by real (symmetrized) cost-distance. Reused
+16 Círculo-sourced single-source Dijkstra passes (dist-only, for symmetrized spoke weights)
+plus one settlement-sourced Dijkstra pass per connectable settlement (dist+predecessors, for
+that settlement's own route geometry) — ~92 runs total, ~32s, all off the graph and friction
+field Tappa 9 already computed and saved.
+
+**Result**: 75 of 92 connectable settlements got a spoke (858.9 km total,
+`data/processed/transport/auxiliary_network_connections.geojson`, a separate layer from
+`road_network_mst.geojson` since spokes are a different tier than the backbone) — breakdown
+54 circulo_spoke, 12 t_junction_spoke, 9 satellite_to_hub_spoke. 17 settlements came back
+genuinely isolated, checked (not assumed) against three distinct causes: 14 simply inherit
+`Circulo_D_20k`'s own known land-isolation (its entire local cluster — 8 mining posts, 1
+coastal village, 1 forest post — since `D_20k` itself is excluded from the road graph, §9);
+2 match mining posts Tappa 10's own decision record already flagged as land-isolated,
+independently confirmed here; and 1 is a NEW finding, not previously known:
+`Circulo_F7_small`'s own coastal village (`Vila_Costeira_14`) sits on the same lake-mask
+raster-resolution artifact already flagged twice for mining posts in the original Tappa 10
+report (a 120m routing cell reads as touching `lake_mask` via aggregation of the native 30m
+mask even though the underlying 30m pixel is dry land) — now hit a third time, on an
+independent settlement type. See `10_tappa10_auxiliary_settlements.md`'s own "Network
+connections" section for the full per-rule breakdown and numbers; this section is the
+canonical implementation record since the work was done from this (Tappa 9) chat.
+
+**Open (§14 specifically, superseded by the update below)**: whether the lake-mask artifact
+is worth fixing at the source, and whether `Circulo_F7_small`'s coastal village should be
+repositioned. See the update immediately below for the current numbers — the specific
+village this concerned no longer isolates for the reason originally stated.
+
+### §14 update, same day, sixth follow-up: re-run on the restructured v2 dataset
+
+Nico reported "considerable" changes to the Tappa 10 supplementary files: some features
+removed, others moved, and ~18 new mountain huts added, with an explicit question of
+whether the huts still fit the spoke model or need a different, trail-based approach. File
+is now `auxiliary_settlements_tappa10_v2.geojson`.
+
+**Checked directly before doing anything** (byte diff + name-set diff against the original
+file, not assumed): mining posts (71) and forest posts (7) are unchanged except renamed to
+English (`Mina_X`→`Mine_X`, `Posto_Florestal`→`Forest_Post`); coastal villages went 14→12 (2
+dropped, per Tappa 10's own direct edits); mountain huts went 2→18 — the real content
+change, sourced from Tappa 7's `outpost_candidates.geojson` fauna-siting layer, not newly
+authored. Schema also changed: list-valued properties (`attached_circulos` etc.) moved from
+JSON arrays to semicolon-joined strings.
+
+**A data bug found in v2**: all 10 `satellite_no_own_structure` mining posts' `attached_hub`
+still names their hub under the pre-rename `Mina_*` scheme, which no longer matches any
+`name` in the file. Confirmed 10/10, not coincidental. Fixed in-script via a prefix-
+substitution lookup with a hard assertion every reference resolves, rather than silently
+producing false isolation reports.
+
+**Mountain huts: given an opinion before rebuilding, per the same discipline as the original
+spoke design.** Checked directly: all 18 sit at 1,869-3,241 m (mean 2,680 m vs. this domain's
+920 m land-wide mean), none within ~5 km of any existing road edge (the original 2 sat
+exactly ON one), and a same-massif MST of the 17 `main_spine` huts is overwhelmingly path-
+shaped (11/17 nodes degree 1-2, only 3 branch points) — a trekking spine, not a scatter.
+Treating each hut as an independent spoke (the mining-post treatment) would have produced 17
+near-parallel access routes up the same massif and ignored that shape. **Recommended and
+approved**: a per-massif least-cost MST among the huts themselves (`main_spine`: 17 huts,
+`south_branch`: 1 hut, same land-only friction graph, no separate foot-trail friction
+invented), with a valley-access spoke at every LEAF of that tree only — interior trail nodes
+reach the valley via the trail itself. Result: 16 trail edges connecting all 17 `main_spine`
+huts (8 leaves → 8 trailhead spokes) + `south_branch`'s 1 hut as its own trivial trailhead (1
+spoke) = 9 trailhead spokes total, 0 huts isolated. **Caveat surfaced, not resolved**: all 18
+huts still carry `status_is_authorial_final: false` (inherited from Tappa 7) — this run
+connected all of them regardless; if that status question resolves toward "not real," the
+corresponding trail/trailhead edges need pruning, not just the site record.
+
+**Result, full re-run**: 73 spokes (903.6 km, mining/coastal/forest, same rules as before) +
+16 mountain-trail edges + 9 trailhead spokes (339.4 km combined) = 90 connectable non-hut
+sites + 18 huts, 17 non-hut sites still isolated (same count as the v1 run, different
+individual sites due to renumbering — 14 inherit `Circulo_D_20k`'s isolation, `Mine_Schist_22`
+is a 4th confirmed instance of the lake-mask raster artifact, `Mine_BasinFill_16` is a
+genuine land-isolated post matching the original report's own finding). **Correction to the
+v1-run finding above**: `Circulo_F7_small`'s coastal village (renamed `Coastal_Village_11`)
+does NOT sit on the lake-mask artifact as previously reported — re-checked directly against
+the actual rasters this run, its cell and `Coastal_Village_03`'s (`Circulo_E4_2k`) both sit
+120-240 m outside `land_mask.npy`'s land, not touching `lake_mask` at all. This is a
+different, newly-identified bug: these two sites were placed against Tappa 10's own
+corrected "true ocean" mask (border-connectivity-checked `lithology_v6==0`), which draws a
+different, more precise coastline than the routing graph's older, coarser `land_mask.npy` —
+a cross-dataset mismatch at the coastline, not a lake-adjacency artifact. Full numbers and
+per-site detail in `10_tappa10_auxiliary_settlements.md`'s own "Network connections, v2
+re-run" section.
+
+**Open (§14, current)**: whether `land_mask.npy` should be reconciled against Tappa 10's
+corrected true-ocean mask; whether the lake-mask artifact (now 4 confirmed instances) is
+worth fixing at the source; the still-open hut narrative-status question (Tappa 7's own
+item, not this chat's to resolve) and its implication for the new trail infrastructure if it
+resolves toward some huts not being real.
+
+## 15. Four topology/routing bugs Nico found in QGIS (2026-08-23, seventh follow-up)
+
+Nico reviewed the rendered network in QGIS and reported four problems. Each was confirmed
+directly against the code/data before any fix was designed — no guessing.
+
+**Bug 1 — line endpoints don't touch their point features.** `_route_feature()` converted
+EVERY path cell, including the first/last (site) cells, from grid row/col to XY via the
+120 m cell-center formula (`x = XMIN + (c+0.5)*cs_x`, ...) — ignoring that the exact
+authored site coordinate (`si["x_km"]`/`si["y_km"]`, already used elsewhere for
+`straight_line_km`) was available. At 120 m resolution this put every Círculo dot up to
+~85 m (`sqrt((cs_x/2)^2+(cs_y/2)^2)`) away from the line meant to touch it — visible in
+QGIS, present on every one of the 21 backbone edges plus every Tappa 10 spoke/trail.
+**Fixed** in both `run_tappa9_road_network.py` and `run_tappa10_network_connections.py`:
+every interior vertex still comes from the routed path's cell centers (that's the real
+discretized route), but the first and last vertex of any line whose endpoint is a known
+site (Círculo or settlement) is overridden with that site's own exact coordinate. A
+mid-route tie-in point (a line joining another line partway along its length, new in this
+pass — see below) has no "truer" location than its own cell center and is correctly left
+alone. Verified by exact float comparison against `tappa6_site_selection_meta.json`'s site
+coordinates and, for the new Tappa 10 output, against all 95 settlement site coordinates
+directly (0 mismatches). Re-running the backbone with only this change: 15 MST + 5
+redundant + 1 manual exception = 21 edges, 465.3 km (vs. 465.2 km before) — confirms the
+topology itself was untouched, only geometry.
+
+**Bug 2 — the Southland (`Circulo_D_20k`) had no internal road network.** Not a wrong
+answer in isolation — `Circulo_D_20k` genuinely has no land route into the backbone, by
+Tappa 9's own design (§8) — but a real gap: the connection script only ever drew each
+settlement's one pre-encoded satellite→hub relationship, and never asked whether isolated
+settlements could reach *each other*. Root cause and fix are shared with bugs 3/4 below
+(the same restrictive target search), which is why it's one unified rewrite rather than a
+separate patch — see §"Network connections, v2 re-run" in
+`10_tappa10_auxiliary_settlements.md` for the concrete before/after.
+
+**Bugs 3/4 — redundant near-parallel paths (e.g. `Coastal_Village_09`) and roads that ignore
+a nearby edge instead of joining it (e.g. `Forest_Post_03`).** Confirmed with real numbers
+before proposing anything: `Forest_Post_03`'s spoke ran 170-424 m parallel to the
+`Circulo_E3_2k <-> Circulo_F7_small` backbone edge for its *entire length* without ever
+tying into it. Root cause, same for both: each settlement's connection-target search was
+restricted to (a) shared backbone edges between its own `attached_circulos`, and (b) a
+direct fallback to its attached Círculo — never the full backbone, and never another
+settlement's already-built spoke/trail. **Fix, approved by Nico
+("Corrigir tudo de uma vez")**: `run_tappa10_network_connections.py` was rewritten around a
+greedy, incrementally-growing network (Prim's-style) — the Tappa 9 backbone seeds the
+initial "network," then every unconnected settlement/hut-trail-leaf is connected in
+globally-cheapest-first order to whichever is cheapest: the backbone at *any* point, or any
+settlement's spoke/trail already built earlier in the same run. Each new connection's path
+cells are folded into the network before the next iteration, so later settlements can feed
+onto earlier ones. This single change fixes bug 2 as a side effect (an isolated
+settlement's own spoke can now become a connection target for its neighbors) and directly
+fixes 3/4 (a settlement now finds the *nearest point of the whole live network*, not just
+its own hub's slice of it). Concrete results and the full new edge-type taxonomy
+(`circulo_spoke`, `backbone_t_junction_spoke`, `feeder_t_junction_spoke`,
+`isolated_pocket_road`) are documented in `10_tappa10_auxiliary_settlements.md`, since this
+script owns the auxiliary-settlement connections; this backbone doc (Tappa 9's own script)
+only needed the Bug 1 vertex fix.
+
+**One bug found during verification of the fix, not reported by Nico**: the greedy loop
+initially produced zero-length self-loop edges (`feeder_t_junction_spoke` from a settlement
+to itself) whenever another settlement's spoke path happened to terminate exactly on its
+site cell before it was itself processed (e.g. `Mine_Volcanic_02`, reached first by
+`Mine_BasinFill_10`'s satellite spoke). Fixed by checking, before building an edge, whether
+the chosen target cell *is* the settlement's own site — if so it's already connected at zero
+cost and is skipped rather than given a spurious self-edge. 15 such cases across the full
+re-run; `n_trivially_absorbed` in the meta JSON reports the count.
+
+**A deeper version of the same class of bug, found by Nico on the SAME day (second QGIS
+review of this pass's output), not by this chat's own verification**: mountain-trail edges
+and `satellite_to_hub_spoke` edges were being added to the live network at construction
+time, same as any real bridge to the backbone — but neither actually means "reaches a
+Círculo." This let the entire 17-hut `main_spine` trail system, and at least one hub cluster
+(`Mine_Volcanic_02`'s, the Southland's), register as "already connected" purely by seeing
+their own already-known cells, with zero real edges ever built out. **This directly
+invalidates a number I reported to Nico earlier the same day** — the "12 of 14 Southland
+settlements now connected via a real road chain" claim was built on this bug; those 12 were
+never actually reaching a Círculo, just each other. Fixed by holding satellite-spoke and
+trail cells in separate per-cluster pools (`hub_cluster_cells`/`massif_cluster_cells`) and
+only merging a cluster into the live network once one of its members earns a REAL outside
+connection (`promote_cluster()`, new). Re-run: 0 of 2 massifs stayed unbridged (the trail
+system does reach the backbone for real now), 1 of 9 hub clusters stayed unbridged (the
+Southland's — correctly falls through to the isolated-pocket step this time, producing an
+honest 12-member pocket with its own 11-edge/103.6 km internal MST instead of a false
+backbone connection). Full numbers and the `Mine_Greywacke_05`/`attached_circulos` follow-up
+question are in `10_tappa10_auxiliary_settlements.md`'s own fourth-pass addendum.
+
+**Ninth follow-up, same day: a real labeling bug found while investigating Nico's "north part
+disconnected" report — connectivity itself was fine, the metadata describing it wasn't.**
+Nico reported the whole mountain system looked disconnected from the north (no link to
+`Circulo_F1_small`/`Circulo_F2_small`) and asked for a concrete distance check on
+`Mine_Greywacke_05` to its attached `Circulo_E3_2k`. Checked directly, not assumed:
+`Mine_Greywacke_05 -> Circulo_E3_2k` is **93.81 km / 23.71 h** over the real network (vs.
+**55.70 km / 14.13 h** to the non-attached `Circulo_E2_2k` it now actually routes near) —
+confirms Nico's point with real numbers. The "north disconnected" report led to a genuine,
+separate bug: 12 delivered edges (`Mine_Schist_06/07/09/12/13/18/19/20/21/25`,
+`Coastal_Village_09`) had `connects_to` set to a generic internal string
+(`"mountain trail (massif main_spine)"`, `"hub cluster: Mine_Schist_17"`) instead of the real
+trail segment or satellite spoke they tied into. Root cause: `promote_cluster()` (the eighth
+follow-up's own fix) called `add_to_network()` once per cluster with ONE bulk label for every
+cell in it, discarding the per-edge label each cell originally carried. **This did not affect
+connectivity** — cost and routed geometry were always computed against the real nearest cell
+— only the human-readable description of what that cell was. Fixed by keeping
+`massif_cluster_cells`/`hub_cluster_cells` as lists of `(path, label)` pairs instead of flat
+cell lists, so `promote_cluster()` now replays each contributing edge's own real label.
+Re-run: byte-identical connectivity (same 8 clusters promoted, same 1 hub cluster/0 massifs
+unbridged, same `still_isolated` list) — confirms this was cosmetic, as expected.
+
+**Separately, a real (not cosmetic) finding, checked with actual cost-distance, not
+straight-line guesses**: none of the north schist mines are actually isolated — all are
+reachable via the `main_spine` trail massif — but that massif's ONLY real bridge to the
+backbone is the single spur at `Outpost_MainSpine_17` (5.18 km to a point on the
+`Circulo_E3_2k<->Circulo_E4_2k` edge, 18.49 km from the `E3_2k` end / 21.94 km from the
+`E4_2k` end, resolved from the edges' own geometry). Every settlement north of the massif has
+to route through THAT one point, then most of the way around the backbone, to reach
+`Circulo_F1_small`/`Circulo_F2_small` — real network distance today: `Mine_Schist_05 ->
+Circulo_F1_small` 156.3 km, `Mine_Schist_09 -> Circulo_F1_small` 130.9 km, `Mine_Schist_04 ->
+Circulo_F2_small` 172.4 km, `Mine_Schist_03 -> Circulo_F2_small` 165.4 km — against a 10-14 km
+straight-line separation in every case. Re-ran real cost-distance (same friction graph, direct
+source-to-target, no detour) for candidate direct connections: `Mine_Schist_05/06/09 ->
+Circulo_F1_small` cost 15.28/14.54/17.44 km respectively (`Mine_Schist_06`, the actual hub
+`Mine_Schist_05` and `Mine_Schist_08` both attach to, is the cheapest of the three);
+`Mine_Schist_03/04 -> Circulo_F2_small` cost 11.48/11.80 km. A direct connection would cut
+this detour by roughly 90%. Recommended to Nico, not yet built pending his choice of anchor
+settlement — see `10_tappa10_auxiliary_settlements.md`'s own addendum for the full
+recommendation and the `attached_circulos` design discussion this connects to.
+
+Also checked Nico's specific request for a direct `Outpost_MainSpine_16 -> Circulo_E3_2k`
+edge: current real route (via the `Outpost_MainSpine_17` spur) is 47.90 km; a direct
+candidate would cost 26.36 km/9.54 h — a real ~45% improvement, smaller than the north-cluster
+case but still substantial. Also confirmed `Coastal_Village_03` and `Mine_Schist_22` are NOT
+new bugs — both were already in the `still_isolated` list from the eighth follow-up, with
+documented reasons (genuinely solitary on the land-only graph; a hard satellite-to-hub rule
+with no fallback, respectively).
+
+**Implemented, same day, after Nico confirmed the anchors**: three new `manual_connection`
+edges, same named-exception pattern as this doc's own §13 (`Circulo_F1_small<->Circulo_F2_small`).
+Nico picked `Mine_Schist_06` (the cheapest of the three candidates, and the real hub
+`Mine_Schist_05`/`Mine_Schist_08` both attach to) for `Circulo_F1_small`, `Mine_Schist_03`
+for `Circulo_F2_small`, and confirmed `Outpost_MainSpine_16 -> Circulo_E3_2k` as requested.
+`run_tappa10_network_connections.py` gains a `MANUAL_CONNECTIONS` list processed after the
+greedy loop and isolated-pocket grouping, reusing each settlement's already-computed
+dist/pred grid (`settlement_dist_pred` for the two mines, `hut_dist_pred` for the hut) —
+real cost-distance, vertex-exact endpoints, same as every other edge type. These are
+ADDITIVE, not replacements — the automated long-detour connections built earlier in the run
+are untouched; a settlement can now have both. **Re-run result**: `Mine_Schist_06 ->
+Circulo_F1_small` 14.59 km/4.93h, `Mine_Schist_03 -> Circulo_F2_small` 11.47 km/4.19h,
+`Outpost_MainSpine_16 -> Circulo_E3_2k` 26.43 km/9.54h (all within 0.05 km of the standalone
+diagnostic numbers above — the small delta is exact-vertex snapping). Every other number
+unchanged (same 8 clusters promoted, same 5 still-isolated settlements). **New totals**: 16
+mountain-trail edges (145.9 km) + 75 network spokes (401.8 km) + 11 isolated-pocket roads
+(103.6 km) + 3 manual connections (52.5 km) = 703.8 km.
+
+**Tenth follow-up, 2026-08-23 — `land_mask.npy`/true-ocean reconciliation.** Nico manually
+nudged `Coastal_Village_03` ~67m west in his own GIS tool, believing it now sat on shore.
+Verified directly (re-ran the production script against his edited geojson) rather than
+trusting the coordinate alone: the village stayed in `still_isolated`, unchanged. Root cause:
+both the old and new coordinates land in the identical 120m routing-grid cell (`xy_to_rc`
+rounds to the same `(row, col)`) — a 67m move doesn't cross a cell boundary on a ~120m grid.
+Computed the precise threshold (needed ~18.8m further west) and offered Nico two fixes: a
+further precise manual nudge, or a proper reconciliation of `land_mask.npy` (1334x1084,
+~120m, Tappa-1-era) against the newer, more carefully derived true-ocean mask (built from
+`lithology_v6.npy` at native ~30m via border-connected-component labelling — same method
+already used for the Tappa 10 third-pass coastal fix), which would also touch
+`Coastal_Village_11`. Nico chose the reconciliation ("Por favor, faça isso"), explicitly
+acknowledging `Coastal_Village_11` won't gain real connectivity (it's on an island) but
+wanting its mask representation corrected too.
+
+Built `build_land_mask_reconciled.py` → `data/processed/transport/land_mask_reconciled_v1.npy`,
+a MONOTONIC/ADDITIVE-ONLY superset of `land_mask.npy` (only adds cells the true-ocean analysis
+confirms are real land that `land_mask` misses; never removes a cell `land_mask` already calls
+land) — chosen specifically to protect this doc's own already-verified "0 edges touching ocean
+or lake" backbone property, which can only stay true or get MORE true under a purely additive
+change. **First design attempt failed a direct check and was revised before implementing**: a
+`>=0.5` majority-mean aggregation of the true-land signal (matching the general
+false-negative-recovery diagnostic, which alone recovers 10,468 cells / 0.72% of the grid at
+99.24% agreement with `land_mask`) does NOT actually flip either `Coastal_Village_03`'s cell
+(`true_land_120_mean=0.3125`) or `Coastal_Village_11`'s (`0.1875`) to land — both sit, at
+native 30m resolution, on real land, but right at the shoreline, which is exactly where a 120m
+cell is most likely to be majority-sea even while genuinely touching land; a majority vote
+systematically fails shoreline points by construction, not as an edge case. Switched to
+`block_any` (does this 120m cell contain ANY real land pixel) — this flips both villages to
+land but recovers 26,062 cells (1.80% of the grid, 2.5x the majority-rule footprint) instead of
+10,468. This trade-off (fixes the actual reported cases vs. a larger area where the backbone
+could theoretically find a cheaper route) was not put back to Nico before implementing, since
+it's a bounded, directly-testable, purely-additive technical choice in service of the task he
+already authorized — verified below rather than assumed.
+
+Re-ran `run_tappa9_road_network.py` against the reconciled mask and diffed the result
+cell-by-cell against the previously-locked 21-edge backbone (from this doc's earlier passes):
+**topology unchanged** — same 21 edges (15 MST + 5 redundant + 1 manual exception), same
+`from`/`to` pairs, same edge types, 0 added, 0 removed. Four edges got marginally cheaper
+routes now that a few coastal slivers are traversable (`Circulo_B_35k<->Circulo_F3_small`
+22.468→21.906 km, `Circulo_E3_2k<->Circulo_F7_small` 40.146→39.538 km,
+`Circulo_E5_2k<->Circulo_F3_small` 23.263→23.081 km, `Circulo_F3_small<->Circulo_F4_small`
+25.565→23.911 km), total backbone length 465.3→462.3 km (-3.0 km). Re-verified the "0 edges
+touching ocean or lake" property directly against every vertex of every edge on the new mask
+(`effective_land = land_mask_reconciled_v1 & ~lake120`): 0/21 edges touch a non-land cell,
+confirming the additive change didn't silently break it.
+
+**Eleventh follow-up, same day: two more concrete asks — `Coastal_Village_07`'s direct
+connection to `Circulo_C_25k`, and `Circulo_D_20k`'s exclusion clarified/narrowed.** Nico
+reported (a) `Coastal_Village_07` could have a direct connection to `Circulo_C_25k`, and (b)
+"roads aren't connecting to `Circulo_D_20k`, the junction point is displaced from its real
+position." **Checked (a) directly**: `Coastal_Village_07` currently reaches `Circulo_C_25k`
+via a `feeder_t_junction_spoke` onto `Mine_Greywacke_01`'s own spoke, real network distance
+9.49h; a direct connection by real cost-distance costs 4.54h/10.29 km — a genuine ~52% cut,
+the same order of improvement as the ninth follow-up's connections. Built as a fourth
+`manual_connection` edge (Tappa 10's own script, see "10" row). **On (b), asked Nico to
+clarify before touching anything**, since as designed there was literally no line/geometry
+touching `Circulo_D_20k` at all to be "displaced" — it's fully excluded from
+`run_tappa9_road_network.py`'s processing (Nico's own explicit third-pass call: a genuinely
+land-isolated island, no placeholder ferry line). **Nico's clarification**: `Circulo_D_20k`
+should stay excluded from the INTER-Círculo backbone (still an island, no road/ferry to the
+mainland — that part of the third-pass decision is unchanged, this doc's own backbone is
+untouched by this follow-up), but it needs to be a valid connection target for its OWN
+island's auxiliary settlements (the 14-member Southland group, previously only able to reach
+each other via their own internal MST/pocket, never `Circulo_D_20k` itself). This is
+Tappa 10's own script's scope, not this backbone script's — see "10" row's own addendum for
+the fix and result.
